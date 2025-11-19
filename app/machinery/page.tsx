@@ -112,7 +112,7 @@ export default function MachineryPage() {
 
   return (
     <>
-      <HeaderFCP onFontToggle={() => setIsFontPanelOpen(!isFontPanelOpen)} isMobile={isMobile} />
+      <HeaderFCP onFontPanelToggle={() => setIsFontPanelOpen(!isFontPanelOpen)} />
       <FontPanel
         isOpen={isFontPanelOpen}
         onClose={() => setIsFontPanelOpen(false)}
