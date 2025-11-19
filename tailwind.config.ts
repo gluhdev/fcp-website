@@ -23,11 +23,6 @@ export default {
           900: "#102a43",
           950: "#0a1929",
         },
-        accent: {
-          gold: "#FFD700",
-          silver: "#C0C0C0",
-          pearl: "#F8F8FF",
-        },
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
