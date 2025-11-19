@@ -1,7 +1,4 @@
-/* Import mobile styles */
-@import './mobile.css';
-
-/* Import all font combinations for switcher */
+/* Import all font combinations for switcher - MUST BE FIRST */
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
@@ -12,6 +9,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Import mobile styles - comes after font imports */
+@import './mobile.css';
 
 * {
   margin: 0;
