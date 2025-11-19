@@ -1,36 +1,122 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏢 Full Custom Packaging - Premium Website
 
-## Getting Started
+Premium website for Full Custom Packaging company built with Next.js, TypeScript, and Framer Motion.
 
-First, run the development server:
+🔗 **Live Demo**: [fullcustompackaging.vercel.app](https://fullcustompackaging.vercel.app)
 
+## ✨ Features
+
+- 🎨 Modern, responsive design with mobile-first approach
+- 🔤 Dynamic font switcher with 10 professional font combinations
+- 🎬 Hero section with video/image carousel
+- 📱 Fully optimized for mobile devices
+- 🎯 Active navigation with section highlighting
+- ✉️ Contact form
+- 🌟 Premium animations with Framer Motion
+- 💛 Navy blue and gold color scheme
+
+## 🚀 Quick Deploy to Vercel
+
+### Option 1: One-Click Deploy (Recommended)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/gluhdev/fcp-website&project-name=fullcustompackaging)
+
+### Option 2: Manual Deploy
+1. Fork or clone this repository
+2. Go to [vercel.com](https://vercel.com)
+3. Import the repository
+4. Deploy with default settings
+
+The project will be deployed as `fullcustompackaging.vercel.app`
+
+## 🛠 Tech Stack
+
+- **Framework**: Next.js 16.0.3
+- **Language**: TypeScript
+- **Styling**: Custom CSS (inline styles)
+- **Animations**: Framer Motion
+- **Icons**: Lucide Icons
+- **Font Options**: 10 premium Google Font combinations
+
+## 💻 Local Development
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/gluhdev/fcp-website.git
+cd fcp-website
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Run the development server:
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-## Learn More
+## 📁 Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+fcp-website/
+├── app/
+│   ├── page.tsx          # Main page component
+│   ├── layout.tsx        # Root layout
+│   ├── globals.css       # Global styles
+│   └── mobile.css        # Mobile-specific styles
+├── components/
+│   └── ui/
+│       ├── header-fcp.tsx    # Navigation header
+│       ├── button.tsx        # Button component
+│       ├── menu-toggle-icon.tsx # Animated menu icon
+│       └── use-scroll.tsx    # Scroll hook
+├── public/               # Static assets
+└── lib/                  # Utilities
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎨 Customization
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Change Colors
+Edit the color values in the components:
+- Primary: `#020617` (Navy Blue)
+- Accent: `#FFD700` (Gold)
 
-## Deploy on Vercel
+### Font Combinations
+The site includes 10 pre-configured professional font combinations that can be switched dynamically by users.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Content
+Update the content in `app/page.tsx`:
+- Company information
+- Services descriptions
+- Contact details
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📱 Mobile Optimization
+
+The website is fully responsive with:
+- Touch-friendly navigation
+- Optimized font sizes
+- Adaptive layouts
+- No horizontal scrolling
+- Bottom sheet font selector
+
+## 🌐 Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+- Mobile browsers
+
+## 📄 License
+
+This project is private property of Full Custom Packaging.
+
+## 🤝 Support
+
+For support, email info@fullcustompackaging.com
+
+---
+
+Built with ❤️ using Next.js and deployed on Vercel
