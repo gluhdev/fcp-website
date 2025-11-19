@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Package, ArrowRight, CheckCircle, Globe, Award, Users, ChevronLeft, ChevronRight, Play, Pause, Target, Zap, Shield, Phone, Mail, MapPin, Send, Menu, X, Type, ChevronUp, ChevronDown } from "lucide-react";
 import { HeaderFCP } from "@/components/ui/header-fcp";
+import { FontPanel } from "@/components/ui/font-panel";
 
 const fontCombinations = [
   {
@@ -11,77 +12,147 @@ const fontCombinations = [
     name: "Modern Bold",
     heading: "Bebas Neue",
     body: "Montserrat",
-    description: "Смелый и современный"
+    description: "Bebas Neue + Montserrat"
   },
   {
     id: 2,
     name: "Elegant Classic",
     heading: "Playfair Display",
     body: "Poppins",
-    description: "Элегантный и премиальный"
+    description: "Playfair Display + Poppins"
   },
   {
     id: 3,
     name: "Tech Future",
     heading: "Space Grotesk",
     body: "Inter",
-    description: "Технологичный и чистый"
+    description: "Space Grotesk + Inter"
   },
   {
     id: 4,
     name: "Industrial",
     heading: "Oswald",
     body: "Roboto",
-    description: "Индустриальная мощь"
+    description: "Oswald + Roboto"
   },
   {
     id: 5,
     name: "Premium",
     heading: "Bodoni Moda",
     body: "Raleway",
-    description: "Роскошь и стиль"
+    description: "Bodoni Moda + Raleway"
   },
   {
     id: 6,
     name: "Minimal Pro",
     heading: "Outfit",
     body: "DM Sans",
-    description: "Минималистичный"
+    description: "Outfit + DM Sans"
   },
   {
     id: 7,
     name: "Friendly",
     heading: "Sora",
     body: "Nunito Sans",
-    description: "Дружелюбный бизнес"
+    description: "Sora + Nunito Sans"
   },
   {
     id: 8,
     name: "Creative",
     heading: "Anton",
     body: "Work Sans",
-    description: "Креативный и яркий"
+    description: "Anton + Work Sans"
   },
   {
     id: 9,
     name: "Classic Lux",
     heading: "Raleway",
     body: "Lato",
-    description: "Классическая элегантность"
+    description: "Raleway + Lato"
   },
   {
     id: 10,
     name: "Space Age",
     heading: "Orbitron",
     body: "Exo 2",
-    description: "Футуристичный"
+    description: "Orbitron + Exo 2"
+  },
+  {
+    id: 11,
+    name: "Corporate",
+    heading: "Merriweather",
+    body: "Open Sans",
+    description: "Merriweather + Open Sans"
+  },
+  {
+    id: 12,
+    name: "Artistic",
+    heading: "Abril Fatface",
+    body: "Source Sans Pro",
+    description: "Abril Fatface + Source Sans Pro"
+  },
+  {
+    id: 13,
+    name: "Editorial",
+    heading: "Cormorant Garamond",
+    body: "Fira Sans",
+    description: "Cormorant Garamond + Fira Sans"
+  },
+  {
+    id: 14,
+    name: "Dynamic",
+    heading: "Teko",
+    body: "Rubik",
+    description: "Teko + Rubik"
+  },
+  {
+    id: 15,
+    name: "Retro",
+    heading: "Righteous",
+    body: "Oxygen",
+    description: "Righteous + Oxygen"
+  },
+  {
+    id: 16,
+    name: "Contemporary",
+    heading: "Archivo Black",
+    body: "Assistant",
+    description: "Archivo Black + Assistant"
+  },
+  {
+    id: 17,
+    name: "Luxe",
+    heading: "Cinzel",
+    body: "Quattrocento Sans",
+    description: "Cinzel + Quattrocento Sans"
+  },
+  {
+    id: 18,
+    name: "Bold Impact",
+    heading: "Russo One",
+    body: "Karla",
+    description: "Russo One + Karla"
+  },
+  {
+    id: 19,
+    name: "Sophisticated",
+    heading: "Josefin Sans",
+    body: "Mulish",
+    description: "Josefin Sans + Mulish"
+  },
+  {
+    id: 20,
+    name: "Professional",
+    heading: "IBM Plex Serif",
+    body: "IBM Plex Sans",
+    description: "IBM Plex Serif + IBM Plex Sans"
   }
 ];
 
 const carouselItems = [
   {
     type: "image",
-    src: "https://images.unsplash.com/photo-1573641287741-f7df0c1ae157?w=1920&h=1080&fit=crop",
+    src: "https://images.unsplash.com/photo-1577705998148-6da4f3963bc8?w=1920&h=1080&fit=crop",
     title: "Custom Packaging Solutions",
     subtitle: "We Customize Everything"
   },
@@ -156,104 +227,16 @@ export default function Home() {
       maxWidth: "100vw",
       position: "relative"
     }}>
-      {/* Font Switcher Panel - Оптимизирован для мобильных */}
-      <div style={{
-        position: "fixed",
-        top: isMobile ? "auto" : "50%",
-        bottom: isMobile ? "0" : "auto",
-        right: isFontPanelOpen ? "0" : (isMobile ? "-100%" : "-320px"),
-        transform: isMobile ? (isFontPanelOpen ? "translateY(0)" : "translateY(100%)") : "translateY(-50%)",
-        backgroundColor: "rgba(2, 6, 23, 0.98)",
-        backdropFilter: "blur(20px)",
-        border: "1px solid rgba(255, 215, 0, 0.3)",
-        borderRadius: isMobile ? "20px 20px 0 0" : "20px 0 0 20px",
-        padding: isMobile ? "1rem" : "1.5rem",
-        width: isMobile ? "100%" : "320px",
-        maxHeight: isMobile ? "70vh" : "auto",
-        overflowY: isMobile ? "auto" : "visible",
-        zIndex: 100,
-        transition: "all 0.3s ease",
-        boxShadow: "0 10px 40px rgba(0, 0, 0, 0.5)",
-        pointerEvents: isFontPanelOpen ? "auto" : "none"
-      }}>
-        {/* Toggle Button - Адаптирован для мобильных */}
-        <button
-          onClick={() => setIsFontPanelOpen(!isFontPanelOpen)}
-          style={{
-            position: "absolute",
-            left: isMobile ? "50%" : "-50px",
-            top: isMobile ? "-50px" : "50%",
-            transform: isMobile ? "translateX(-50%)" : "translateY(-50%)",
-            backgroundColor: "#FFD700",
-            color: "#020617",
-            border: "none",
-            borderRadius: isMobile ? "10px 10px 0 0" : "10px 0 0 10px",
-            padding: isMobile ? "0.75rem 2rem" : "1rem 0.75rem",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            gap: "0.5rem",
-            fontSize: "0.85rem",
-            fontWeight: "600",
-            writingMode: isMobile ? "horizontal-tb" : "vertical-rl",
-            textOrientation: "mixed",
-            pointerEvents: "auto",
-            zIndex: 101
-          }}
-        >
-          <Type size={20} />
-          FONTS
-        </button>
+      {/* New Font Panel Component */}
+      <FontPanel
+        isOpen={isFontPanelOpen}
+        onClose={() => setIsFontPanelOpen(false)}
+        fontCombinations={fontCombinations}
+        selectedFont={selectedFont}
+        onSelectFont={setSelectedFont}
+        isMobile={isMobile}
+      />
 
-        <h3 style={{
-          fontSize: isMobile ? "1rem" : "1.2rem",
-          fontWeight: "bold",
-          marginBottom: "1rem",
-          color: "#FFD700",
-          fontFamily: `'${selectedFont.heading}', serif`
-        }}>
-          Выберите шрифт
-        </h3>
-        <div style={{
-          display: "grid",
-          gap: "0.5rem",
-          maxHeight: isMobile ? "50vh" : "auto",
-          overflowY: isMobile ? "auto" : "visible"
-        }}>
-          {fontCombinations.map((font) => (
-            <button
-              key={font.id}
-              onClick={() => setSelectedFont(font)}
-              style={{
-                padding: isMobile ? "0.75rem" : "1rem",
-                backgroundColor: selectedFont.id === font.id ? "rgba(255, 215, 0, 0.2)" : "rgba(255, 255, 255, 0.05)",
-                border: `1px solid ${selectedFont.id === font.id ? "#FFD700" : "rgba(255, 255, 255, 0.1)"}`,
-                borderRadius: "10px",
-                cursor: "pointer",
-                transition: "all 0.2s",
-                textAlign: "left"
-              }}
-              onMouseEnter={(e) => {
-                if (selectedFont.id !== font.id) {
-                  e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.1)";
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (selectedFont.id !== font.id) {
-                  e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.05)";
-                }
-              }}
-            >
-              <div style={{ fontFamily: `'${font.heading}', serif`, fontSize: isMobile ? "1rem" : "1.1rem", color: "white" }}>
-                {font.name}
-              </div>
-              <div style={{ fontFamily: `'${font.body}', sans-serif`, fontSize: isMobile ? "0.75rem" : "0.85rem", color: "rgba(255, 255, 255, 0.7)", marginTop: "0.25rem" }}>
-                {font.description}
-              </div>
-            </button>
-          ))}
-        </div>
-      </div>
 
       <HeaderFCP selectedFont={selectedFont} onFontPanelToggle={() => setIsFontPanelOpen(!isFontPanelOpen)} />
 
