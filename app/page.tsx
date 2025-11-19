@@ -665,19 +665,22 @@ export default function Home() {
                   title: "Custom Packaging",
                   description: "Boxes, labels, bags, and specialized packaging solutions tailored to your brand",
                   features: ["Custom Designs", "Eco-Friendly Options", "Fast Production"],
-                  icon: "📦"
+                  icon: "📦",
+                  image: "https://images.unsplash.com/photo-1577705998148-6da4f3963bc8?w=800&h=600&fit=crop"
                 },
                 {
                   title: "Premium Apparel",
                   description: "Sports wear, tactical gear, winter clothing with your custom branding",
                   features: ["High-Quality Materials", "Custom Embroidery", "Bulk Orders"],
-                  icon: "👕"
+                  icon: "👕",
+                  image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=800&h=600&fit=crop"
                 },
                 {
                   title: "Industrial Machinery",
                   description: "State-of-the-art equipment for production and manufacturing needs",
                   features: ["Latest Technology", "Installation Support", "Maintenance"],
-                  icon: "⚙️"
+                  icon: "⚙️",
+                  image: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=800&h=600&fit=crop"
                 }
               ].map((service, index) => (
                 <motion.div
@@ -706,7 +709,43 @@ export default function Home() {
                     e.currentTarget.style.boxShadow = "none";
                   }}
                 >
-                  <div style={{ fontSize: isMobile ? "2.5rem" : "3rem", marginBottom: "1rem" }}>{service.icon}</div>
+                  {/* Image Section */}
+                  <div style={{
+                    width: "100%",
+                    height: isMobile ? "150px" : "200px",
+                    marginBottom: "1.5rem",
+                    borderRadius: "15px",
+                    overflow: "hidden",
+                    position: "relative"
+                  }}>
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        transition: "transform 0.3s"
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = "scale(1.1)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = "scale(1)";
+                      }}
+                    />
+                    <div style={{
+                      position: "absolute",
+                      top: "10px",
+                      right: "10px",
+                      backgroundColor: "rgba(2, 6, 23, 0.8)",
+                      padding: "0.5rem",
+                      borderRadius: "10px",
+                      fontSize: isMobile ? "1.5rem" : "2rem"
+                    }}>
+                      {service.icon}
+                    </div>
+                  </div>
                   <h3 style={{
                     fontSize: isMobile ? "1.3rem" : "1.8rem",
                     fontWeight: "bold",
