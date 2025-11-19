@@ -14,16 +14,35 @@ export function HeaderFCP({ onFontToggle, isMobile }: HeaderProps) {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const pathname = usePathname();
 
-    const menuItems = [
+    // Different menu items based on current page
+    const isHomePage = pathname === '/';
+
+    const homeMenuItems = [
+        { name: 'About', href: '#about' },
+        { name: 'Packaging', href: '/packaging' },
+        { name: 'Apparel', href: '/apparel' },
+        { name: 'Machinery', href: '/machinery' },
+        { name: 'Signage', href: '/signage' },
+        { name: 'Contact', href: '#contact' }
+    ];
+
+    const categoryMenuItems = [
+        { name: 'Home', href: '/' },
         { name: 'Packaging', href: '/packaging' },
         { name: 'Apparel', href: '/apparel' },
         { name: 'Machinery', href: '/machinery' },
         { name: 'Signage', href: '/signage' }
     ];
 
+    const menuItems = isHomePage ? homeMenuItems : categoryMenuItems;
+
     const isActive = (href: string) => {
+        if (href.startsWith('#')) {
+            // For anchor links, check if we're on the home page
+            return false; // Don't highlight anchor links
+        }
         if (href === '/') return pathname === '/';
-        return pathname?.startsWith(href);
+        return pathname === href;
     };
 
     return (
@@ -64,7 +83,10 @@ export function HeaderFCP({ onFontToggle, isMobile }: HeaderProps) {
                     <nav style={{
                         display: isMobile ? 'none' : 'flex',
                         gap: '2rem',
-                        alignItems: 'center'
+                        alignItems: 'center',
+                        position: 'absolute',
+                        left: '50%',
+                        transform: 'translateX(-50%)'
                     }}>
                         {menuItems.map((item) => (
                             <Link
@@ -77,35 +99,39 @@ export function HeaderFCP({ onFontToggle, isMobile }: HeaderProps) {
                                     transition: 'all 0.3s',
                                     paddingBottom: '4px',
                                     borderBottom: isActive(item.href) ? '2px solid #FFD700' : '2px solid transparent',
-                                    textAlign: 'center'
+                                    textAlign: 'center',
+                                    whiteSpace: 'nowrap'
                                 }}
                             >
                                 <motion.span
                                     whileHover={{ y: -2 }}
+                                    style={{ display: 'inline-block' }}
                                 >
                                     {item.name}
                                 </motion.span>
                             </Link>
                         ))}
-                        <motion.button
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.95 }}
-                            onClick={onFontToggle}
-                            style={{
-                                backgroundColor: 'transparent',
-                                border: '2px solid #FFD700',
-                                borderRadius: '8px',
-                                padding: '0.5rem',
-                                color: '#FFD700',
-                                cursor: 'pointer',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center'
-                            }}
-                        >
-                            <Type size={20} />
-                        </motion.button>
                     </nav>
+
+                    {/* Font Toggle Button - Desktop */}
+                    <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={onFontToggle}
+                        style={{
+                            backgroundColor: 'transparent',
+                            border: '2px solid #FFD700',
+                            borderRadius: '8px',
+                            padding: '0.5rem',
+                            color: '#FFD700',
+                            cursor: 'pointer',
+                            display: isMobile ? 'none' : 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}
+                    >
+                        <Type size={20} />
+                    </motion.button>
 
                     {/* Mobile Menu Button */}
                     <div style={{

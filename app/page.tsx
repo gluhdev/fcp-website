@@ -651,79 +651,280 @@ export default function Home() {
             </p>
 
             <div style={{
-              display: "grid",
-              gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(350px, 1fr))",
-              gap: isMobile ? "1.5rem" : "2rem"
+              display: "flex",
+              flexDirection: "column",
+              gap: isMobile ? "2rem" : "3rem"
             }}>
               {[
                 {
                   title: "Packaging Solutions",
-                  description: "Complete packaging solutions including printing machines, filling equipment, wrapping machines, boxes, bottles, mylar bags, and professional labeling systems for your business needs.",
+                  subtitle: "Complete End-to-End Packaging Services",
+                  description: "Transform your packaging with our comprehensive solutions. We provide state-of-the-art printing machines for high-quality labels and packaging designs, automated filling systems for various products, professional wrapping machines, and custom boxes in all sizes and materials.",
+                  detailedInfo: "Our packaging division specializes in creating unique packaging experiences that protect your products and enhance your brand. From eco-friendly options to luxury packaging, we handle everything from design to production.",
                   icon: "📦",
-                  image: "https://images.unsplash.com/photo-1577705998148-6da4f3963bc8?w=800&h=600&fit=crop",
+                  image: "https://images.unsplash.com/photo-1577705998148-6da4f3963bc8?w=1200&h=600&fit=crop",
                   href: "/packaging",
-                  features: ["Printing Machines", "Bottles & Boxes", "Labels & Stickers", "Mylar Bags"]
+                  features: ["Printing Machines", "Filling Equipment", "Wrapping Systems", "Custom Boxes", "Glass & Plastic Bottles", "Mylar Bags", "Labels & Stickers"],
+                  stats: [
+                    { label: "Products", value: "500+" },
+                    { label: "Clients Served", value: "2000+" },
+                    { label: "Countries", value: "50+" }
+                  ]
                 },
                 {
                   title: "Apparel for Men & Women",
-                  description: "Comprehensive clothing line including sports wear, gym clothing, street fashion, winter gear, tactical equipment, and specialized heated apparel for all occasions.",
+                  subtitle: "Premium Clothing & Fashion Solutions",
+                  description: "Discover our extensive range of custom apparel solutions. From high-performance sports wear and gym clothing to tactical gear and winter collections, we provide quality garments for every need and occasion.",
+                  detailedInfo: "Our apparel division combines fashion with functionality. We use premium materials, advanced manufacturing techniques, and offer complete customization including embroidery, printing, and branding options.",
                   icon: "👕",
-                  image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=800&h=600&fit=crop",
+                  image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=1200&h=600&fit=crop",
                   href: "/apparel",
-                  features: ["Sports & Gym Wear", "Tactical Gear", "Winter Collection", "Heated Apparel"]
+                  features: ["Sports & Gym Wear", "Street Fashion", "Tactical Gear", "Winter Collection", "Heated Apparel", "Swim Wear", "Track Suits", "Accessories"],
+                  stats: [
+                    { label: "Styles", value: "1000+" },
+                    { label: "Materials", value: "200+" },
+                    { label: "MOQ", value: "50 pcs" }
+                  ]
                 },
                 {
                   title: "Machinery & Supplies",
-                  description: "Industrial equipment solutions featuring packaging machines, sealing systems, cutting equipment, textile printing technology, and automated filling systems.",
+                  subtitle: "Industrial Equipment & Automation",
+                  description: "Power your production with our industrial machinery solutions. We offer packaging equipment, sealing systems, cutting machines, textile printing technology, and fully automated production lines.",
+                  detailedInfo: "Our machinery division provides cutting-edge equipment with installation, training, and ongoing support. All machines come with warranties and are certified to international standards.",
                   icon: "⚙️",
-                  image: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=800&h=600&fit=crop",
+                  image: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=1200&h=600&fit=crop",
                   href: "/machinery",
-                  features: ["Packaging Equipment", "Printing Tech", "Filling Systems", "Sealing Tools"]
+                  features: ["Packaging Machines", "Sealing Equipment", "Cutting Systems", "Printing Technology", "Filling Machines", "Automation Solutions", "Spare Parts", "Maintenance"],
+                  stats: [
+                    { label: "Machine Types", value: "150+" },
+                    { label: "Brands", value: "30+" },
+                    { label: "Service Centers", value: "15" }
+                  ]
                 },
                 {
                   title: "Signage & Display",
-                  description: "Professional signage solutions with large format displays, branded stationery items, and eye-catching LED light signs for your business.",
+                  subtitle: "Visual Marketing & Branding Solutions",
+                  description: "Make your brand visible with our professional signage solutions. From large format LED displays to custom business cards, we create impactful visual marketing materials that capture attention.",
+                  detailedInfo: "Our signage division combines traditional and digital solutions. We use the latest printing technologies, premium materials, and offer complete design services to ensure your brand stands out.",
                   icon: "🎯",
-                  image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop",
+                  image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=600&fit=crop",
                   href: "/signage",
-                  features: ["Large Displays", "LED Signs", "Notebooks & Pens", "Calendars"]
+                  features: ["LED Displays", "Light Signs", "Banners & Posters", "Business Cards", "Notebooks & Pens", "Calendars", "Window Graphics", "Vehicle Wraps"],
+                  stats: [
+                    { label: "Sign Types", value: "200+" },
+                    { label: "Print Options", value: "100+" },
+                    { label: "Same Day", value: "Available" }
+                  ]
                 }
               ].map((category, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.15 }}
+                  transition={{ delay: index * 0.2, duration: 0.6 }}
                   style={{
-                    backgroundColor: "rgba(255, 255, 255, 0.05)",
-                    borderRadius: "20px",
+                    backgroundColor: "rgba(255, 255, 255, 0.03)",
+                    borderRadius: "25px",
                     overflow: "hidden",
-                    border: "1px solid rgba(255, 215, 0, 0.2)",
-                    backdropFilter: "blur(10px)",
-                    transition: "all 0.3s",
-                    cursor: "pointer",
-                    display: "flex",
-                    flexDirection: "column",
-                    height: "100%"
+                    border: "1px solid rgba(255, 215, 0, 0.15)",
+                    transition: "all 0.4s",
+                    display: "grid",
+                    gridTemplateColumns: isMobile ? "1fr" : index % 2 === 0 ? "1fr 1fr" : "1fr 1fr",
+                    alignItems: "stretch"
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "translateY(-10px)";
-                    e.currentTarget.style.borderColor = "#FFD700";
-                    e.currentTarget.style.boxShadow = "0 20px 40px rgba(255, 215, 0, 0.2)";
+                    e.currentTarget.style.transform = "translateY(-5px)";
+                    e.currentTarget.style.borderColor = "rgba(255, 215, 0, 0.4)";
+                    e.currentTarget.style.boxShadow = "0 30px 60px rgba(255, 215, 0, 0.15)";
+                    e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.05)";
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.borderColor = "rgba(255, 215, 0, 0.2)";
+                    e.currentTarget.style.borderColor = "rgba(255, 215, 0, 0.15)";
                     e.currentTarget.style.boxShadow = "none";
+                    e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.03)";
                   }}
                 >
+                  {/* Content Section */}
+                  <div style={{
+                    padding: isMobile ? "2rem" : "3rem",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    order: isMobile ? 2 : index % 2 === 0 ? 1 : 2
+                  }}>
+                    <div style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "1rem",
+                      marginBottom: "1.5rem"
+                    }}>
+                      <div style={{
+                        width: "60px",
+                        height: "60px",
+                        backgroundColor: "rgba(255, 215, 0, 0.1)",
+                        borderRadius: "15px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: "2rem",
+                        border: "2px solid rgba(255, 215, 0, 0.3)"
+                      }}>
+                        {category.icon}
+                      </div>
+                      <div>
+                        <h3 style={{
+                          fontSize: isMobile ? "1.5rem" : "2rem",
+                          fontWeight: "bold",
+                          color: "#FFD700",
+                          fontFamily: `'${selectedFont.heading}', serif`,
+                          marginBottom: "0.25rem"
+                        }}>
+                          {category.title}
+                        </h3>
+                        <p style={{
+                          fontSize: isMobile ? "0.85rem" : "0.95rem",
+                          color: "rgba(255, 255, 255, 0.6)",
+                          fontFamily: `'${selectedFont.body}', sans-serif`
+                        }}>
+                          {category.subtitle}
+                        </p>
+                      </div>
+                    </div>
+
+                    <p style={{
+                      fontSize: isMobile ? "0.95rem" : "1.1rem",
+                      lineHeight: 1.7,
+                      color: "rgba(255, 255, 255, 0.9)",
+                      marginBottom: "1rem",
+                      fontFamily: `'${selectedFont.body}', sans-serif`
+                    }}>
+                      {category.description}
+                    </p>
+
+                    <p style={{
+                      fontSize: isMobile ? "0.9rem" : "1rem",
+                      lineHeight: 1.6,
+                      color: "rgba(255, 255, 255, 0.7)",
+                      marginBottom: "2rem",
+                      fontFamily: `'${selectedFont.body}', sans-serif`
+                    }}>
+                      {category.detailedInfo}
+                    </p>
+
+                    {/* Features List */}
+                    <div style={{
+                      marginBottom: "2rem"
+                    }}>
+                      <h4 style={{
+                        fontSize: isMobile ? "1rem" : "1.2rem",
+                        fontWeight: "bold",
+                        color: "white",
+                        marginBottom: "1rem",
+                        fontFamily: `'${selectedFont.heading}', serif`
+                      }}>
+                        What We Offer:
+                      </h4>
+                      <div style={{
+                        display: "grid",
+                        gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)",
+                        gap: "0.75rem"
+                      }}>
+                        {category.features.map((feature, i) => (
+                          <div key={i} style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.5rem"
+                          }}>
+                            <CheckCircle size={16} color="#FFD700" />
+                            <span style={{
+                              color: "rgba(255, 255, 255, 0.85)",
+                              fontSize: isMobile ? "0.85rem" : "0.95rem",
+                              fontFamily: `'${selectedFont.body}', sans-serif`
+                            }}>
+                              {feature}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Stats */}
+                    <div style={{
+                      display: "grid",
+                      gridTemplateColumns: "repeat(3, 1fr)",
+                      gap: "1rem",
+                      marginBottom: "2rem",
+                      padding: "1.5rem",
+                      backgroundColor: "rgba(255, 215, 0, 0.05)",
+                      borderRadius: "15px",
+                      border: "1px solid rgba(255, 215, 0, 0.1)"
+                    }}>
+                      {category.stats.map((stat, i) => (
+                        <div key={i} style={{ textAlign: "center" }}>
+                          <div style={{
+                            fontSize: isMobile ? "1.2rem" : "1.5rem",
+                            fontWeight: "bold",
+                            color: "#FFD700",
+                            fontFamily: `'${selectedFont.heading}', serif`
+                          }}>
+                            {stat.value}
+                          </div>
+                          <div style={{
+                            fontSize: isMobile ? "0.75rem" : "0.85rem",
+                            color: "rgba(255, 255, 255, 0.6)",
+                            marginTop: "0.25rem",
+                            fontFamily: `'${selectedFont.body}', sans-serif`
+                          }}>
+                            {stat.label}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* CTA Button */}
+                    <a
+                      href={category.href}
+                      style={{
+                        padding: isMobile ? "1rem 2rem" : "1.2rem 2.5rem",
+                        backgroundColor: "#FFD700",
+                        color: "#020617",
+                        border: "none",
+                        borderRadius: "30px",
+                        fontSize: isMobile ? "1rem" : "1.1rem",
+                        fontWeight: "bold",
+                        cursor: "pointer",
+                        transition: "all 0.3s",
+                        textAlign: "center",
+                        textDecoration: "none",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "0.75rem",
+                        fontFamily: `'${selectedFont.body}', sans-serif`,
+                        alignSelf: "flex-start"
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = "translateY(-2px)";
+                        e.currentTarget.style.boxShadow = "0 10px 25px rgba(255, 215, 0, 0.3)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = "translateY(0)";
+                        e.currentTarget.style.boxShadow = "none";
+                      }}
+                    >
+                      Explore {category.title}
+                      <ArrowRight size={20} />
+                    </a>
+                  </div>
+
                   {/* Image Section */}
                   <div style={{
-                    width: "100%",
-                    height: isMobile ? "180px" : "220px",
                     position: "relative",
-                    overflow: "hidden"
+                    overflow: "hidden",
+                    minHeight: isMobile ? "300px" : "500px",
+                    order: isMobile ? 1 : index % 2 === 0 ? 2 : 1
                   }}>
                     <img
                       src={category.image}
@@ -732,13 +933,9 @@ export default function Home() {
                         width: "100%",
                         height: "100%",
                         objectFit: "cover",
-                        transition: "transform 0.3s"
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = "scale(1.1)";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = "scale(1)";
+                        position: "absolute",
+                        top: 0,
+                        left: 0
                       }}
                     />
                     <div style={{
@@ -747,105 +944,8 @@ export default function Home() {
                       left: 0,
                       right: 0,
                       bottom: 0,
-                      background: "linear-gradient(to bottom, transparent 0%, rgba(2, 6, 23, 0.8) 100%)"
+                      background: "linear-gradient(135deg, rgba(2, 6, 23, 0.4) 0%, rgba(2, 6, 23, 0.8) 100%)"
                     }} />
-                    <div style={{
-                      position: "absolute",
-                      top: "15px",
-                      right: "15px",
-                      backgroundColor: "rgba(2, 6, 23, 0.9)",
-                      padding: "0.6rem",
-                      borderRadius: "12px",
-                      fontSize: isMobile ? "1.8rem" : "2.2rem",
-                      boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)"
-                    }}>
-                      {category.icon}
-                    </div>
-                  </div>
-
-                  {/* Content Section */}
-                  <div style={{
-                    padding: isMobile ? "1.5rem" : "2rem",
-                    display: "flex",
-                    flexDirection: "column",
-                    flexGrow: 1
-                  }}>
-                    <h3 style={{
-                      fontSize: isMobile ? "1.4rem" : "1.8rem",
-                      fontWeight: "bold",
-                      marginBottom: "1rem",
-                      color: "#FFD700",
-                      fontFamily: `'${selectedFont.heading}', serif`
-                    }}>
-                      {category.title}
-                    </h3>
-                    <p style={{
-                      color: "rgba(255, 255, 255, 0.85)",
-                      marginBottom: "1.5rem",
-                      lineHeight: 1.6,
-                      fontSize: isMobile ? "0.9rem" : "1rem",
-                      fontFamily: `'${selectedFont.body}', sans-serif`,
-                      flexGrow: 1
-                    }}>
-                      {category.description}
-                    </p>
-
-                    {/* Features Grid */}
-                    <div style={{
-                      display: "grid",
-                      gridTemplateColumns: "repeat(2, 1fr)",
-                      gap: "0.5rem",
-                      marginBottom: "1.5rem"
-                    }}>
-                      {category.features.map((feature, i) => (
-                        <div key={i} style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "0.3rem",
-                          fontSize: isMobile ? "0.8rem" : "0.85rem",
-                          color: "rgba(255, 255, 255, 0.7)",
-                          fontFamily: `'${selectedFont.body}', sans-serif`
-                        }}>
-                          <CheckCircle size={isMobile ? 12 : 14} color="#FFD700" />
-                          <span>{feature}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <a
-                      href={category.href}
-                      style={{
-                        padding: isMobile ? "0.8rem 1.5rem" : "1rem 2rem",
-                        backgroundColor: "transparent",
-                        color: "#FFD700",
-                        border: "2px solid #FFD700",
-                        borderRadius: "30px",
-                        fontSize: isMobile ? "0.9rem" : "1rem",
-                        fontWeight: "600",
-                        cursor: "pointer",
-                        transition: "all 0.3s",
-                        textAlign: "center",
-                        textDecoration: "none",
-                        display: "inline-flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        gap: "0.5rem",
-                        fontFamily: `'${selectedFont.body}', sans-serif`
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = "#FFD700";
-                        e.currentTarget.style.color = "#020617";
-                        e.currentTarget.style.transform = "scale(1.05)";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = "transparent";
-                        e.currentTarget.style.color = "#FFD700";
-                        e.currentTarget.style.transform = "scale(1)";
-                      }}
-                    >
-                      Read More
-                      <ArrowRight size={isMobile ? 16 : 18} />
-                    </a>
                   </div>
                 </motion.div>
               ))}
