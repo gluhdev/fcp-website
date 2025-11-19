@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Package, ArrowRight, CheckCircle, Globe, Award, Users, ChevronLeft, ChevronRight, Play, Pause, Target, Zap, Shield, Phone, Mail, MapPin, Send, Menu, X, Type, ChevronUp, ChevronDown } from "lucide-react";
-import { HeaderFCP } from "@/components/ui/header-fcp";
+import { HeaderFCP } from "@/components/ui/header";
 import { FontPanel } from "@/components/ui/font-panel";
 
 const fontCombinations = [
@@ -609,12 +609,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services Section - Полностью адаптирован для мобильных */}
+      {/* Categories Section - 5 Main Categories */}
       <section id="services" style={{
         padding: isMobile ? "3rem 1rem" : "5rem 2rem",
         backgroundColor: "#020617"
       }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+        <div style={{ maxWidth: "1400px", margin: "0 auto" }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -628,15 +628,27 @@ export default function Home() {
               textAlign: "center",
               fontFamily: `'${selectedFont.heading}', serif`
             }}>
-              Our <span style={{ color: "#FFD700" }}>Services</span>
+              Our <span style={{ color: "#FFD700" }}>Solutions</span>
             </h2>
             <div style={{
               width: "80px",
               height: "4px",
               backgroundColor: "#FFD700",
-              margin: "0 auto 3rem",
+              margin: "0 auto 1rem",
               borderRadius: "2px"
             }} />
+            <p style={{
+              fontSize: isMobile ? "0.95rem" : "1.2rem",
+              lineHeight: 1.7,
+              color: "rgba(255, 255, 255, 0.9)",
+              textAlign: "center",
+              marginBottom: "3rem",
+              fontFamily: `'${selectedFont.body}', sans-serif`,
+              maxWidth: "800px",
+              margin: "0 auto 3rem"
+            }}>
+              Explore our comprehensive range of customization solutions designed to meet all your business needs
+            </p>
 
             <div style={{
               display: "grid",
@@ -645,41 +657,55 @@ export default function Home() {
             }}>
               {[
                 {
-                  title: "Custom Packaging",
-                  description: "Boxes, labels, bags, and specialized packaging solutions tailored to your brand",
-                  features: ["Custom Designs", "Eco-Friendly Options", "Fast Production"],
+                  title: "Packaging Solutions",
+                  description: "Complete packaging solutions including printing machines, filling equipment, wrapping machines, boxes, bottles, mylar bags, and professional labeling systems for your business needs.",
                   icon: "📦",
-                  image: "https://images.unsplash.com/photo-1577705998148-6da4f3963bc8?w=800&h=600&fit=crop"
+                  image: "https://images.unsplash.com/photo-1577705998148-6da4f3963bc8?w=800&h=600&fit=crop",
+                  href: "/packaging",
+                  features: ["Printing Machines", "Bottles & Boxes", "Labels & Stickers", "Mylar Bags"]
                 },
                 {
-                  title: "Premium Apparel",
-                  description: "Sports wear, tactical gear, winter clothing with your custom branding",
-                  features: ["High-Quality Materials", "Custom Embroidery", "Bulk Orders"],
+                  title: "Apparel for Men & Women",
+                  description: "Comprehensive clothing line including sports wear, gym clothing, street fashion, winter gear, tactical equipment, and specialized heated apparel for all occasions.",
                   icon: "👕",
-                  image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=800&h=600&fit=crop"
+                  image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=800&h=600&fit=crop",
+                  href: "/apparel",
+                  features: ["Sports & Gym Wear", "Tactical Gear", "Winter Collection", "Heated Apparel"]
                 },
                 {
-                  title: "Industrial Machinery",
-                  description: "State-of-the-art equipment for production and manufacturing needs",
-                  features: ["Latest Technology", "Installation Support", "Maintenance"],
+                  title: "Machinery & Supplies",
+                  description: "Industrial equipment solutions featuring packaging machines, sealing systems, cutting equipment, textile printing technology, and automated filling systems.",
                   icon: "⚙️",
-                  image: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=800&h=600&fit=crop"
+                  image: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=800&h=600&fit=crop",
+                  href: "/machinery",
+                  features: ["Packaging Equipment", "Printing Tech", "Filling Systems", "Sealing Tools"]
+                },
+                {
+                  title: "Signage & Display",
+                  description: "Professional signage solutions with large format displays, branded stationery items, and eye-catching LED light signs for your business.",
+                  icon: "🎯",
+                  image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop",
+                  href: "/signage",
+                  features: ["Large Displays", "LED Signs", "Notebooks & Pens", "Calendars"]
                 }
-              ].map((service, index) => (
+              ].map((category, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.2 }}
+                  transition={{ delay: index * 0.15 }}
                   style={{
                     backgroundColor: "rgba(255, 255, 255, 0.05)",
                     borderRadius: "20px",
-                    padding: isMobile ? "1.5rem" : "2rem",
+                    overflow: "hidden",
                     border: "1px solid rgba(255, 215, 0, 0.2)",
                     backdropFilter: "blur(10px)",
                     transition: "all 0.3s",
-                    cursor: "pointer"
+                    cursor: "pointer",
+                    display: "flex",
+                    flexDirection: "column",
+                    height: "100%"
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = "translateY(-10px)";
@@ -695,15 +721,13 @@ export default function Home() {
                   {/* Image Section */}
                   <div style={{
                     width: "100%",
-                    height: isMobile ? "150px" : "200px",
-                    marginBottom: "1.5rem",
-                    borderRadius: "15px",
-                    overflow: "hidden",
-                    position: "relative"
+                    height: isMobile ? "180px" : "220px",
+                    position: "relative",
+                    overflow: "hidden"
                   }}>
                     <img
-                      src={service.image}
-                      alt={service.title}
+                      src={category.image}
+                      alt={category.title}
                       style={{
                         width: "100%",
                         height: "100%",
@@ -719,73 +743,110 @@ export default function Home() {
                     />
                     <div style={{
                       position: "absolute",
-                      top: "10px",
-                      right: "10px",
-                      backgroundColor: "rgba(2, 6, 23, 0.8)",
-                      padding: "0.5rem",
-                      borderRadius: "10px",
-                      fontSize: isMobile ? "1.5rem" : "2rem"
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      background: "linear-gradient(to bottom, transparent 0%, rgba(2, 6, 23, 0.8) 100%)"
+                    }} />
+                    <div style={{
+                      position: "absolute",
+                      top: "15px",
+                      right: "15px",
+                      backgroundColor: "rgba(2, 6, 23, 0.9)",
+                      padding: "0.6rem",
+                      borderRadius: "12px",
+                      fontSize: isMobile ? "1.8rem" : "2.2rem",
+                      boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)"
                     }}>
-                      {service.icon}
+                      {category.icon}
                     </div>
                   </div>
-                  <h3 style={{
-                    fontSize: isMobile ? "1.3rem" : "1.8rem",
-                    fontWeight: "bold",
-                    marginBottom: "1rem",
-                    color: "#FFD700",
-                    fontFamily: `'${selectedFont.heading}', serif`
+
+                  {/* Content Section */}
+                  <div style={{
+                    padding: isMobile ? "1.5rem" : "2rem",
+                    display: "flex",
+                    flexDirection: "column",
+                    flexGrow: 1
                   }}>
-                    {service.title}
-                  </h3>
-                  <p style={{
-                    color: "rgba(255, 255, 255, 0.8)",
-                    marginBottom: "1.5rem",
-                    lineHeight: 1.6,
-                    fontSize: isMobile ? "0.9rem" : "1rem",
-                    fontFamily: `'${selectedFont.body}', sans-serif`
-                  }}>
-                    {service.description}
-                  </p>
-                  <ul style={{ listStyle: "none", padding: 0 }}>
-                    {service.features.map((feature, i) => (
-                      <li key={i} style={{
-                        display: "flex",
+                    <h3 style={{
+                      fontSize: isMobile ? "1.4rem" : "1.8rem",
+                      fontWeight: "bold",
+                      marginBottom: "1rem",
+                      color: "#FFD700",
+                      fontFamily: `'${selectedFont.heading}', serif`
+                    }}>
+                      {category.title}
+                    </h3>
+                    <p style={{
+                      color: "rgba(255, 255, 255, 0.85)",
+                      marginBottom: "1.5rem",
+                      lineHeight: 1.6,
+                      fontSize: isMobile ? "0.9rem" : "1rem",
+                      fontFamily: `'${selectedFont.body}', sans-serif`,
+                      flexGrow: 1
+                    }}>
+                      {category.description}
+                    </p>
+
+                    {/* Features Grid */}
+                    <div style={{
+                      display: "grid",
+                      gridTemplateColumns: "repeat(2, 1fr)",
+                      gap: "0.5rem",
+                      marginBottom: "1.5rem"
+                    }}>
+                      {category.features.map((feature, i) => (
+                        <div key={i} style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "0.3rem",
+                          fontSize: isMobile ? "0.8rem" : "0.85rem",
+                          color: "rgba(255, 255, 255, 0.7)",
+                          fontFamily: `'${selectedFont.body}', sans-serif`
+                        }}>
+                          <CheckCircle size={isMobile ? 12 : 14} color="#FFD700" />
+                          <span>{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <a
+                      href={category.href}
+                      style={{
+                        padding: isMobile ? "0.8rem 1.5rem" : "1rem 2rem",
+                        backgroundColor: "transparent",
+                        color: "#FFD700",
+                        border: "2px solid #FFD700",
+                        borderRadius: "30px",
+                        fontSize: isMobile ? "0.9rem" : "1rem",
+                        fontWeight: "600",
+                        cursor: "pointer",
+                        transition: "all 0.3s",
+                        textAlign: "center",
+                        textDecoration: "none",
+                        display: "inline-flex",
                         alignItems: "center",
+                        justifyContent: "center",
                         gap: "0.5rem",
-                        marginBottom: "0.5rem",
-                        fontSize: isMobile ? "0.85rem" : "0.95rem",
                         fontFamily: `'${selectedFont.body}', sans-serif`
-                      }}>
-                        <CheckCircle size={isMobile ? 14 : 16} color="#FFD700" />
-                        <span style={{ color: "rgba(255, 255, 255, 0.9)" }}>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <button style={{
-                    marginTop: "1.5rem",
-                    padding: isMobile ? "0.6rem 1.5rem" : "0.75rem 2rem",
-                    backgroundColor: "transparent",
-                    color: "#FFD700",
-                    border: "1px solid #FFD700",
-                    borderRadius: "25px",
-                    fontSize: isMobile ? "0.85rem" : "0.95rem",
-                    fontWeight: "600",
-                    cursor: "pointer",
-                    transition: "all 0.3s",
-                    width: "100%",
-                    fontFamily: `'${selectedFont.body}', sans-serif`
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = "#FFD700";
-                    e.currentTarget.style.color = "#020617";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = "transparent";
-                    e.currentTarget.style.color = "#FFD700";
-                  }}>
-                    Learn More
-                  </button>
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = "#FFD700";
+                        e.currentTarget.style.color = "#020617";
+                        e.currentTarget.style.transform = "scale(1.05)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = "transparent";
+                        e.currentTarget.style.color = "#FFD700";
+                        e.currentTarget.style.transform = "scale(1)";
+                      }}
+                    >
+                      Read More
+                      <ArrowRight size={isMobile ? 16 : 18} />
+                    </a>
+                  </div>
                 </motion.div>
               ))}
             </div>
