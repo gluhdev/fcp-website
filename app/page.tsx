@@ -80,8 +80,8 @@ const fontCombinations = [
 
 const carouselItems = [
   {
-    type: "video",
-    src: "https://cdn.coverr.co/videos/coverr-packaging-boxes-on-conveyor-belt-7989/1080p.mp4",
+    type: "image",
+    src: "https://images.unsplash.com/photo-1573641287741-f7df0c1ae157?w=1920&h=1080&fit=crop",
     title: "Custom Packaging Solutions",
     subtitle: "We Customize Everything"
   },
