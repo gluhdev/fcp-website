@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Type, Phone } from 'lucide-react';
+import { Type, Phone, Package } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -14,6 +14,7 @@ export function HeaderFCP({ onFontPanelToggle }: HeaderProps) {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const [showPhone, setShowPhone] = React.useState(false);
     const [isMobile, setIsMobile] = React.useState(false);
+    const [isScrolled, setIsScrolled] = React.useState(false);
     const pathname = usePathname();
 
     React.useEffect(() => {
@@ -23,6 +24,14 @@ export function HeaderFCP({ onFontPanelToggle }: HeaderProps) {
         checkMobile();
         window.addEventListener("resize", checkMobile);
         return () => window.removeEventListener("resize", checkMobile);
+    }, []);
+
+    React.useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 50);
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
     // Different menu items based on current page
@@ -64,29 +73,57 @@ export function HeaderFCP({ onFontPanelToggle }: HeaderProps) {
                 left: 0,
                 right: 0,
                 zIndex: 50,
-                backgroundColor: 'rgba(2, 6, 23, 0.9)',
+                backgroundColor: isScrolled ? 'rgba(2, 6, 23, 0.95)' : 'rgba(2, 6, 23, 0.9)',
                 backdropFilter: 'blur(10px)',
-                borderBottom: '1px solid rgba(255, 215, 0, 0.1)'
+                borderBottom: '1px solid rgba(255, 215, 0, 0.1)',
+                transition: 'all 0.3s ease'
             }}>
                 <div style={{
                     maxWidth: '1280px',
                     margin: '0 auto',
-                    padding: '1rem 1.5rem',
+                    padding: isScrolled ? '0.75rem 1.5rem' : '1rem 1.5rem',
                     display: 'flex',
                     justifyContent: 'space-between',
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    transition: 'all 0.3s ease'
                 }}>
                     <Link href="/" style={{ textDecoration: 'none' }}>
                         <motion.div
                             whileHover={{ scale: 1.05 }}
                             style={{
-                                fontSize: '1.5rem',
-                                fontWeight: 'bold',
-                                color: '#FFD700',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.75rem',
                                 cursor: 'pointer'
                             }}
                         >
-                            FCP
+                            <div style={{
+                                backgroundColor: '#FFD700',
+                                borderRadius: '8px',
+                                padding: '0.5rem',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}>
+                                <Package size={20} color="#020617" />
+                            </div>
+                            <div>
+                                <div style={{
+                                    fontSize: '1.25rem',
+                                    fontWeight: 'bold',
+                                    color: '#FFD700',
+                                    lineHeight: 1
+                                }}>
+                                    FCP
+                                </div>
+                                <div style={{
+                                    fontSize: '0.6rem',
+                                    color: 'rgba(255, 255, 255, 0.7)',
+                                    letterSpacing: '0.05em'
+                                }}>
+                                    Full Custom Packaging
+                                </div>
+                            </div>
                         </motion.div>
                     </Link>
 
@@ -275,10 +312,37 @@ export function HeaderFCP({ onFontPanelToggle }: HeaderProps) {
                                 padding: '0.5rem',
                                 display: 'flex',
                                 alignItems: 'center',
-                                justifyContent: 'center'
+                                justifyContent: 'center',
+                                width: '40px',
+                                height: '40px'
                             }}
                         >
-                            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                            <svg
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="#FFD700"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            >
+                                <path
+                                    d={isMenuOpen ? "M18 6L6 18" : "M4 6h16"}
+                                    style={{ transition: 'all 0.3s ease' }}
+                                />
+                                <path
+                                    d={isMenuOpen ? "" : "M4 12h16"}
+                                    style={{
+                                        opacity: isMenuOpen ? 0 : 1,
+                                        transition: 'all 0.3s ease'
+                                    }}
+                                />
+                                <path
+                                    d={isMenuOpen ? "M6 6l12 12" : "M4 18h16"}
+                                    style={{ transition: 'all 0.3s ease' }}
+                                />
+                            </svg>
                         </button>
                     </div>
                 </div>
