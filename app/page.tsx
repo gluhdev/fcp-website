@@ -2,9 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Package, ArrowRight, CheckCircle, Globe, Award, Users, ChevronLeft, ChevronRight, Play, Pause, Target, Zap, Shield, Phone, Mail, MapPin, Send, Menu, X, Type, ChevronUp, ChevronDown } from "lucide-react";
+import { Package, ArrowRight, CheckCircle, Globe, Award, Users, ChevronLeft, ChevronRight, Play, Pause, Target, Zap, Shield, Phone, Mail, MapPin, Send, Menu, X, Type, ChevronUp, ChevronDown, Building2, ShoppingBag, Factory, Heart, Briefcase, Sparkles } from "lucide-react";
 import { HeaderFCP } from "@/components/ui/header";
 import { FontPanel } from "@/components/ui/font-panel";
+import { Compare } from "@/components/ui/compare";
 
 const fontCombinations = [
   {
@@ -189,6 +190,7 @@ export default function Home() {
   const [selectedFont, setSelectedFont] = useState(fontCombinations[0]);
   const [isFontPanelOpen, setIsFontPanelOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [selectedBusiness, setSelectedBusiness] = useState("restaurant");
 
   useEffect(() => {
     if (isPlaying) {
@@ -731,7 +733,8 @@ export default function Home() {
                     transition: "all 0.4s",
                     display: "grid",
                     gridTemplateColumns: isMobile ? "1fr" : index % 2 === 0 ? "1fr 1fr" : "1fr 1fr",
-                    alignItems: "stretch"
+                    alignItems: "center",
+                    marginBottom: isMobile ? "2rem" : "3rem"
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = "translateY(-5px)";
@@ -748,7 +751,7 @@ export default function Home() {
                 >
                   {/* Content Section */}
                   <div style={{
-                    padding: isMobile ? "2rem" : "3rem",
+                    padding: isMobile ? "1.5rem" : "2rem",
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "center",
@@ -757,36 +760,39 @@ export default function Home() {
                     <div style={{
                       display: "flex",
                       alignItems: "center",
-                      gap: "1rem",
-                      marginBottom: "1.5rem"
+                      gap: "0.75rem",
+                      marginBottom: "1rem"
                     }}>
                       <div style={{
-                        width: "60px",
-                        height: "60px",
+                        width: "50px",
+                        height: "50px",
                         backgroundColor: "rgba(255, 215, 0, 0.1)",
-                        borderRadius: "15px",
+                        borderRadius: "12px",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        fontSize: "2rem",
-                        border: "2px solid rgba(255, 215, 0, 0.3)"
+                        fontSize: "1.5rem",
+                        border: "2px solid rgba(255, 215, 0, 0.3)",
+                        flexShrink: 0
                       }}>
                         {category.icon}
                       </div>
                       <div>
                         <h3 style={{
-                          fontSize: isMobile ? "1.5rem" : "2rem",
+                          fontSize: isMobile ? "1.3rem" : "1.6rem",
                           fontWeight: "bold",
                           color: "#FFD700",
                           fontFamily: `'${selectedFont.heading}', serif`,
-                          marginBottom: "0.25rem"
+                          marginBottom: "0.15rem",
+                          lineHeight: 1.2
                         }}>
                           {category.title}
                         </h3>
                         <p style={{
-                          fontSize: isMobile ? "0.85rem" : "0.95rem",
+                          fontSize: isMobile ? "0.8rem" : "0.9rem",
                           color: "rgba(255, 255, 255, 0.6)",
-                          fontFamily: `'${selectedFont.body}', sans-serif`
+                          fontFamily: `'${selectedFont.body}', sans-serif`,
+                          lineHeight: 1.2
                         }}>
                           {category.subtitle}
                         </p>
@@ -794,20 +800,20 @@ export default function Home() {
                     </div>
 
                     <p style={{
-                      fontSize: isMobile ? "0.95rem" : "1.1rem",
-                      lineHeight: 1.7,
+                      fontSize: isMobile ? "0.85rem" : "0.95rem",
+                      lineHeight: 1.5,
                       color: "rgba(255, 255, 255, 0.9)",
-                      marginBottom: "1rem",
+                      marginBottom: "0.75rem",
                       fontFamily: `'${selectedFont.body}', sans-serif`
                     }}>
                       {category.description}
                     </p>
 
                     <p style={{
-                      fontSize: isMobile ? "0.9rem" : "1rem",
-                      lineHeight: 1.6,
+                      fontSize: isMobile ? "0.8rem" : "0.85rem",
+                      lineHeight: 1.4,
                       color: "rgba(255, 255, 255, 0.7)",
-                      marginBottom: "2rem",
+                      marginBottom: "1rem",
                       fontFamily: `'${selectedFont.body}', sans-serif`
                     }}>
                       {category.detailedInfo}
@@ -815,7 +821,7 @@ export default function Home() {
 
                     {/* Features List */}
                     <div style={{
-                      marginBottom: "2rem"
+                      marginBottom: "1rem"
                     }}>
                       <h4 style={{
                         fontSize: isMobile ? "1rem" : "1.2rem",
@@ -831,17 +837,18 @@ export default function Home() {
                         gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)",
                         gap: "0.75rem"
                       }}>
-                        {category.features.map((feature, i) => (
+                        {category.features.slice(0, 6).map((feature, i) => (
                           <div key={i} style={{
                             display: "flex",
                             alignItems: "center",
-                            gap: "0.5rem"
+                            gap: "0.4rem"
                           }}>
-                            <CheckCircle size={16} color="#FFD700" />
+                            <CheckCircle size={14} color="#FFD700" />
                             <span style={{
                               color: "rgba(255, 255, 255, 0.85)",
-                              fontSize: isMobile ? "0.85rem" : "0.95rem",
-                              fontFamily: `'${selectedFont.body}', sans-serif`
+                              fontSize: isMobile ? "0.8rem" : "0.85rem",
+                              fontFamily: `'${selectedFont.body}', sans-serif`,
+                              lineHeight: 1.3
                             }}>
                               {feature}
                             </span>
@@ -850,38 +857,6 @@ export default function Home() {
                       </div>
                     </div>
 
-                    {/* Stats */}
-                    <div style={{
-                      display: "grid",
-                      gridTemplateColumns: "repeat(3, 1fr)",
-                      gap: "1rem",
-                      marginBottom: "2rem",
-                      padding: "1.5rem",
-                      backgroundColor: "rgba(255, 215, 0, 0.05)",
-                      borderRadius: "15px",
-                      border: "1px solid rgba(255, 215, 0, 0.1)"
-                    }}>
-                      {category.stats.map((stat, i) => (
-                        <div key={i} style={{ textAlign: "center" }}>
-                          <div style={{
-                            fontSize: isMobile ? "1.2rem" : "1.5rem",
-                            fontWeight: "bold",
-                            color: "#FFD700",
-                            fontFamily: `'${selectedFont.heading}', serif`
-                          }}>
-                            {stat.value}
-                          </div>
-                          <div style={{
-                            fontSize: isMobile ? "0.75rem" : "0.85rem",
-                            color: "rgba(255, 255, 255, 0.6)",
-                            marginTop: "0.25rem",
-                            fontFamily: `'${selectedFont.body}', sans-serif`
-                          }}>
-                            {stat.label}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
 
                     {/* CTA Button */}
                     <a
@@ -923,21 +898,44 @@ export default function Home() {
                   <div style={{
                     position: "relative",
                     overflow: "hidden",
-                    minHeight: isMobile ? "300px" : "500px",
-                    order: isMobile ? 1 : index % 2 === 0 ? 2 : 1
+                    height: isMobile ? "300px" : "400px",
+                    order: isMobile ? 1 : index % 2 === 0 ? 2 : 1,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    backgroundColor: index === 0 ? "transparent" : "rgba(2, 6, 23, 0.5)"
                   }}>
-                    <img
-                      src={category.image}
-                      alt={category.title}
-                      style={{
+                    {index === 0 ? (
+                      // Compare slider for Packaging Solutions
+                      <div style={{
                         width: "100%",
                         height: "100%",
-                        objectFit: "cover",
-                        position: "absolute",
-                        top: 0,
-                        left: 0
-                      }}
-                    />
+                        position: "relative"
+                      }}>
+                        <Compare
+                          firstImage="/generated-image-november-18.png"
+                          secondImage="/image-34.png"
+                          slideMode="hover"
+                          autoplay={true}
+                          autoplayDuration={3000}
+                        />
+                      </div>
+                    ) : (
+                      <>
+                        <img
+                          src={category.image}
+                          alt={category.title}
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                            position: "absolute",
+                            top: 0,
+                            left: 0
+                          }}
+                        />
+                      </>
+                    )}
                     <div style={{
                       position: "absolute",
                       top: 0,
@@ -954,164 +952,835 @@ export default function Home() {
         </div>
       </section>
 
-      {/* How We Help Business - Полностью адаптирован для мобильных */}
+      {/* How We Help Business - Enhanced Step-by-Step Process */}
       <section id="help-business" style={{
-        padding: isMobile ? "3rem 1rem" : "5rem 2rem",
-        backgroundColor: "#0a0f2e"
+        padding: isMobile ? "3rem 1rem" : "6rem 2rem",
+        backgroundColor: "#0a0f2e",
+        position: "relative",
+        overflow: "hidden"
       }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+        {/* Background decoration */}
+        <div style={{
+          position: "absolute",
+          top: "10%",
+          right: "-10%",
+          width: "400px",
+          height: "400px",
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(255, 215, 0, 0.05) 0%, transparent 70%)",
+          filter: "blur(40px)"
+        }} />
+
+        <div style={{ maxWidth: "1400px", margin: "0 auto", position: "relative", zIndex: 1 }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 style={{
-              fontSize: isMobile ? "2rem" : "3.5rem",
-              fontWeight: "bold",
-              marginBottom: "1rem",
-              textAlign: "center",
-              fontFamily: `'${selectedFont.heading}', serif`
-            }}>
-              How We Help <span style={{ color: "#FFD700" }}>Your Business</span>
-            </h2>
-            <div style={{
-              width: "80px",
-              height: "4px",
-              backgroundColor: "#FFD700",
-              margin: "0 auto 3rem",
-              borderRadius: "2px"
-            }} />
-
-            <div style={{
-              display: "grid",
-              gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(300px, 1fr))",
-              gap: isMobile ? "1.5rem" : "2rem"
-            }}>
-              {[
-                {
-                  icon: Target,
-                  title: "Complete Customization",
-                  description: "We customize everything to match your brand identity perfectly"
-                },
-                {
-                  icon: Zap,
-                  title: "Fast Turnaround",
-                  description: "Quick production and delivery without compromising quality"
-                },
-                {
-                  icon: Shield,
-                  title: "Quality Guarantee",
-                  description: "100% satisfaction guarantee on all our products and services"
-                }
-              ].map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  style={{
-                    textAlign: "center",
-                    padding: isMobile ? "1.5rem" : "2rem"
-                  }}
-                >
-                  <div style={{
-                    width: isMobile ? "60px" : "80px",
-                    height: isMobile ? "60px" : "80px",
-                    margin: "0 auto 1.5rem",
-                    backgroundColor: "rgba(255, 215, 0, 0.1)",
-                    borderRadius: "20px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    border: "2px solid rgba(255, 215, 0, 0.3)",
-                    transition: "all 0.3s"
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = "rgba(255, 215, 0, 0.2)";
-                    e.currentTarget.style.borderColor = "#FFD700";
-                    e.currentTarget.style.transform = "rotate(5deg) scale(1.1)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = "rgba(255, 215, 0, 0.1)";
-                    e.currentTarget.style.borderColor = "rgba(255, 215, 0, 0.3)";
-                    e.currentTarget.style.transform = "rotate(0) scale(1)";
-                  }}>
-                    <item.icon size={isMobile ? 30 : 40} color="#FFD700" />
-                  </div>
-                  <h3 style={{
-                    fontSize: isMobile ? "1.2rem" : "1.5rem",
-                    fontWeight: "bold",
-                    marginBottom: "1rem",
-                    fontFamily: `'${selectedFont.heading}', serif`
-                  }}>
-                    {item.title}
-                  </h3>
-                  <p style={{
-                    color: "rgba(255, 255, 255, 0.8)",
-                    lineHeight: 1.6,
-                    fontSize: isMobile ? "0.9rem" : "1rem",
-                    fontFamily: `'${selectedFont.body}', sans-serif`
-                  }}>
-                    {item.description}
-                  </p>
-                </motion.div>
-              ))}
+            {/* Header Section */}
+            <div style={{ textAlign: "center", marginBottom: "4rem" }}>
+              <h2 style={{
+                fontSize: isMobile ? "2rem" : "3.5rem",
+                fontWeight: "bold",
+                marginBottom: "1rem",
+                fontFamily: `'${selectedFont.heading}', serif`
+              }}>
+                How We Help <span style={{ color: "#FFD700" }}>Your Business</span>
+              </h2>
+              <div style={{
+                width: "80px",
+                height: "4px",
+                backgroundColor: "#FFD700",
+                margin: "0 auto 2rem",
+                borderRadius: "2px"
+              }} />
+              <p style={{
+                fontSize: isMobile ? "1rem" : "1.3rem",
+                lineHeight: 1.8,
+                color: "rgba(255, 255, 255, 0.9)",
+                maxWidth: "900px",
+                margin: "0 auto",
+                fontFamily: `'${selectedFont.body}', sans-serif`
+              }}>
+                We don't just supply products – we become your manufacturing partner. While you handle the design,
+                we provide complete production expertise, recommendations, and support to bring your vision to life.
+              </p>
             </div>
 
+            {/* Our Approach Section */}
+            <div style={{
+              backgroundColor: "rgba(255, 255, 255, 0.03)",
+              borderRadius: "25px",
+              padding: isMobile ? "2rem" : "3rem",
+              marginBottom: "4rem",
+              border: "1px solid rgba(255, 215, 0, 0.15)"
+            }}>
+              <h3 style={{
+                fontSize: isMobile ? "1.5rem" : "2rem",
+                fontWeight: "bold",
+                marginBottom: "1.5rem",
+                color: "#FFD700",
+                fontFamily: `'${selectedFont.heading}', serif`
+              }}>
+                Our Unique Approach
+              </h3>
+              <div style={{
+                display: "grid",
+                gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)",
+                gap: "2rem"
+              }}>
+                <div>
+                  <h4 style={{
+                    fontSize: isMobile ? "1.1rem" : "1.3rem",
+                    fontWeight: "bold",
+                    marginBottom: "0.75rem",
+                    color: "white",
+                    fontFamily: `'${selectedFont.heading}', serif`
+                  }}>
+                    🎯 Production Expertise
+                  </h4>
+                  <p style={{
+                    fontSize: isMobile ? "0.9rem" : "1rem",
+                    lineHeight: 1.7,
+                    color: "rgba(255, 255, 255, 0.8)",
+                    fontFamily: `'${selectedFont.body}', sans-serif`
+                  }}>
+                    We analyze your requirements and recommend the best materials, techniques, and processes
+                    for optimal quality and cost-efficiency.
+                  </p>
+                </div>
+                <div>
+                  <h4 style={{
+                    fontSize: isMobile ? "1.1rem" : "1.3rem",
+                    fontWeight: "bold",
+                    marginBottom: "0.75rem",
+                    color: "white",
+                    fontFamily: `'${selectedFont.heading}', serif`
+                  }}>
+                    🔧 Technical Support
+                  </h4>
+                  <p style={{
+                    fontSize: isMobile ? "0.9rem" : "1rem",
+                    lineHeight: 1.7,
+                    color: "rgba(255, 255, 255, 0.8)",
+                    fontFamily: `'${selectedFont.body}', sans-serif`
+                  }}>
+                    Our engineers work with your designs to ensure manufacturability, suggest improvements,
+                    and solve technical challenges.
+                  </p>
+                </div>
+                <div>
+                  <h4 style={{
+                    fontSize: isMobile ? "1.1rem" : "1.3rem",
+                    fontWeight: "bold",
+                    marginBottom: "0.75rem",
+                    color: "white",
+                    fontFamily: `'${selectedFont.heading}', serif`
+                  }}>
+                    🤝 Full Partnership
+                  </h4>
+                  <p style={{
+                    fontSize: isMobile ? "0.9rem" : "1rem",
+                    lineHeight: 1.7,
+                    color: "rgba(255, 255, 255, 0.8)",
+                    fontFamily: `'${selectedFont.body}', sans-serif`
+                  }}>
+                    From initial consultation to final delivery, we're with you every step, providing
+                    updates, samples, and quality assurance.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Interactive Business Type Selector */}
+            <div style={{
+              backgroundColor: "rgba(255, 215, 0, 0.05)",
+              borderRadius: "30px",
+              padding: isMobile ? "2rem 1rem" : "3rem",
+              marginBottom: "4rem",
+              border: "2px solid rgba(255, 215, 0, 0.2)"
+            }}>
+              <h3 style={{
+                fontSize: isMobile ? "1.5rem" : "2rem",
+                fontWeight: "bold",
+                marginBottom: "2rem",
+                textAlign: "center",
+                color: "#FFD700",
+                fontFamily: `'${selectedFont.heading}', serif`
+              }}>
+                Select Your Business Type
+              </h3>
+
+              <div style={{
+                display: "grid",
+                gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(3, 1fr)",
+                gap: isMobile ? "1rem" : "1.5rem",
+                marginBottom: "3rem"
+              }}>
+                {[
+                  { id: "restaurant", icon: "🍽️", label: "Restaurant & Cafe" },
+                  { id: "retail", icon: "🛍️", label: "Retail Store" },
+                  { id: "manufacturing", icon: "🏭", label: "Manufacturing" },
+                  { id: "healthcare", icon: "🏥", label: "Healthcare" },
+                  { id: "ecommerce", icon: "📦", label: "E-Commerce" },
+                  { id: "corporate", icon: "🏢", label: "Corporate" }
+                ].map((business) => (
+                  <motion.button
+                    key={business.id}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setSelectedBusiness(business.id)}
+                    style={{
+                      backgroundColor: selectedBusiness === business.id ? "rgba(255, 215, 0, 0.2)" : "rgba(255, 255, 255, 0.05)",
+                      border: selectedBusiness === business.id ? "2px solid #FFD700" : "2px solid rgba(255, 255, 255, 0.2)",
+                      borderRadius: "15px",
+                      padding: isMobile ? "1rem" : "1.5rem",
+                      cursor: "pointer",
+                      transition: "all 0.3s",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      gap: "0.5rem"
+                    }}
+                  >
+                    <div style={{ fontSize: isMobile ? "2rem" : "2.5rem" }}>{business.icon}</div>
+                    <span style={{
+                      color: selectedBusiness === business.id ? "#FFD700" : "white",
+                      fontSize: isMobile ? "0.85rem" : "1rem",
+                      fontWeight: selectedBusiness === business.id ? "bold" : "normal",
+                      fontFamily: `'${selectedFont.body}', sans-serif`,
+                      textAlign: "center"
+                    }}>
+                      {business.label}
+                    </span>
+                  </motion.button>
+                ))}
+              </div>
+
+              {/* Dynamic Content Based on Selection */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={selectedBusiness}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                  style={{
+                    backgroundColor: "rgba(2, 6, 23, 0.8)",
+                    borderRadius: "20px",
+                    padding: isMobile ? "1.5rem" : "2.5rem",
+                    border: "1px solid rgba(255, 215, 0, 0.3)"
+                  }}
+                >
+                  {selectedBusiness === "restaurant" && (
+                    <div>
+                      <h4 style={{
+                        fontSize: isMobile ? "1.3rem" : "1.8rem",
+                        fontWeight: "bold",
+                        marginBottom: "1rem",
+                        color: "#FFD700",
+                        fontFamily: `'${selectedFont.heading}', serif`
+                      }}>
+                        Solutions for Restaurants & Cafes
+                      </h4>
+                      <p style={{
+                        fontSize: isMobile ? "0.95rem" : "1.1rem",
+                        lineHeight: 1.7,
+                        color: "rgba(255, 255, 255, 0.9)",
+                        marginBottom: "1.5rem",
+                        fontFamily: `'${selectedFont.body}', sans-serif`
+                      }}>
+                        Transform your restaurant's brand with custom packaging that enhances customer experience and builds loyalty.
+                      </p>
+                      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)", gap: "1rem", marginBottom: "1.5rem" }}>
+                        {[
+                          "Custom takeout boxes with your logo",
+                          "Eco-friendly packaging options",
+                          "Branded napkins and utensils",
+                          "Menu design and printing",
+                          "Delivery bag customization",
+                          "Seasonal packaging campaigns"
+                        ].map((item, idx) => (
+                          <div key={idx} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                            <CheckCircle size={16} color="#FFD700" />
+                            <span style={{ color: "white", fontSize: isMobile ? "0.9rem" : "1rem", fontFamily: `'${selectedFont.body}', sans-serif` }}>{item}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <div style={{ display: "flex", gap: "1rem", marginTop: "2rem", flexWrap: "wrap" }}>
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          style={{
+                            padding: isMobile ? "0.75rem 1.5rem" : "1rem 2rem",
+                            backgroundColor: "#FFD700",
+                            color: "#020617",
+                            border: "none",
+                            borderRadius: "10px",
+                            fontSize: isMobile ? "0.95rem" : "1.1rem",
+                            fontWeight: "bold",
+                            cursor: "pointer",
+                            fontFamily: `'${selectedFont.body}', sans-serif`
+                          }}
+                        >
+                          Get Restaurant Solutions
+                        </motion.button>
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          style={{
+                            padding: isMobile ? "0.75rem 1.5rem" : "1rem 2rem",
+                            backgroundColor: "transparent",
+                            color: "#FFD700",
+                            border: "2px solid #FFD700",
+                            borderRadius: "10px",
+                            fontSize: isMobile ? "0.95rem" : "1.1rem",
+                            fontWeight: "bold",
+                            cursor: "pointer",
+                            fontFamily: `'${selectedFont.body}', sans-serif`
+                          }}
+                        >
+                          View Portfolio
+                        </motion.button>
+                      </div>
+                    </div>
+                  )}
+
+                  {selectedBusiness === "retail" && (
+                    <div>
+                      <h4 style={{
+                        fontSize: isMobile ? "1.3rem" : "1.8rem",
+                        fontWeight: "bold",
+                        marginBottom: "1rem",
+                        color: "#FFD700",
+                        fontFamily: `'${selectedFont.heading}', serif`
+                      }}>
+                        Solutions for Retail Stores
+                      </h4>
+                      <p style={{
+                        fontSize: isMobile ? "0.95rem" : "1.1rem",
+                        lineHeight: 1.7,
+                        color: "rgba(255, 255, 255, 0.9)",
+                        marginBottom: "1.5rem",
+                        fontFamily: `'${selectedFont.body}', sans-serif`
+                      }}>
+                        Elevate your retail experience with premium packaging and signage that drives sales and customer satisfaction.
+                      </p>
+                      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)", gap: "1rem", marginBottom: "1.5rem" }}>
+                        {[
+                          "Shopping bags with custom branding",
+                          "Product display solutions",
+                          "Window and in-store signage",
+                          "Gift wrapping options",
+                          "Loyalty cards and programs",
+                          "Seasonal promotional materials"
+                        ].map((item, idx) => (
+                          <div key={idx} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                            <CheckCircle size={16} color="#FFD700" />
+                            <span style={{ color: "white", fontSize: isMobile ? "0.9rem" : "1rem", fontFamily: `'${selectedFont.body}', sans-serif` }}>{item}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <div style={{ display: "flex", gap: "1rem", marginTop: "2rem", flexWrap: "wrap" }}>
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          style={{
+                            padding: isMobile ? "0.75rem 1.5rem" : "1rem 2rem",
+                            backgroundColor: "#FFD700",
+                            color: "#020617",
+                            border: "none",
+                            borderRadius: "10px",
+                            fontSize: isMobile ? "0.95rem" : "1.1rem",
+                            fontWeight: "bold",
+                            cursor: "pointer",
+                            fontFamily: `'${selectedFont.body}', sans-serif`
+                          }}
+                        >
+                          Get Retail Solutions
+                        </motion.button>
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          style={{
+                            padding: isMobile ? "0.75rem 1.5rem" : "1rem 2rem",
+                            backgroundColor: "transparent",
+                            color: "#FFD700",
+                            border: "2px solid #FFD700",
+                            borderRadius: "10px",
+                            fontSize: isMobile ? "0.95rem" : "1.1rem",
+                            fontWeight: "bold",
+                            cursor: "pointer",
+                            fontFamily: `'${selectedFont.body}', sans-serif`
+                          }}
+                        >
+                          See Examples
+                        </motion.button>
+                      </div>
+                    </div>
+                  )}
+
+                  {selectedBusiness === "manufacturing" && (
+                    <div>
+                      <h4 style={{
+                        fontSize: isMobile ? "1.3rem" : "1.8rem",
+                        fontWeight: "bold",
+                        marginBottom: "1rem",
+                        color: "#FFD700",
+                        fontFamily: `'${selectedFont.heading}', serif`
+                      }}>
+                        Solutions for Manufacturing
+                      </h4>
+                      <p style={{
+                        fontSize: isMobile ? "0.95rem" : "1.1rem",
+                        lineHeight: 1.7,
+                        color: "rgba(255, 255, 255, 0.9)",
+                        marginBottom: "1.5rem",
+                        fontFamily: `'${selectedFont.body}', sans-serif`
+                      }}>
+                        Optimize your production with industrial machinery and packaging solutions designed for efficiency and scale.
+                      </p>
+                      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)", gap: "1rem", marginBottom: "1.5rem" }}>
+                        {[
+                          "Automated packaging machinery",
+                          "Bulk packaging materials",
+                          "Industrial labeling systems",
+                          "Quality control equipment",
+                          "Warehouse signage solutions",
+                          "Safety and compliance materials"
+                        ].map((item, idx) => (
+                          <div key={idx} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                            <CheckCircle size={16} color="#FFD700" />
+                            <span style={{ color: "white", fontSize: isMobile ? "0.9rem" : "1rem", fontFamily: `'${selectedFont.body}', sans-serif` }}>{item}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <div style={{ display: "flex", gap: "1rem", marginTop: "2rem", flexWrap: "wrap" }}>
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          style={{
+                            padding: isMobile ? "0.75rem 1.5rem" : "1rem 2rem",
+                            backgroundColor: "#FFD700",
+                            color: "#020617",
+                            border: "none",
+                            borderRadius: "10px",
+                            fontSize: isMobile ? "0.95rem" : "1.1rem",
+                            fontWeight: "bold",
+                            cursor: "pointer",
+                            fontFamily: `'${selectedFont.body}', sans-serif`
+                          }}
+                        >
+                          Industrial Solutions
+                        </motion.button>
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          style={{
+                            padding: isMobile ? "0.75rem 1.5rem" : "1rem 2rem",
+                            backgroundColor: "transparent",
+                            color: "#FFD700",
+                            border: "2px solid #FFD700",
+                            borderRadius: "10px",
+                            fontSize: isMobile ? "0.95rem" : "1.1rem",
+                            fontWeight: "bold",
+                            cursor: "pointer",
+                            fontFamily: `'${selectedFont.body}', sans-serif`
+                          }}
+                        >
+                          Request Quote
+                        </motion.button>
+                      </div>
+                    </div>
+                  )}
+
+                  {(selectedBusiness === "healthcare" || selectedBusiness === "ecommerce" || selectedBusiness === "corporate") && (
+                    <div>
+                      <h4 style={{
+                        fontSize: isMobile ? "1.3rem" : "1.8rem",
+                        fontWeight: "bold",
+                        marginBottom: "1rem",
+                        color: "#FFD700",
+                        fontFamily: `'${selectedFont.heading}', serif`
+                      }}>
+                        Custom Solutions for {
+                          selectedBusiness === "healthcare" ? "Healthcare" :
+                          selectedBusiness === "ecommerce" ? "E-Commerce" :
+                          "Corporate Businesses"
+                        }
+                      </h4>
+                      <p style={{
+                        fontSize: isMobile ? "0.95rem" : "1.1rem",
+                        lineHeight: 1.7,
+                        color: "rgba(255, 255, 255, 0.9)",
+                        marginBottom: "1.5rem",
+                        fontFamily: `'${selectedFont.body}', sans-serif`
+                      }}>
+                        We provide specialized solutions tailored to your industry's unique requirements and compliance standards.
+                      </p>
+                      <div style={{ display: "flex", gap: "1rem", marginTop: "2rem", flexWrap: "wrap" }}>
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          style={{
+                            padding: isMobile ? "0.75rem 1.5rem" : "1rem 2rem",
+                            backgroundColor: "#FFD700",
+                            color: "#020617",
+                            border: "none",
+                            borderRadius: "10px",
+                            fontSize: isMobile ? "0.95rem" : "1.1rem",
+                            fontWeight: "bold",
+                            cursor: "pointer",
+                            fontFamily: `'${selectedFont.body}', sans-serif`
+                          }}
+                        >
+                          Discuss Your Needs
+                        </motion.button>
+                      </div>
+                    </div>
+                  )}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Step-by-Step Process */}
+            <div style={{ marginBottom: "4rem" }}>
+              <h3 style={{
+                fontSize: isMobile ? "1.8rem" : "2.5rem",
+                fontWeight: "bold",
+                marginBottom: "3rem",
+                textAlign: "center",
+                color: "white",
+                fontFamily: `'${selectedFont.heading}', serif`
+              }}>
+                Our Step-by-Step Process
+              </h3>
+
+              <div style={{ position: "relative" }}>
+                {/* Connection Line */}
+                {!isMobile && (
+                  <div style={{
+                    position: "absolute",
+                    top: "60px",
+                    left: "50px",
+                    right: "50px",
+                    height: "2px",
+                    background: "linear-gradient(90deg, #FFD700 0%, #FFD700 25%, rgba(255, 215, 0, 0.3) 25%, rgba(255, 215, 0, 0.3) 50%, rgba(255, 215, 0, 0.3) 50%, rgba(255, 215, 0, 0.3) 75%, rgba(255, 215, 0, 0.3) 75%, rgba(255, 215, 0, 0.3) 100%)",
+                    zIndex: 0
+                  }} />
+                )}
+
+                <div style={{
+                  display: "grid",
+                  gridTemplateColumns: isMobile ? "1fr" : "repeat(4, 1fr)",
+                  gap: isMobile ? "3rem" : "2rem",
+                  position: "relative",
+                  zIndex: 1
+                }}>
+                  {[
+                    {
+                      step: "01",
+                      title: "Consultation",
+                      description: "Share your design and requirements",
+                      details: "We analyze your needs, discuss quantities, timeline, and budget. Our experts review your designs for manufacturability.",
+                      icon: "💬",
+                      tasks: ["Requirements Analysis", "Feasibility Study", "Budget Planning", "Timeline Setup"]
+                    },
+                    {
+                      step: "02",
+                      title: "Recommendations",
+                      description: "Receive expert production advice",
+                      details: "Based on your requirements, we recommend optimal materials, production methods, and cost-saving opportunities.",
+                      icon: "📋",
+                      tasks: ["Material Selection", "Process Optimization", "Cost Analysis", "Quality Standards"]
+                    },
+                    {
+                      step: "03",
+                      title: "Production",
+                      description: "Manufacturing with full support",
+                      details: "We handle the entire production process while keeping you updated with progress reports and quality checks.",
+                      icon: "⚙️",
+                      tasks: ["Sample Creation", "Quality Control", "Progress Updates", "Testing & Validation"]
+                    },
+                    {
+                      step: "04",
+                      title: "Delivery",
+                      description: "On-time delivery & after-sales",
+                      details: "Reliable logistics, proper packaging, and continued support after delivery to ensure your complete satisfaction.",
+                      icon: "📦",
+                      tasks: ["Packaging & Shipping", "Tracking Support", "After-Sales Service", "Feedback Collection"]
+                    }
+                  ].map((process, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.2 }}
+                      style={{ textAlign: "center" }}
+                    >
+                      {/* Step Number Circle */}
+                      <motion.div
+                        whileHover={{ scale: 1.1, rotate: 360 }}
+                        transition={{ duration: 0.5 }}
+                        style={{
+                          width: isMobile ? "100px" : "120px",
+                          height: isMobile ? "100px" : "120px",
+                          margin: "0 auto 1.5rem",
+                          backgroundColor: index === 0 ? "#FFD700" : "rgba(255, 215, 0, 0.1)",
+                          borderRadius: "50%",
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          border: `3px solid ${index === 0 ? "#FFD700" : "rgba(255, 215, 0, 0.3)"}`,
+                          cursor: "pointer",
+                          transition: "all 0.3s"
+                        }}
+                      >
+                        <div style={{ fontSize: "2rem", marginBottom: "0.25rem" }}>{process.icon}</div>
+                        <div style={{
+                          fontSize: isMobile ? "1.2rem" : "1.4rem",
+                          fontWeight: "bold",
+                          color: index === 0 ? "#020617" : "#FFD700",
+                          fontFamily: `'${selectedFont.heading}', serif`
+                        }}>
+                          {process.step}
+                        </div>
+                      </motion.div>
+
+                      {/* Title & Description */}
+                      <h4 style={{
+                        fontSize: isMobile ? "1.2rem" : "1.4rem",
+                        fontWeight: "bold",
+                        marginBottom: "0.5rem",
+                        color: "white",
+                        fontFamily: `'${selectedFont.heading}', serif`
+                      }}>
+                        {process.title}
+                      </h4>
+                      <p style={{
+                        fontSize: isMobile ? "0.9rem" : "1rem",
+                        color: "#FFD700",
+                        marginBottom: "1rem",
+                        fontFamily: `'${selectedFont.body}', sans-serif`
+                      }}>
+                        {process.description}
+                      </p>
+                      <p style={{
+                        fontSize: isMobile ? "0.85rem" : "0.95rem",
+                        lineHeight: 1.6,
+                        color: "rgba(255, 255, 255, 0.7)",
+                        marginBottom: "1.5rem",
+                        minHeight: isMobile ? "auto" : "80px",
+                        fontFamily: `'${selectedFont.body}', sans-serif`
+                      }}>
+                        {process.details}
+                      </p>
+
+                      {/* Task List */}
+                      <div style={{
+                        backgroundColor: "rgba(255, 255, 255, 0.02)",
+                        borderRadius: "15px",
+                        padding: "1rem",
+                        border: "1px solid rgba(255, 215, 0, 0.1)"
+                      }}>
+                        {process.tasks.map((task, i) => (
+                          <div key={i} style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.5rem",
+                            marginBottom: i < process.tasks.length - 1 ? "0.5rem" : 0
+                          }}>
+                            <CheckCircle size={14} color="#FFD700" />
+                            <span style={{
+                              fontSize: isMobile ? "0.8rem" : "0.85rem",
+                              color: "rgba(255, 255, 255, 0.8)",
+                              fontFamily: `'${selectedFont.body}', sans-serif`
+                            }}>
+                              {task}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Why Choose FCP Section */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.5 }}
               style={{
-                marginTop: "3rem",
-                padding: isMobile ? "2rem 1.5rem" : "3rem",
-                background: "linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05))",
-                borderRadius: "20px",
+                background: "linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 215, 0, 0.05) 100%)",
+                borderRadius: "25px",
+                padding: isMobile ? "2rem" : "3rem",
                 border: "1px solid rgba(255, 215, 0, 0.3)",
-                textAlign: "center"
+                marginBottom: "3rem"
               }}
             >
               <h3 style={{
                 fontSize: isMobile ? "1.5rem" : "2rem",
                 fontWeight: "bold",
-                marginBottom: "1rem",
+                marginBottom: "2rem",
+                textAlign: "center",
+                color: "#FFD700",
                 fontFamily: `'${selectedFont.heading}', serif`
               }}>
-                Ready to Transform Your Business?
+                Why Businesses Choose FCP
+              </h3>
+
+              <div style={{
+                display: "grid",
+                gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)",
+                gap: "2rem"
+              }}>
+                {[
+                  {
+                    title: "No Hidden Costs",
+                    desc: "Transparent pricing with detailed quotes. No surprises, no hidden fees."
+                  },
+                  {
+                    title: "Quality Assurance",
+                    desc: "Multi-stage quality checks ensure every product meets your standards."
+                  },
+                  {
+                    title: "Flexible MOQs",
+                    desc: "From small batches to large orders, we accommodate your needs."
+                  },
+                  {
+                    title: "Fast Turnaround",
+                    desc: "Efficient production processes ensure timely delivery without compromise."
+                  },
+                  {
+                    title: "Technical Expertise",
+                    desc: "15+ years of experience solving complex manufacturing challenges."
+                  },
+                  {
+                    title: "Global Shipping",
+                    desc: "Reliable logistics network delivering to 50+ countries worldwide."
+                  }
+                ].map((item, index) => (
+                  <div key={index} style={{
+                    display: "flex",
+                    gap: "1rem",
+                    alignItems: "flex-start"
+                  }}>
+                    <div style={{
+                      width: "40px",
+                      height: "40px",
+                      backgroundColor: "rgba(255, 215, 0, 0.2)",
+                      borderRadius: "10px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexShrink: 0
+                    }}>
+                      <Shield size={20} color="#FFD700" />
+                    </div>
+                    <div>
+                      <h4 style={{
+                        fontSize: isMobile ? "1rem" : "1.2rem",
+                        fontWeight: "bold",
+                        marginBottom: "0.5rem",
+                        color: "white",
+                        fontFamily: `'${selectedFont.heading}', serif`
+                      }}>
+                        {item.title}
+                      </h4>
+                      <p style={{
+                        fontSize: isMobile ? "0.85rem" : "0.95rem",
+                        lineHeight: 1.6,
+                        color: "rgba(255, 255, 255, 0.8)",
+                        fontFamily: `'${selectedFont.body}', sans-serif`
+                      }}>
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* CTA Section */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              style={{
+                textAlign: "center",
+                padding: isMobile ? "2rem" : "3rem",
+                backgroundColor: "rgba(2, 6, 23, 0.5)",
+                borderRadius: "25px",
+                border: "2px solid #FFD700"
+              }}
+            >
+              <h3 style={{
+                fontSize: isMobile ? "1.8rem" : "2.5rem",
+                fontWeight: "bold",
+                marginBottom: "1rem",
+                fontFamily: `'${selectedFont.heading}', serif`,
+                color: "#FFD700"
+              }}>
+                Ready to Start Manufacturing?
               </h3>
               <p style={{
+                fontSize: isMobile ? "1rem" : "1.2rem",
+                lineHeight: 1.7,
                 color: "rgba(255, 255, 255, 0.9)",
                 marginBottom: "2rem",
-                fontSize: isMobile ? "0.95rem" : "1.1rem",
+                maxWidth: "700px",
+                margin: "0 auto 2rem",
                 fontFamily: `'${selectedFont.body}', sans-serif`
               }}>
-                Join hundreds of satisfied clients who trust FCP for their customization needs
+                Join 2000+ businesses that trust FCP for their production needs.
+                Let's turn your designs into reality with our expertise and support.
               </p>
-              <button style={{
-                padding: isMobile ? "0.75rem 2rem" : "1rem 3rem",
-                backgroundColor: "#FFD700",
-                color: "#020617",
-                border: "none",
-                borderRadius: "50px",
-                fontSize: isMobile ? "1rem" : "1.2rem",
-                fontWeight: "bold",
-                cursor: "pointer",
-                transition: "all 0.3s",
-                fontFamily: `'${selectedFont.body}', sans-serif`
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = "#FFC700";
-                e.currentTarget.style.transform = "scale(1.05)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = "#FFD700";
-                e.currentTarget.style.transform = "scale(1)";
+              <div style={{
+                display: "flex",
+                gap: "1rem",
+                justifyContent: "center",
+                flexWrap: "wrap"
               }}>
-                Start Your Project
-              </button>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  style={{
+                    padding: isMobile ? "1rem 2.5rem" : "1.2rem 3rem",
+                    backgroundColor: "#FFD700",
+                    color: "#020617",
+                    border: "none",
+                    borderRadius: "30px",
+                    fontSize: isMobile ? "1rem" : "1.2rem",
+                    fontWeight: "bold",
+                    cursor: "pointer",
+                    fontFamily: `'${selectedFont.body}', sans-serif`
+                  }}
+                >
+                  Get Started Today
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  style={{
+                    padding: isMobile ? "1rem 2.5rem" : "1.2rem 3rem",
+                    backgroundColor: "transparent",
+                    color: "white",
+                    border: "2px solid white",
+                    borderRadius: "30px",
+                    fontSize: isMobile ? "1rem" : "1.2rem",
+                    fontWeight: "bold",
+                    cursor: "pointer",
+                    fontFamily: `'${selectedFont.body}', sans-serif`
+                  }}
+                >
+                  Schedule Consultation
+                </motion.button>
+              </div>
             </motion.div>
           </motion.div>
         </div>

@@ -1,18 +1,29 @@
 'use client';
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Type } from 'lucide-react';
+import { Menu, X, Type, Phone } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 interface HeaderProps {
-    onFontToggle: () => void;
-    isMobile: boolean;
+    selectedFont?: any;
+    onFontPanelToggle: () => void;
 }
 
-export function HeaderFCP({ onFontToggle, isMobile }: HeaderProps) {
+export function HeaderFCP({ onFontPanelToggle }: HeaderProps) {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+    const [showPhone, setShowPhone] = React.useState(false);
+    const [isMobile, setIsMobile] = React.useState(false);
     const pathname = usePathname();
+
+    React.useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+        return () => window.removeEventListener("resize", checkMobile);
+    }, []);
 
     // Different menu items based on current page
     const isHomePage = pathname === '/';
@@ -23,7 +34,7 @@ export function HeaderFCP({ onFontToggle, isMobile }: HeaderProps) {
         { name: 'Apparel', href: '/apparel' },
         { name: 'Machinery', href: '/machinery' },
         { name: 'Signage', href: '/signage' },
-        { name: 'Contact', href: '#contact' }
+        { name: 'Get Quote', href: '#contact' }
     ];
 
     const categoryMenuItems = [
@@ -113,36 +124,17 @@ export function HeaderFCP({ onFontToggle, isMobile }: HeaderProps) {
                         ))}
                     </nav>
 
-                    {/* Font Toggle Button - Desktop */}
-                    <motion.button
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={onFontToggle}
-                        style={{
-                            backgroundColor: 'transparent',
-                            border: '2px solid #FFD700',
-                            borderRadius: '8px',
-                            padding: '0.5rem',
-                            color: '#FFD700',
-                            cursor: 'pointer',
-                            display: isMobile ? 'none' : 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center'
-                        }}
-                    >
-                        <Type size={20} />
-                    </motion.button>
-
-                    {/* Mobile Menu Button */}
+                    {/* Desktop Buttons */}
                     <div style={{
-                        display: isMobile ? 'flex' : 'none',
+                        display: isMobile ? 'none' : 'flex',
                         gap: '1rem',
                         alignItems: 'center'
                     }}>
+                        {/* Font Toggle Button */}
                         <motion.button
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.95 }}
-                            onClick={onFontToggle}
+                            onClick={onFontPanelToggle}
                             style={{
                                 backgroundColor: 'transparent',
                                 border: '2px solid #FFD700',
@@ -156,6 +148,122 @@ export function HeaderFCP({ onFontToggle, isMobile }: HeaderProps) {
                             }}
                         >
                             <Type size={20} />
+                        </motion.button>
+
+                        {/* Contact Us Button */}
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => setShowPhone(!showPhone)}
+                            style={{
+                                backgroundColor: '#FFD700',
+                                border: 'none',
+                                borderRadius: '8px',
+                                padding: '0.5rem 1rem',
+                                color: '#020617',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.5rem',
+                                fontWeight: 'bold',
+                                fontSize: '0.9rem',
+                                position: 'relative'
+                            }}
+                        >
+                            <Phone size={18} />
+                            Contact Us
+                        </motion.button>
+                    </div>
+
+                    {/* Phone Popup */}
+                    <AnimatePresence>
+                        {showPhone && (
+                            <motion.div
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                style={{
+                                    position: 'absolute',
+                                    top: '60px',
+                                    right: '1.5rem',
+                                    backgroundColor: 'rgba(2, 6, 23, 0.95)',
+                                    backdropFilter: 'blur(10px)',
+                                    border: '2px solid #FFD700',
+                                    borderRadius: '12px',
+                                    padding: '1rem',
+                                    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)',
+                                    zIndex: 100
+                                }}
+                            >
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '0.5rem',
+                                    color: '#FFD700',
+                                    fontWeight: 'bold',
+                                    fontSize: '1.1rem'
+                                }}>
+                                    <Phone size={20} />
+                                    <a href="tel:+15551234567" style={{
+                                        color: '#FFD700',
+                                        textDecoration: 'none'
+                                    }}>
+                                        +1 (555) 123-4567
+                                    </a>
+                                </div>
+                                <div style={{
+                                    marginTop: '0.5rem',
+                                    color: 'rgba(255, 255, 255, 0.7)',
+                                    fontSize: '0.85rem'
+                                }}>
+                                    Available 24/7
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    {/* Mobile Buttons */}
+                    <div style={{
+                        display: isMobile ? 'flex' : 'none',
+                        gap: '0.75rem',
+                        alignItems: 'center'
+                    }}>
+                        <motion.button
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={onFontPanelToggle}
+                            style={{
+                                backgroundColor: 'transparent',
+                                border: '2px solid #FFD700',
+                                borderRadius: '8px',
+                                padding: '0.5rem',
+                                color: '#FFD700',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}
+                        >
+                            <Type size={20} />
+                        </motion.button>
+
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => setShowPhone(!showPhone)}
+                            style={{
+                                backgroundColor: '#FFD700',
+                                border: 'none',
+                                borderRadius: '8px',
+                                padding: '0.4rem 0.8rem',
+                                color: '#020617',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}
+                        >
+                            <Phone size={18} />
                         </motion.button>
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
