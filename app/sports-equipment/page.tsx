@@ -2,36 +2,16 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Settings, Cpu, Zap, Factory, Gauge, Wrench, Package, Printer, ArrowRight, CheckCircle, ChevronDown } from 'lucide-react';
+import { Dumbbell, Target, Bike, Trophy, ArrowRight, CheckCircle, ChevronDown } from 'lucide-react';
 import { HeaderFCP } from '@/components/ui/header';
-import { FontPanel } from '@/components/ui/font-panel';
 
-const fontCombinations = [
-  { id: 1, name: "Modern Bold", heading: "Bebas Neue", body: "Montserrat", description: "Bebas Neue + Montserrat" },
-  { id: 2, name: "Elegant Classic", heading: "Playfair Display", body: "Poppins", description: "Playfair Display + Poppins" },
-  { id: 3, name: "Tech Future", heading: "Space Grotesk", body: "Inter", description: "Space Grotesk + Inter" },
-  { id: 4, name: "Industrial", heading: "Oswald", body: "Roboto", description: "Oswald + Roboto" },
-  { id: 5, name: "Premium", heading: "Bodoni Moda", body: "Raleway", description: "Bodoni Moda + Raleway" },
-  { id: 6, name: "Minimal Pro", heading: "Outfit", body: "DM Sans", description: "Outfit + DM Sans" },
-  { id: 7, name: "Friendly", heading: "Sora", body: "Nunito Sans", description: "Sora + Nunito Sans" },
-  { id: 8, name: "Creative", heading: "Anton", body: "Work Sans", description: "Anton + Work Sans" },
-  { id: 9, name: "Classic Lux", heading: "Raleway", body: "Lato", description: "Raleway + Lato" },
-  { id: 10, name: "Space Age", heading: "Orbitron", body: "Exo 2", description: "Orbitron + Exo 2" },
-  { id: 11, name: "Corporate", heading: "Merriweather", body: "Open Sans", description: "Merriweather + Open Sans" },
-  { id: 12, name: "Artistic", heading: "Abril Fatface", body: "Source Sans Pro", description: "Abril Fatface + Source Sans Pro" },
-  { id: 13, name: "Editorial", heading: "Cormorant Garamond", body: "Fira Sans", description: "Cormorant Garamond + Fira Sans" },
-  { id: 14, name: "Dynamic", heading: "Teko", body: "Rubik", description: "Teko + Rubik" },
-  { id: 15, name: "Retro", heading: "Righteous", body: "Oxygen", description: "Righteous + Oxygen" },
-  { id: 16, name: "Contemporary", heading: "Archivo Black", body: "Assistant", description: "Archivo Black + Assistant" },
-  { id: 17, name: "Luxe", heading: "Cinzel", body: "Quattrocento Sans", description: "Cinzel + Quattrocento Sans" },
-  { id: 18, name: "Bold Impact", heading: "Russo One", body: "Karla", description: "Russo One + Karla" },
-  { id: 19, name: "Sophisticated", heading: "Josefin Sans", body: "Mulish", description: "Josefin Sans + Mulish" },
-  { id: 20, name: "Professional", heading: "IBM Plex Serif", body: "IBM Plex Sans", description: "IBM Plex Serif + IBM Plex Sans" }
-];
+// Fixed font: Corporate (Merriweather + Open Sans)
+const selectedFont = {
+  heading: "Merriweather",
+  body: "Open Sans"
+};
 
-export default function MachineryPage() {
-  const [selectedFont, setSelectedFont] = useState(fontCombinations[0]);
-  const [isFontPanelOpen, setIsFontPanelOpen] = useState(false);
+export default function SportsEquipmentPage() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -43,84 +23,40 @@ export default function MachineryPage() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  const machineryTypes = [
+  const equipmentCategories = [
     {
-      title: "Packaging Machines",
-      icon: Package,
-      description: "Advanced packaging machinery for automated production lines with high efficiency",
-      features: ["Automatic Operation", "Variable Speed Control", "Multiple Size Options", "Easy Maintenance"],
-      specs: ["Speed: 30-120 ppm", "Power: 220V/380V", "CE Certified"],
-      image: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=800"
+      title: "Gym Equipment",
+      icon: Dumbbell,
+      description: "Professional-grade gym equipment for home and commercial fitness centers",
+      features: ["Dumbbells & Weights", "Resistance Bands", "Kettlebells", "Weight Benches"],
+      image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800"
     },
     {
-      title: "Sealing Machines",
-      icon: Zap,
-      description: "Professional heat sealing and vacuum sealing equipment for various packaging needs",
-      features: ["Heat Sealing", "Vacuum Options", "Band Sealers", "Impulse Sealers"],
-      specs: ["Seal Width: 2-10mm", "Temperature: 0-300°C", "Digital Controls"],
-      image: "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=800"
+      title: "Yoga & Pilates",
+      icon: Target,
+      description: "Premium yoga mats, blocks, and accessories for mindful practice",
+      features: ["Yoga Mats", "Foam Rollers", "Yoga Blocks", "Resistance Straps"],
+      image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800"
     },
     {
-      title: "Cutting Machines",
-      icon: Settings,
-      description: "Precision cutting equipment for packaging materials, fabrics, and industrial applications",
-      features: ["Laser Cutting", "Die Cutting", "Rotary Cutting", "CNC Control"],
-      specs: ["Accuracy: ±0.1mm", "Max Width: 2000mm", "Auto-feed System"],
-      image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=800"
+      title: "Cycling Gear",
+      icon: Bike,
+      description: "High-performance cycling equipment and accessories for all riders",
+      features: ["Bike Accessories", "Helmets", "Cycling Gloves", "Water Bottles"],
+      image: "https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=800"
     },
     {
-      title: "Textile Printing Machines",
-      icon: Printer,
-      description: "Digital and screen printing machines for fabric and textile customization",
-      features: ["Digital Printing", "Screen Printing", "Sublimation", "DTG Technology"],
-      specs: ["Resolution: 1440 DPI", "Print Width: 1.8m", "CMYK+White"],
-      image: "https://images.unsplash.com/photo-1612878010854-1134f0dcc2f7?w=800"
-    },
-    {
-      title: "Filling Machines",
-      icon: Factory,
-      description: "Automated filling systems for liquids, powders, and granular products",
-      features: ["Volumetric Filling", "Gravity Feed", "Piston Filling", "Auger Systems"],
-      specs: ["Capacity: 10-5000ml", "Accuracy: ±1%", "FDA Approved"],
-      image: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=800"
-    },
-    {
-      title: "Labeling Machines",
-      icon: Gauge,
-      description: "High-speed labeling equipment for bottles, boxes, and various product containers",
-      features: ["Automatic Application", "Front & Back Labels", "Wrap-Around", "Top Labeling"],
-      specs: ["Speed: 200 labels/min", "Label Size: 20-300mm", "PLC Control"],
-      image: "https://images.unsplash.com/photo-1628260412297-a3377e45006f?w=800"
-    },
-    {
-      title: "Industrial Automation",
-      icon: Cpu,
-      description: "Complete automation solutions including conveyor systems and robotic equipment",
-      features: ["Conveyor Systems", "Robotic Arms", "PLC Programming", "IoT Integration"],
-      specs: ["24/7 Operation", "Remote Monitoring", "Industry 4.0 Ready"],
-      image: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=800"
-    },
-    {
-      title: "Maintenance & Tools",
-      icon: Wrench,
-      description: "Essential tools and spare parts for machinery maintenance and optimization",
-      features: ["Spare Parts", "Tool Kits", "Lubricants", "Training Support"],
-      specs: ["OEM Parts", "24/7 Support", "Warranty Available"],
-      image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800"
+      title: "Team Sports",
+      icon: Trophy,
+      description: "Equipment for football, basketball, soccer and other team sports",
+      features: ["Balls & Goals", "Training Cones", "Team Jerseys", "Scoreboards"],
+      image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800"
     }
   ];
 
   return (
     <>
-      <HeaderFCP onFontPanelToggle={() => setIsFontPanelOpen(!isFontPanelOpen)} />
-      <FontPanel
-        isOpen={isFontPanelOpen}
-        onClose={() => setIsFontPanelOpen(false)}
-        fontCombinations={fontCombinations}
-        selectedFont={selectedFont}
-        onSelectFont={setSelectedFont}
-        isMobile={isMobile}
-      />
+      <HeaderFCP selectedFont={selectedFont} />
 
       <main style={{ paddingTop: '80px', backgroundColor: '#020617', minHeight: '100vh' }}>
         {/* Hero Section */}
@@ -136,7 +72,7 @@ export default function MachineryPage() {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundImage: 'url(https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=1920)',
+            backgroundImage: 'url(https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             opacity: 0.1
@@ -156,7 +92,7 @@ export default function MachineryPage() {
                 fontFamily: `'${selectedFont.heading}', serif`,
                 color: 'white'
               }}>
-                Industrial <span style={{ color: '#FFD700' }}>Machinery</span>
+                Sports <span style={{ color: '#FFD700' }}>Equipment</span>
               </h1>
               <p style={{
                 fontSize: isMobile ? '1rem' : '1.3rem',
@@ -167,8 +103,8 @@ export default function MachineryPage() {
                 margin: '0 auto',
                 fontFamily: `'${selectedFont.body}', sans-serif`
               }}>
-                State-of-the-art industrial equipment and machinery solutions for packaging,
-                textile printing, and automated production lines.
+                High-quality custom sports equipment for athletes, fitness enthusiasts, and sports teams.
+                Built to perform.
               </p>
 
               <div style={{
@@ -193,7 +129,7 @@ export default function MachineryPage() {
                     fontFamily: `'${selectedFont.body}', sans-serif`
                   }}
                 >
-                  Request Quote
+                  Browse Equipment
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
@@ -210,7 +146,7 @@ export default function MachineryPage() {
                     fontFamily: `'${selectedFont.body}', sans-serif`
                   }}
                 >
-                  Download Catalog
+                  Custom Orders
                 </motion.button>
               </div>
             </motion.div>
@@ -232,7 +168,7 @@ export default function MachineryPage() {
           </motion.div>
         </section>
 
-        {/* Machinery Grid */}
+        {/* Categories Grid */}
         <section style={{
           padding: isMobile ? '3rem 1rem' : '5rem 2rem',
           backgroundColor: '#020617'
@@ -240,10 +176,10 @@ export default function MachineryPage() {
           <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(450px, 1fr))',
-              gap: isMobile ? '3rem' : '4rem'
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+              gap: isMobile ? '2rem' : '3rem'
             }}>
-              {machineryTypes.map((machine, index) => (
+              {equipmentCategories.map((category, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
@@ -256,7 +192,8 @@ export default function MachineryPage() {
                     overflow: 'hidden',
                     border: '1px solid rgba(255, 215, 0, 0.2)',
                     backdropFilter: 'blur(10px)',
-                    transition: 'all 0.3s'
+                    transition: 'all 0.3s',
+                    cursor: 'pointer'
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = 'translateY(-10px)';
@@ -277,8 +214,8 @@ export default function MachineryPage() {
                     overflow: 'hidden'
                   }}>
                     <img
-                      src={machine.image}
-                      alt={machine.title}
+                      src={category.image}
+                      alt={category.title}
                       style={{
                         width: '100%',
                         height: '100%',
@@ -305,24 +242,23 @@ export default function MachineryPage() {
                       top: '15px',
                       right: '15px',
                       backgroundColor: 'rgba(2, 6, 23, 0.9)',
-                      padding: '0.6rem',
-                      borderRadius: '10px',
-                      border: '1px solid #FFD700'
+                      padding: '0.5rem',
+                      borderRadius: '10px'
                     }}>
-                      <machine.icon size={24} color="#FFD700" />
+                      <category.icon size={24} color="#FFD700" />
                     </div>
                   </div>
 
                   {/* Content */}
                   <div style={{ padding: isMobile ? '1.5rem' : '2rem' }}>
                     <h3 style={{
-                      fontSize: isMobile ? '1.4rem' : '1.8rem',
+                      fontSize: isMobile ? '1.3rem' : '1.6rem',
                       fontWeight: 'bold',
                       marginBottom: '0.75rem',
                       color: '#FFD700',
                       fontFamily: `'${selectedFont.heading}', serif`
                     }}>
-                      {machine.title}
+                      {category.title}
                     </h3>
                     <p style={{
                       color: 'rgba(255, 255, 255, 0.85)',
@@ -331,80 +267,37 @@ export default function MachineryPage() {
                       fontSize: isMobile ? '0.9rem' : '1rem',
                       fontFamily: `'${selectedFont.body}', sans-serif`
                     }}>
-                      {machine.description}
+                      {category.description}
                     </p>
 
-                    {/* Features */}
                     <div style={{
-                      marginBottom: '1.5rem',
-                      paddingBottom: '1.5rem',
-                      borderBottom: '1px solid rgba(255, 215, 0, 0.2)'
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(2, 1fr)',
+                      gap: '0.5rem',
+                      marginBottom: '1.5rem'
                     }}>
-                      <h4 style={{
-                        fontSize: isMobile ? '0.9rem' : '1rem',
-                        fontWeight: 'bold',
-                        marginBottom: '0.75rem',
-                        color: 'rgba(255, 255, 255, 0.9)',
-                        fontFamily: `'${selectedFont.body}', sans-serif`
-                      }}>
-                        Key Features:
-                      </h4>
-                      <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(2, 1fr)',
-                        gap: '0.5rem'
-                      }}>
-                        {machine.features.map((feature, i) => (
-                          <div key={i} style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '0.3rem',
-                            fontSize: isMobile ? '0.8rem' : '0.85rem',
-                            color: 'rgba(255, 255, 255, 0.7)',
-                            fontFamily: `'${selectedFont.body}', sans-serif`
-                          }}>
-                            <CheckCircle size={12} color="#FFD700" />
-                            <span>{feature}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Specifications */}
-                    <div style={{ marginBottom: '1.5rem' }}>
-                      <h4 style={{
-                        fontSize: isMobile ? '0.9rem' : '1rem',
-                        fontWeight: 'bold',
-                        marginBottom: '0.75rem',
-                        color: 'rgba(255, 255, 255, 0.9)',
-                        fontFamily: `'${selectedFont.body}', sans-serif`
-                      }}>
-                        Specifications:
-                      </h4>
-                      <div style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '0.3rem'
-                      }}>
-                        {machine.specs.map((spec, i) => (
-                          <span key={i} style={{
-                            fontSize: isMobile ? '0.8rem' : '0.85rem',
-                            color: 'rgba(255, 255, 255, 0.6)',
-                            fontFamily: `'${selectedFont.body}', sans-serif`
-                          }}>
-                            • {spec}
-                          </span>
-                        ))}
-                      </div>
+                      {category.features.map((feature, i) => (
+                        <div key={i} style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.3rem',
+                          fontSize: isMobile ? '0.8rem' : '0.85rem',
+                          color: 'rgba(255, 255, 255, 0.7)',
+                          fontFamily: `'${selectedFont.body}', sans-serif`
+                        }}>
+                          <CheckCircle size={12} color="#FFD700" />
+                          <span>{feature}</span>
+                        </div>
+                      ))}
                     </div>
 
                     <button
                       style={{
-                        padding: isMobile ? '0.7rem 1.5rem' : '0.9rem 2rem',
+                        padding: isMobile ? '0.6rem 1.5rem' : '0.8rem 2rem',
                         backgroundColor: 'transparent',
                         color: '#FFD700',
-                        border: '2px solid #FFD700',
-                        borderRadius: '25px',
+                        border: '1px solid #FFD700',
+                        borderRadius: '20px',
                         fontSize: isMobile ? '0.85rem' : '0.95rem',
                         fontWeight: '600',
                         cursor: 'pointer',
@@ -425,7 +318,7 @@ export default function MachineryPage() {
                         e.currentTarget.style.color = '#FFD700';
                       }}
                     >
-                      Get Details
+                      View Collection
                       <ArrowRight size={16} />
                     </button>
                   </div>
@@ -452,7 +345,7 @@ export default function MachineryPage() {
               fontFamily: `'${selectedFont.heading}', serif`,
               color: 'white'
             }}>
-              Need Custom <span style={{ color: '#FFD700' }}>Machinery Solutions?</span>
+              Custom <span style={{ color: '#FFD700' }}>Sports Equipment</span>
             </h2>
             <p style={{
               fontSize: isMobile ? '1rem' : '1.2rem',
@@ -461,7 +354,7 @@ export default function MachineryPage() {
               marginBottom: '2rem',
               fontFamily: `'${selectedFont.body}', sans-serif`
             }}>
-              Our technical experts will help you find the perfect machinery for your production needs
+              Work with our team to create custom branded sports equipment for your team or business
             </p>
             <div style={{
               display: 'flex',
@@ -484,7 +377,7 @@ export default function MachineryPage() {
                   fontFamily: `'${selectedFont.body}', sans-serif`
                 }}
               >
-                Schedule Consultation
+                Get Started
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.05 }}
@@ -501,7 +394,7 @@ export default function MachineryPage() {
                   fontFamily: `'${selectedFont.body}', sans-serif`
                 }}
               >
-                View All Equipment
+                View Catalog
               </motion.button>
             </div>
           </div>

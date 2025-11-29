@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Shirt, Activity, Snowflake, Shield, ArrowRight, CheckCircle, ChevronDown } from 'lucide-react';
+import { HardHat, Shield, Eye, Hand, ArrowRight, CheckCircle, ChevronDown } from 'lucide-react';
 import { HeaderFCP } from '@/components/ui/header';
 
 // Fixed font: Corporate (Merriweather + Open Sans)
@@ -11,7 +11,7 @@ const selectedFont = {
   body: "Open Sans"
 };
 
-export default function ApparelPage() {
+export default function PPEPage() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -23,34 +23,34 @@ export default function ApparelPage() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  const apparelCategories = [
+  const ppeCategories = [
     {
-      title: "Sports Clothing",
-      icon: Activity,
-      description: "High-performance sports apparel designed for athletes and fitness enthusiasts",
-      features: ["Moisture-Wicking Fabrics", "Breathable Materials", "Custom Team Logos", "Performance Fit"],
-      image: "https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=800"
+      title: "Head Protection",
+      icon: HardHat,
+      description: "Safety helmets and hard hats for construction and industrial use",
+      features: ["OSHA Compliant", "Impact Resistant", "Adjustable Fit", "Ventilated Design"],
+      image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800"
     },
     {
-      title: "Gym Clothing",
-      icon: Activity,
-      description: "Professional gym wear combining style with functionality for optimal workouts",
-      features: ["Stretchable Fabric", "Anti-Odor Technology", "Compression Options", "Durability Tested"],
-      image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800"
-    },
-    {
-      title: "Winter Wear",
-      icon: Snowflake,
-      description: "Warm and stylish winter clothing for extreme weather conditions",
-      features: ["Insulated Jackets", "Thermal Layers", "Waterproof Options", "Fashion Forward"],
-      image: "https://images.unsplash.com/photo-1513094735237-8f2714d57c13?w=800"
-    },
-    {
-      title: "Tactical Gear",
+      title: "Body Protection",
       icon: Shield,
-      description: "Military-grade tactical clothing for outdoor and professional use",
-      features: ["Ripstop Fabric", "Multiple Pockets", "Camouflage Options", "Heavy-Duty Build"],
-      image: "https://images.unsplash.com/photo-1616166119819-81c29638868e?w=800"
+      description: "High-visibility vests, coveralls, and protective clothing",
+      features: ["Hi-Vis Options", "Fire Resistant", "Chemical Protection", "Breathable Fabric"],
+      image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800"
+    },
+    {
+      title: "Eye Protection",
+      icon: Eye,
+      description: "Safety glasses, goggles, and face shields for eye safety",
+      features: ["Anti-Fog Coating", "UV Protection", "Scratch Resistant", "Comfortable Fit"],
+      image: "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=800"
+    },
+    {
+      title: "Hand Protection",
+      icon: Hand,
+      description: "Work gloves for various industries and applications",
+      features: ["Cut Resistant", "Chemical Proof", "Heat Resistant", "Grip Enhanced"],
+      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800"
     }
   ];
 
@@ -72,7 +72,7 @@ export default function ApparelPage() {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundImage: 'url(https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=1920)',
+            backgroundImage: 'url(https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             opacity: 0.1
@@ -92,7 +92,7 @@ export default function ApparelPage() {
                 fontFamily: `'${selectedFont.heading}', serif`,
                 color: 'white'
               }}>
-                Sports <span style={{ color: '#FFD700' }}>Apparel</span>
+                PPE <span style={{ color: '#FFD700' }}>Equipment</span>
               </h1>
               <p style={{
                 fontSize: isMobile ? '1rem' : '1.3rem',
@@ -103,8 +103,8 @@ export default function ApparelPage() {
                 margin: '0 auto',
                 fontFamily: `'${selectedFont.body}', sans-serif`
               }}>
-                High-quality custom sports apparel for athletes, teams, and fitness enthusiasts.
-                Performance meets style in every piece.
+                Personal Protective Equipment for workplace safety.
+                Quality gear that meets industry standards.
               </p>
 
               <div style={{
@@ -129,7 +129,7 @@ export default function ApparelPage() {
                     fontFamily: `'${selectedFont.body}', sans-serif`
                   }}
                 >
-                  Browse Collection
+                  Browse PPE
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
@@ -146,7 +146,7 @@ export default function ApparelPage() {
                     fontFamily: `'${selectedFont.body}', sans-serif`
                   }}
                 >
-                  Custom Design
+                  Bulk Orders
                 </motion.button>
               </div>
             </motion.div>
@@ -179,7 +179,7 @@ export default function ApparelPage() {
               gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
               gap: isMobile ? '2rem' : '3rem'
             }}>
-              {apparelCategories.map((category, index) => (
+              {ppeCategories.map((category, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
@@ -345,7 +345,7 @@ export default function ApparelPage() {
               fontFamily: `'${selectedFont.heading}', serif`,
               color: 'white'
             }}>
-              Custom <span style={{ color: '#FFD700' }}>Sports Apparel</span>
+              Workplace <span style={{ color: '#FFD700' }}>Safety</span> Solutions
             </h2>
             <p style={{
               fontSize: isMobile ? '1rem' : '1.2rem',
@@ -354,7 +354,7 @@ export default function ApparelPage() {
               marginBottom: '2rem',
               fontFamily: `'${selectedFont.body}', sans-serif`
             }}>
-              Work with our design team to create unique apparel for your team or brand
+              Protect your team with quality PPE equipment that meets industry standards
             </p>
             <div style={{
               display: 'flex',
@@ -377,7 +377,7 @@ export default function ApparelPage() {
                   fontFamily: `'${selectedFont.body}', sans-serif`
                 }}
               >
-                Start Designing
+                Get Started
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.05 }}

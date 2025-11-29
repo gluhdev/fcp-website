@@ -2,153 +2,15 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Package, ArrowRight, CheckCircle, Globe, Award, Users, ChevronLeft, ChevronRight, Play, Pause, Target, Zap, Shield, Phone, Mail, MapPin, Send, Menu, X, Type, ChevronUp, ChevronDown, Building2, ShoppingBag, Factory, Heart, Briefcase, Sparkles } from "lucide-react";
+import { Package, ArrowRight, CheckCircle, Globe, Award, Users, ChevronLeft, ChevronRight, Play, Pause, Target, Zap, Shield, Mail, MapPin, Send, Menu, X, ChevronUp, ChevronDown, Building2, ShoppingBag, Factory, Heart, Briefcase, Sparkles } from "lucide-react";
 import { HeaderFCP } from "@/components/ui/header";
-import { FontPanel } from "@/components/ui/font-panel";
 import { Compare } from "@/components/ui/compare";
 
-const fontCombinations = [
-  {
-    id: 1,
-    name: "Modern Bold",
-    heading: "Bebas Neue",
-    body: "Montserrat",
-    description: "Bebas Neue + Montserrat"
-  },
-  {
-    id: 2,
-    name: "Elegant Classic",
-    heading: "Playfair Display",
-    body: "Poppins",
-    description: "Playfair Display + Poppins"
-  },
-  {
-    id: 3,
-    name: "Tech Future",
-    heading: "Space Grotesk",
-    body: "Inter",
-    description: "Space Grotesk + Inter"
-  },
-  {
-    id: 4,
-    name: "Industrial",
-    heading: "Oswald",
-    body: "Roboto",
-    description: "Oswald + Roboto"
-  },
-  {
-    id: 5,
-    name: "Premium",
-    heading: "Bodoni Moda",
-    body: "Raleway",
-    description: "Bodoni Moda + Raleway"
-  },
-  {
-    id: 6,
-    name: "Minimal Pro",
-    heading: "Outfit",
-    body: "DM Sans",
-    description: "Outfit + DM Sans"
-  },
-  {
-    id: 7,
-    name: "Friendly",
-    heading: "Sora",
-    body: "Nunito Sans",
-    description: "Sora + Nunito Sans"
-  },
-  {
-    id: 8,
-    name: "Creative",
-    heading: "Anton",
-    body: "Work Sans",
-    description: "Anton + Work Sans"
-  },
-  {
-    id: 9,
-    name: "Classic Lux",
-    heading: "Raleway",
-    body: "Lato",
-    description: "Raleway + Lato"
-  },
-  {
-    id: 10,
-    name: "Space Age",
-    heading: "Orbitron",
-    body: "Exo 2",
-    description: "Orbitron + Exo 2"
-  },
-  {
-    id: 11,
-    name: "Corporate",
-    heading: "Merriweather",
-    body: "Open Sans",
-    description: "Merriweather + Open Sans"
-  },
-  {
-    id: 12,
-    name: "Artistic",
-    heading: "Abril Fatface",
-    body: "Source Sans Pro",
-    description: "Abril Fatface + Source Sans Pro"
-  },
-  {
-    id: 13,
-    name: "Editorial",
-    heading: "Cormorant Garamond",
-    body: "Fira Sans",
-    description: "Cormorant Garamond + Fira Sans"
-  },
-  {
-    id: 14,
-    name: "Dynamic",
-    heading: "Teko",
-    body: "Rubik",
-    description: "Teko + Rubik"
-  },
-  {
-    id: 15,
-    name: "Retro",
-    heading: "Righteous",
-    body: "Oxygen",
-    description: "Righteous + Oxygen"
-  },
-  {
-    id: 16,
-    name: "Contemporary",
-    heading: "Archivo Black",
-    body: "Assistant",
-    description: "Archivo Black + Assistant"
-  },
-  {
-    id: 17,
-    name: "Luxe",
-    heading: "Cinzel",
-    body: "Quattrocento Sans",
-    description: "Cinzel + Quattrocento Sans"
-  },
-  {
-    id: 18,
-    name: "Bold Impact",
-    heading: "Russo One",
-    body: "Karla",
-    description: "Russo One + Karla"
-  },
-  {
-    id: 19,
-    name: "Sophisticated",
-    heading: "Josefin Sans",
-    body: "Mulish",
-    description: "Josefin Sans + Mulish"
-  },
-  {
-    id: 20,
-    name: "Professional",
-    heading: "IBM Plex Serif",
-    body: "IBM Plex Sans",
-    description: "IBM Plex Serif + IBM Plex Sans"
-  }
-];
+// Fixed font: Corporate (Merriweather + Open Sans)
+const selectedFont = {
+  heading: "Merriweather",
+  body: "Open Sans"
+};
 
 const carouselItems = [
   {
@@ -170,12 +32,6 @@ const carouselItems = [
     subtitle: "State-of-the-Art Equipment"
   },
   {
-    type: "video",
-    src: "https://cdn.coverr.co/videos/coverr-industrial-printing-machine-4864/1080p.mp4",
-    title: "Advanced Printing Technology",
-    subtitle: "Precision in Every Detail"
-  },
-  {
     type: "image",
     src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920",
     title: "Custom Apparel Solutions",
@@ -187,9 +43,7 @@ export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [selectedFont, setSelectedFont] = useState(fontCombinations[0]);
-  const [isFontPanelOpen, setIsFontPanelOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
   const [selectedBusiness, setSelectedBusiness] = useState("restaurant");
 
   useEffect(() => {
@@ -229,18 +83,7 @@ export default function Home() {
       maxWidth: "100vw",
       position: "relative"
     }}>
-      {/* New Font Panel Component */}
-      <FontPanel
-        isOpen={isFontPanelOpen}
-        onClose={() => setIsFontPanelOpen(false)}
-        fontCombinations={fontCombinations}
-        selectedFont={selectedFont}
-        onSelectFont={setSelectedFont}
-        isMobile={isMobile}
-      />
-
-
-      <HeaderFCP selectedFont={selectedFont} onFontPanelToggle={() => setIsFontPanelOpen(!isFontPanelOpen)} />
+      <HeaderFCP selectedFont={selectedFont} />
 
       {/* Hero Section - Полностью адаптирован для мобильных */}
       <section style={{
@@ -386,6 +229,12 @@ export default function Home() {
                   fontFamily: `'${selectedFont.body}', sans-serif`,
                   width: isMobile ? "200px" : "auto"
                 }}
+                onClick={() => {
+                  const element = document.getElementById('packaging-solutions');
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = "#FFD700";
                   e.currentTarget.style.color = "#FFD700";
@@ -394,7 +243,7 @@ export default function Home() {
                   e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.3)";
                   e.currentTarget.style.color = "white";
                 }}>
-                  View Portfolio
+                  Product List
                 </button>
               </motion.div>
             </div>
@@ -547,9 +396,8 @@ export default function Home() {
               fontFamily: `'${selectedFont.body}', sans-serif`
             }}>
               Full Custom Packaging (FCP) is your premier partner for complete customization solutions.
-              We specialize in creating unique packaging designs, premium apparel, and providing
-              state-of-the-art machinery solutions. With over 15 years of experience, we transform
-              your ideas into reality with unmatched quality and precision.
+              We specialize in producing unique packaging designs, sport equipment, signage and PPE products.
+              With over 10 years of experience, we transform your ideas into reality with unmatched quality and precision.
             </p>
 
             <div style={{
@@ -558,9 +406,9 @@ export default function Home() {
               gap: isMobile ? "1rem" : "2rem"
             }}>
               {[
-                { icon: Globe, title: "Global Reach", desc: "Serving clients in 50+ countries" },
-                { icon: Award, title: "Quality First", desc: "ISO certified production standards" },
-                { icon: Users, title: "Expert Team", desc: "200+ skilled professionals" }
+                { icon: Globe, title: "Quality First", desc: "" },
+                { icon: Award, title: "Excellent Customer Service", desc: "" },
+                { icon: Users, title: "Expert Team", desc: "" }
               ].map((item, index) => (
                 <motion.div
                   key={index}
@@ -630,7 +478,7 @@ export default function Home() {
               textAlign: "center",
               fontFamily: `'${selectedFont.heading}', serif`
             }}>
-              Our <span style={{ color: "#FFD700" }}>Solutions</span>
+              Our <span style={{ color: "#FFD700" }}>Mission</span>
             </h2>
             <div style={{
               width: "80px",
@@ -674,53 +522,69 @@ export default function Home() {
                   ]
                 },
                 {
-                  title: "Apparel for Men & Women",
-                  subtitle: "Premium Clothing & Fashion Solutions",
-                  description: "Discover our extensive range of custom apparel solutions. From high-performance sports wear and gym clothing to tactical gear and winter collections, we provide quality garments for every need and occasion.",
-                  detailedInfo: "Our apparel division combines fashion with functionality. We use premium materials, advanced manufacturing techniques, and offer complete customization including embroidery, printing, and branding options.",
-                  icon: "👕",
-                  image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=1200&h=600&fit=crop",
+                  title: "Sports Apparel",
+                  subtitle: "High-Performance Athletic Wear",
+                  description: "Elevate your athletic performance with our premium sports apparel. From moisture-wicking running gear and breathable gym wear to performance jerseys and training apparel, we provide custom athletic clothing designed for peak performance.",
+                  detailedInfo: "Our sports apparel division specializes in creating high-performance athletic wear that combines cutting-edge fabric technology with custom branding. We use advanced moisture-wicking materials, ergonomic designs, and offer complete customization including sublimation printing, embroidery, and heat transfer options.",
+                  icon: "🏃",
+                  image: "https://images.unsplash.com/photo-1556906781-9cba4a7e8f3e?w=1200&h=600&fit=crop",
                   href: "/apparel",
-                  features: ["Sports & Gym Wear", "Street Fashion", "Tactical Gear", "Winter Collection", "Heated Apparel", "Swim Wear", "Track Suits", "Accessories"],
+                  features: ["Performance Jerseys", "Athletic Shorts", "Compression Wear", "Running Gear", "Gym Apparel", "Team Uniforms", "Training Wear", "Sports Accessories"],
                   stats: [
-                    { label: "Styles", value: "1000+" },
-                    { label: "Materials", value: "200+" },
-                    { label: "MOQ", value: "50 pcs" }
+                    { label: "Athletic Styles", value: "500+" },
+                    { label: "Performance Fabrics", value: "150+" },
+                    { label: "MOQ", value: "25 pcs" }
                   ]
                 },
                 {
-                  title: "Machinery & Supplies",
-                  subtitle: "Industrial Equipment & Automation",
-                  description: "Power your production with our industrial machinery solutions. We offer packaging equipment, sealing systems, cutting machines, textile printing technology, and fully automated production lines.",
-                  detailedInfo: "Our machinery division provides cutting-edge equipment with installation, training, and ongoing support. All machines come with warranties and are certified to international standards.",
-                  icon: "⚙️",
-                  image: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=1200&h=600&fit=crop",
-                  href: "/machinery",
-                  features: ["Packaging Machines", "Sealing Equipment", "Cutting Systems", "Printing Technology", "Filling Machines", "Automation Solutions", "Spare Parts", "Maintenance"],
+                  title: "Custom Sport Equipment",
+                  subtitle: "Premium Sports Gear & Accessories",
+                  description: "Elevate your game with our custom sport equipment. From yoga mats and sports towels to pickleball paddles, balls, and athletic accessories, we provide high-quality gear tailored to your needs.",
+                  detailedInfo: "Our sport equipment division specializes in creating custom branded sports gear. We work with premium materials and advanced customization techniques to deliver products that perform and look great.",
+                  icon: "🏆",
+                  image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1200&h=600&fit=crop",
+                  href: "/sport-equipment",
+                  features: ["Yoga Mats", "Sports Towels", "Pickleball Paddles", "Tennis Balls", "Gym Bags", "Water Bottles", "Resistance Bands", "Custom Apparel"],
                   stats: [
-                    { label: "Machine Types", value: "150+" },
-                    { label: "Brands", value: "30+" },
-                    { label: "Service Centers", value: "15" }
+                    { label: "Equipment Types", value: "100+" },
+                    { label: "Custom Options", value: "Unlimited" },
+                    { label: "Quality", value: "Premium" }
                   ]
                 },
                 {
-                  title: "Signage & Display",
-                  subtitle: "Visual Marketing & Branding Solutions",
-                  description: "Make your brand visible with our professional signage solutions. From large format LED displays to custom business cards, we create impactful visual marketing materials that capture attention.",
-                  detailedInfo: "Our signage division combines traditional and digital solutions. We use the latest printing technologies, premium materials, and offer complete design services to ensure your brand stands out.",
-                  icon: "🎯",
-                  image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=600&fit=crop",
-                  href: "/signage",
-                  features: ["LED Displays", "Light Signs", "Banners & Posters", "Business Cards", "Notebooks & Pens", "Calendars", "Window Graphics", "Vehicle Wraps"],
+                  title: "Custom Neon Signs",
+                  subtitle: "Bright & Eye-Catching Brand Illumination",
+                  description: "Light up your brand with our custom neon signs. From vibrant LED neon to traditional glass tube designs, we create stunning illuminated signage that captures attention day and night.",
+                  detailedInfo: "Our neon sign division specializes in creating custom illuminated signage that makes your brand shine. We use cutting-edge LED technology and traditional neon craftsmanship to deliver signs that are energy-efficient, durable, and absolutely stunning.",
+                  icon: "💡",
+                  image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=1200&h=600&fit=crop",
+                  href: "/neon-signs",
+                  features: ["LED Neon Signs", "Traditional Neon", "Custom Designs", "Indoor & Outdoor", "Business Logos", "Event Signage", "Home Decor", "Restaurant Signs"],
                   stats: [
-                    { label: "Sign Types", value: "200+" },
-                    { label: "Print Options", value: "100+" },
-                    { label: "Same Day", value: "Available" }
+                    { label: "Custom Designs", value: "500+" },
+                    { label: "Colors Available", value: "Unlimited" },
+                    { label: "Warranty", value: "2 Years" }
+                  ]
+                },
+                {
+                  title: "Personal Protective Equipment",
+                  subtitle: "Custom Branded Safety Solutions",
+                  description: "Keep your team safe and professional with our custom PPE solutions. We provide high-quality protective equipment including masks, gloves, safety glasses, hard hats, vests, and more, all customizable with your branding.",
+                  detailedInfo: "Our PPE division specializes in providing comprehensive safety solutions that don't compromise on branding. We source certified equipment and apply your custom logos and colors using durable, industry-compliant methods.",
+                  icon: "🛡️",
+                  image: "https://images.unsplash.com/photo-1584744982491-665216d95f8b?w=1200&h=600&fit=crop",
+                  href: "/ppe",
+                  features: ["Safety Masks", "Protective Gloves", "Safety Glasses", "Hard Hats", "Hi-Vis Vests", "Face Shields", "Safety Boots", "Ear Protection"],
+                  stats: [
+                    { label: "PPE Items", value: "200+" },
+                    { label: "Certified", value: "100%" },
+                    { label: "Industries Served", value: "25+" }
                   ]
                 }
               ].map((category, index) => (
                 <motion.div
                   key={index}
+                  id={index === 0 ? "packaging-solutions" : index === 1 ? "apparel-solutions" : index === 2 ? "sport-equipment-solutions" : index === 3 ? "neon-signs-solutions" : index === 4 ? "ppe-solutions" : undefined}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -1093,357 +957,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Interactive Business Type Selector */}
-            <div style={{
-              backgroundColor: "rgba(255, 215, 0, 0.05)",
-              borderRadius: "30px",
-              padding: isMobile ? "2rem 1rem" : "3rem",
-              marginBottom: "4rem",
-              border: "2px solid rgba(255, 215, 0, 0.2)"
-            }}>
-              <h3 style={{
-                fontSize: isMobile ? "1.5rem" : "2rem",
-                fontWeight: "bold",
-                marginBottom: "2rem",
-                textAlign: "center",
-                color: "#FFD700",
-                fontFamily: `'${selectedFont.heading}', serif`
-              }}>
-                Select Your Business Type
-              </h3>
-
-              <div style={{
-                display: "grid",
-                gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(3, 1fr)",
-                gap: isMobile ? "1rem" : "1.5rem",
-                marginBottom: "3rem"
-              }}>
-                {[
-                  { id: "restaurant", icon: "🍽️", label: "Restaurant & Cafe" },
-                  { id: "retail", icon: "🛍️", label: "Retail Store" },
-                  { id: "manufacturing", icon: "🏭", label: "Manufacturing" },
-                  { id: "healthcare", icon: "🏥", label: "Healthcare" },
-                  { id: "ecommerce", icon: "📦", label: "E-Commerce" },
-                  { id: "corporate", icon: "🏢", label: "Corporate" }
-                ].map((business) => (
-                  <motion.button
-                    key={business.id}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => setSelectedBusiness(business.id)}
-                    style={{
-                      backgroundColor: selectedBusiness === business.id ? "rgba(255, 215, 0, 0.2)" : "rgba(255, 255, 255, 0.05)",
-                      border: selectedBusiness === business.id ? "2px solid #FFD700" : "2px solid rgba(255, 255, 255, 0.2)",
-                      borderRadius: "15px",
-                      padding: isMobile ? "1rem" : "1.5rem",
-                      cursor: "pointer",
-                      transition: "all 0.3s",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      gap: "0.5rem"
-                    }}
-                  >
-                    <div style={{ fontSize: isMobile ? "2rem" : "2.5rem" }}>{business.icon}</div>
-                    <span style={{
-                      color: selectedBusiness === business.id ? "#FFD700" : "white",
-                      fontSize: isMobile ? "0.85rem" : "1rem",
-                      fontWeight: selectedBusiness === business.id ? "bold" : "normal",
-                      fontFamily: `'${selectedFont.body}', sans-serif`,
-                      textAlign: "center"
-                    }}>
-                      {business.label}
-                    </span>
-                  </motion.button>
-                ))}
-              </div>
-
-              {/* Dynamic Content Based on Selection */}
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={selectedBusiness}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
-                  style={{
-                    backgroundColor: "rgba(2, 6, 23, 0.8)",
-                    borderRadius: "20px",
-                    padding: isMobile ? "1.5rem" : "2.5rem",
-                    border: "1px solid rgba(255, 215, 0, 0.3)"
-                  }}
-                >
-                  {selectedBusiness === "restaurant" && (
-                    <div>
-                      <h4 style={{
-                        fontSize: isMobile ? "1.3rem" : "1.8rem",
-                        fontWeight: "bold",
-                        marginBottom: "1rem",
-                        color: "#FFD700",
-                        fontFamily: `'${selectedFont.heading}', serif`
-                      }}>
-                        Solutions for Restaurants & Cafes
-                      </h4>
-                      <p style={{
-                        fontSize: isMobile ? "0.95rem" : "1.1rem",
-                        lineHeight: 1.7,
-                        color: "rgba(255, 255, 255, 0.9)",
-                        marginBottom: "1.5rem",
-                        fontFamily: `'${selectedFont.body}', sans-serif`
-                      }}>
-                        Transform your restaurant's brand with custom packaging that enhances customer experience and builds loyalty.
-                      </p>
-                      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)", gap: "1rem", marginBottom: "1.5rem" }}>
-                        {[
-                          "Custom takeout boxes with your logo",
-                          "Eco-friendly packaging options",
-                          "Branded napkins and utensils",
-                          "Menu design and printing",
-                          "Delivery bag customization",
-                          "Seasonal packaging campaigns"
-                        ].map((item, idx) => (
-                          <div key={idx} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                            <CheckCircle size={16} color="#FFD700" />
-                            <span style={{ color: "white", fontSize: isMobile ? "0.9rem" : "1rem", fontFamily: `'${selectedFont.body}', sans-serif` }}>{item}</span>
-                          </div>
-                        ))}
-                      </div>
-                      <div style={{ display: "flex", gap: "1rem", marginTop: "2rem", flexWrap: "wrap" }}>
-                        <motion.button
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          style={{
-                            padding: isMobile ? "0.75rem 1.5rem" : "1rem 2rem",
-                            backgroundColor: "#FFD700",
-                            color: "#020617",
-                            border: "none",
-                            borderRadius: "10px",
-                            fontSize: isMobile ? "0.95rem" : "1.1rem",
-                            fontWeight: "bold",
-                            cursor: "pointer",
-                            fontFamily: `'${selectedFont.body}', sans-serif`
-                          }}
-                        >
-                          Get Restaurant Solutions
-                        </motion.button>
-                        <motion.button
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          style={{
-                            padding: isMobile ? "0.75rem 1.5rem" : "1rem 2rem",
-                            backgroundColor: "transparent",
-                            color: "#FFD700",
-                            border: "2px solid #FFD700",
-                            borderRadius: "10px",
-                            fontSize: isMobile ? "0.95rem" : "1.1rem",
-                            fontWeight: "bold",
-                            cursor: "pointer",
-                            fontFamily: `'${selectedFont.body}', sans-serif`
-                          }}
-                        >
-                          View Portfolio
-                        </motion.button>
-                      </div>
-                    </div>
-                  )}
-
-                  {selectedBusiness === "retail" && (
-                    <div>
-                      <h4 style={{
-                        fontSize: isMobile ? "1.3rem" : "1.8rem",
-                        fontWeight: "bold",
-                        marginBottom: "1rem",
-                        color: "#FFD700",
-                        fontFamily: `'${selectedFont.heading}', serif`
-                      }}>
-                        Solutions for Retail Stores
-                      </h4>
-                      <p style={{
-                        fontSize: isMobile ? "0.95rem" : "1.1rem",
-                        lineHeight: 1.7,
-                        color: "rgba(255, 255, 255, 0.9)",
-                        marginBottom: "1.5rem",
-                        fontFamily: `'${selectedFont.body}', sans-serif`
-                      }}>
-                        Elevate your retail experience with premium packaging and signage that drives sales and customer satisfaction.
-                      </p>
-                      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)", gap: "1rem", marginBottom: "1.5rem" }}>
-                        {[
-                          "Shopping bags with custom branding",
-                          "Product display solutions",
-                          "Window and in-store signage",
-                          "Gift wrapping options",
-                          "Loyalty cards and programs",
-                          "Seasonal promotional materials"
-                        ].map((item, idx) => (
-                          <div key={idx} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                            <CheckCircle size={16} color="#FFD700" />
-                            <span style={{ color: "white", fontSize: isMobile ? "0.9rem" : "1rem", fontFamily: `'${selectedFont.body}', sans-serif` }}>{item}</span>
-                          </div>
-                        ))}
-                      </div>
-                      <div style={{ display: "flex", gap: "1rem", marginTop: "2rem", flexWrap: "wrap" }}>
-                        <motion.button
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          style={{
-                            padding: isMobile ? "0.75rem 1.5rem" : "1rem 2rem",
-                            backgroundColor: "#FFD700",
-                            color: "#020617",
-                            border: "none",
-                            borderRadius: "10px",
-                            fontSize: isMobile ? "0.95rem" : "1.1rem",
-                            fontWeight: "bold",
-                            cursor: "pointer",
-                            fontFamily: `'${selectedFont.body}', sans-serif`
-                          }}
-                        >
-                          Get Retail Solutions
-                        </motion.button>
-                        <motion.button
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          style={{
-                            padding: isMobile ? "0.75rem 1.5rem" : "1rem 2rem",
-                            backgroundColor: "transparent",
-                            color: "#FFD700",
-                            border: "2px solid #FFD700",
-                            borderRadius: "10px",
-                            fontSize: isMobile ? "0.95rem" : "1.1rem",
-                            fontWeight: "bold",
-                            cursor: "pointer",
-                            fontFamily: `'${selectedFont.body}', sans-serif`
-                          }}
-                        >
-                          See Examples
-                        </motion.button>
-                      </div>
-                    </div>
-                  )}
-
-                  {selectedBusiness === "manufacturing" && (
-                    <div>
-                      <h4 style={{
-                        fontSize: isMobile ? "1.3rem" : "1.8rem",
-                        fontWeight: "bold",
-                        marginBottom: "1rem",
-                        color: "#FFD700",
-                        fontFamily: `'${selectedFont.heading}', serif`
-                      }}>
-                        Solutions for Manufacturing
-                      </h4>
-                      <p style={{
-                        fontSize: isMobile ? "0.95rem" : "1.1rem",
-                        lineHeight: 1.7,
-                        color: "rgba(255, 255, 255, 0.9)",
-                        marginBottom: "1.5rem",
-                        fontFamily: `'${selectedFont.body}', sans-serif`
-                      }}>
-                        Optimize your production with industrial machinery and packaging solutions designed for efficiency and scale.
-                      </p>
-                      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)", gap: "1rem", marginBottom: "1.5rem" }}>
-                        {[
-                          "Automated packaging machinery",
-                          "Bulk packaging materials",
-                          "Industrial labeling systems",
-                          "Quality control equipment",
-                          "Warehouse signage solutions",
-                          "Safety and compliance materials"
-                        ].map((item, idx) => (
-                          <div key={idx} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                            <CheckCircle size={16} color="#FFD700" />
-                            <span style={{ color: "white", fontSize: isMobile ? "0.9rem" : "1rem", fontFamily: `'${selectedFont.body}', sans-serif` }}>{item}</span>
-                          </div>
-                        ))}
-                      </div>
-                      <div style={{ display: "flex", gap: "1rem", marginTop: "2rem", flexWrap: "wrap" }}>
-                        <motion.button
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          style={{
-                            padding: isMobile ? "0.75rem 1.5rem" : "1rem 2rem",
-                            backgroundColor: "#FFD700",
-                            color: "#020617",
-                            border: "none",
-                            borderRadius: "10px",
-                            fontSize: isMobile ? "0.95rem" : "1.1rem",
-                            fontWeight: "bold",
-                            cursor: "pointer",
-                            fontFamily: `'${selectedFont.body}', sans-serif`
-                          }}
-                        >
-                          Industrial Solutions
-                        </motion.button>
-                        <motion.button
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          style={{
-                            padding: isMobile ? "0.75rem 1.5rem" : "1rem 2rem",
-                            backgroundColor: "transparent",
-                            color: "#FFD700",
-                            border: "2px solid #FFD700",
-                            borderRadius: "10px",
-                            fontSize: isMobile ? "0.95rem" : "1.1rem",
-                            fontWeight: "bold",
-                            cursor: "pointer",
-                            fontFamily: `'${selectedFont.body}', sans-serif`
-                          }}
-                        >
-                          Request Quote
-                        </motion.button>
-                      </div>
-                    </div>
-                  )}
-
-                  {(selectedBusiness === "healthcare" || selectedBusiness === "ecommerce" || selectedBusiness === "corporate") && (
-                    <div>
-                      <h4 style={{
-                        fontSize: isMobile ? "1.3rem" : "1.8rem",
-                        fontWeight: "bold",
-                        marginBottom: "1rem",
-                        color: "#FFD700",
-                        fontFamily: `'${selectedFont.heading}', serif`
-                      }}>
-                        Custom Solutions for {
-                          selectedBusiness === "healthcare" ? "Healthcare" :
-                          selectedBusiness === "ecommerce" ? "E-Commerce" :
-                          "Corporate Businesses"
-                        }
-                      </h4>
-                      <p style={{
-                        fontSize: isMobile ? "0.95rem" : "1.1rem",
-                        lineHeight: 1.7,
-                        color: "rgba(255, 255, 255, 0.9)",
-                        marginBottom: "1.5rem",
-                        fontFamily: `'${selectedFont.body}', sans-serif`
-                      }}>
-                        We provide specialized solutions tailored to your industry's unique requirements and compliance standards.
-                      </p>
-                      <div style={{ display: "flex", gap: "1rem", marginTop: "2rem", flexWrap: "wrap" }}>
-                        <motion.button
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          style={{
-                            padding: isMobile ? "0.75rem 1.5rem" : "1rem 2rem",
-                            backgroundColor: "#FFD700",
-                            color: "#020617",
-                            border: "none",
-                            borderRadius: "10px",
-                            fontSize: isMobile ? "0.95rem" : "1.1rem",
-                            fontWeight: "bold",
-                            cursor: "pointer",
-                            fontFamily: `'${selectedFont.body}', sans-serif`
-                          }}
-                        >
-                          Discuss Your Needs
-                        </motion.button>
-                      </div>
-                    </div>
-                  )}
-                </motion.div>
-              </AnimatePresence>
-            </div>
-
             {/* Step-by-Step Process */}
             <div style={{ marginBottom: "4rem" }}>
               <h3 style={{
@@ -1483,33 +996,25 @@ export default function Home() {
                       step: "01",
                       title: "Consultation",
                       description: "Share your design and requirements",
-                      details: "We analyze your needs, discuss quantities, timeline, and budget. Our experts review your designs for manufacturability.",
+                      details: "We analyze your needs, discuss quantities, timeline, and budget.",
                       icon: "💬",
-                      tasks: ["Requirements Analysis", "Feasibility Study", "Budget Planning", "Timeline Setup"]
+                      tasks: []
                     },
                     {
                       step: "02",
-                      title: "Recommendations",
-                      description: "Receive expert production advice",
-                      details: "Based on your requirements, we recommend optimal materials, production methods, and cost-saving opportunities.",
-                      icon: "📋",
-                      tasks: ["Material Selection", "Process Optimization", "Cost Analysis", "Quality Standards"]
-                    },
-                    {
-                      step: "03",
                       title: "Production",
                       description: "Manufacturing with full support",
                       details: "We handle the entire production process while keeping you updated with progress reports and quality checks.",
                       icon: "⚙️",
-                      tasks: ["Sample Creation", "Quality Control", "Progress Updates", "Testing & Validation"]
+                      tasks: []
                     },
                     {
-                      step: "04",
+                      step: "03",
                       title: "Delivery",
                       description: "On-time delivery & after-sales",
                       details: "Reliable logistics, proper packaging, and continued support after delivery to ensure your complete satisfaction.",
                       icon: "📦",
-                      tasks: ["Packaging & Shipping", "Tracking Support", "After-Sales Service", "Feedback Collection"]
+                      tasks: []
                     }
                   ].map((process, index) => (
                     <motion.div
@@ -1658,7 +1163,7 @@ export default function Home() {
                   },
                   {
                     title: "Technical Expertise",
-                    desc: "15+ years of experience solving complex manufacturing challenges."
+                    desc: "10+ years of experience solving complex manufacturing challenges."
                   },
                   {
                     title: "Global Shipping",
@@ -1737,7 +1242,7 @@ export default function Home() {
                 margin: "0 auto 2rem",
                 fontFamily: `'${selectedFont.body}', sans-serif`
               }}>
-                Join 2000+ businesses that trust FCP for their production needs.
+                Join other businesses that trust FCP for their production needs.
                 Let's turn your designs into reality with our expertise and support.
               </p>
               <div style={{
@@ -1832,9 +1337,8 @@ export default function Home() {
                 </h3>
                 <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
                   {[
-                    { icon: Phone, text: "+1 (555) 123-4567" },
-                    { icon: Mail, text: "info@fullcustompackaging.com" },
-                    { icon: MapPin, text: "123 Business Ave, Suite 100, New York, NY 10001" }
+                    { icon: Mail, text: "s@fullcustompackaging.com" },
+                    { icon: MapPin, text: "Vancouver, BC • Canada" }
                   ].map((item, index) => (
                     <div key={index} style={{
                       display: "flex",
@@ -1967,7 +1471,7 @@ export default function Home() {
             fontSize: isMobile ? "0.85rem" : "0.95rem",
             fontFamily: `'${selectedFont.body}', sans-serif`
           }}>
-            © 2024 Full Custom Packaging. All rights reserved.
+            © 2025 Full Custom Packaging. All rights reserved.
           </p>
         </div>
       </footer>

@@ -10,23 +10,37 @@ const slides = [
   {
     type: "video",
     src: "https://cdn.coverr.co/videos/coverr-packaging-boxes-on-conveyor-belt-7989/1080p.mp4",
-    title: "Custom Packaging Solutions",
+    title: "Custom Packaging Production",
     subtitle: "We Customize Everything",
     description: "From concept to delivery, we create packaging that represents your brand perfectly",
   },
   {
     type: "image",
-    src: "https://images.unsplash.com/photo-1565206077212-4eb48d41f54b?w=1920&h=1080&fit=crop",
-    title: "Premium Apparel",
-    subtitle: "Fashion Meets Function",
+    src: "https://images.unsplash.com/photo-1556906781-9cba4a7e8f3e?w=1920&h=1080&fit=crop",
+    title: "Custom Athletic Apparel",
+    subtitle: "We Customize Everything",
     description: "High-quality clothing for sports, tactical, and everyday wear",
   },
   {
     type: "image",
-    src: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1920&h=1080&fit=crop",
-    title: "Industrial Machinery",
-    subtitle: "Cutting-Edge Equipment",
-    description: "State-of-the-art packaging and printing machinery for your business",
+    src: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1920&h=1080&fit=crop",
+    title: "Custom Sport Equipment",
+    subtitle: "We Customize Everything",
+    description: "Yoga mats, sports towels, pickleball paddles, balls, and more custom equipment",
+  },
+  {
+    type: "image",
+    src: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=1920&h=1080&fit=crop",
+    title: "Custom Neon Sign",
+    subtitle: "We Customize Everything",
+    description: "Bright, eye-catching neon signs designed to make your brand shine",
+  },
+  {
+    type: "image",
+    src: "https://images.unsplash.com/photo-1584744982491-665216d95f8b?w=1920&h=1080&fit=crop",
+    title: "Customized PPE",
+    subtitle: "Personal Protective Equipment",
+    description: "Custom branded safety gear to keep your team protected and professional",
   },
   {
     type: "image",
@@ -40,7 +54,6 @@ const slides = [
 const features = [
   "100% Customizable Solutions",
   "Fast Turnaround Time",
-  "Premium Quality Materials",
   "Expert Support Team",
 ];
 
@@ -185,10 +198,72 @@ export default function HeroSection() {
                 Get Started Today
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
-              <button className="px-8 py-4 bg-white/10 backdrop-blur-md text-white rounded-full font-semibold hover:bg-white/20 transition-all duration-300 border border-white/20 flex items-center justify-center gap-2">
-                <Play className="w-5 h-5" />
-                Watch Demo
-              </button>
+              {currentSlide === 0 ? (
+                <button
+                  onClick={() => {
+                    const element = document.getElementById('packaging-solutions');
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }}
+                  className="px-8 py-4 bg-white/10 backdrop-blur-md text-white rounded-full font-semibold hover:bg-white/20 transition-all duration-300 border border-white/20 flex items-center justify-center gap-2"
+                >
+                  Product List
+                </button>
+              ) : currentSlide === 1 ? (
+                <button
+                  onClick={() => {
+                    const element = document.getElementById('apparel-solutions');
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }}
+                  className="px-8 py-4 bg-white/10 backdrop-blur-md text-white rounded-full font-semibold hover:bg-white/20 transition-all duration-300 border border-white/20 flex items-center justify-center gap-2"
+                >
+                  Product List
+                </button>
+              ) : currentSlide === 2 ? (
+                <button
+                  onClick={() => {
+                    const element = document.getElementById('sport-equipment-solutions');
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }}
+                  className="px-8 py-4 bg-white/10 backdrop-blur-md text-white rounded-full font-semibold hover:bg-white/20 transition-all duration-300 border border-white/20 flex items-center justify-center gap-2"
+                >
+                  Product List
+                </button>
+              ) : currentSlide === 3 ? (
+                <button
+                  onClick={() => {
+                    const element = document.getElementById('neon-signs-solutions');
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }}
+                  className="px-8 py-4 bg-white/10 backdrop-blur-md text-white rounded-full font-semibold hover:bg-white/20 transition-all duration-300 border border-white/20 flex items-center justify-center gap-2"
+                >
+                  Product List
+                </button>
+              ) : currentSlide === 4 ? (
+                <button
+                  onClick={() => {
+                    const element = document.getElementById('ppe-solutions');
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }}
+                  className="px-8 py-4 bg-white/10 backdrop-blur-md text-white rounded-full font-semibold hover:bg-white/20 transition-all duration-300 border border-white/20 flex items-center justify-center gap-2"
+                >
+                  Product List
+                </button>
+              ) : (
+                <button className="px-8 py-4 bg-white/10 backdrop-blur-md text-white rounded-full font-semibold hover:bg-white/20 transition-all duration-300 border border-white/20 flex items-center justify-center gap-2">
+                  <Play className="w-5 h-5" />
+                  Watch Demo
+                </button>
+              )}
             </motion.div>
           </motion.div>
         </div>

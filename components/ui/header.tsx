@@ -1,16 +1,15 @@
 'use client';
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Type, Phone, Package } from 'lucide-react';
+import { Phone, Package } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 interface HeaderProps {
     selectedFont?: any;
-    onFontPanelToggle: () => void;
 }
 
-export function HeaderFCP({ onFontPanelToggle }: HeaderProps) {
+export function HeaderFCP({ selectedFont }: HeaderProps) {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const [showPhone, setShowPhone] = React.useState(false);
     const [isMobile, setIsMobile] = React.useState(false);
@@ -38,20 +37,21 @@ export function HeaderFCP({ onFontPanelToggle }: HeaderProps) {
     const isHomePage = pathname === '/';
 
     const homeMenuItems = [
-        { name: 'About', href: '#about' },
-        { name: 'Packaging', href: '/packaging' },
-        { name: 'Apparel', href: '/apparel' },
-        { name: 'Machinery', href: '/machinery' },
-        { name: 'Signage', href: '/signage' },
-        { name: 'Get Quote', href: '#contact' }
+        { name: 'PACKAGING', href: '/packaging' },
+        { name: 'SPORTS APPAREL', href: '/apparel' },
+        { name: 'SPORTS EQUIPMENT', href: '/sports-equipment' },
+        { name: 'NEON SIGNS', href: '/signage' },
+        { name: 'PPE', href: '/ppe' },
+        { name: 'GET QUOTE', href: '#contact' }
     ];
 
     const categoryMenuItems = [
-        { name: 'Home', href: '/' },
-        { name: 'Packaging', href: '/packaging' },
-        { name: 'Apparel', href: '/apparel' },
-        { name: 'Machinery', href: '/machinery' },
-        { name: 'Signage', href: '/signage' }
+        { name: 'HOME', href: '/' },
+        { name: 'PACKAGING', href: '/packaging' },
+        { name: 'SPORTS APPAREL', href: '/apparel' },
+        { name: 'SPORTS EQUIPMENT', href: '/sports-equipment' },
+        { name: 'NEON SIGNS', href: '/signage' },
+        { name: 'PPE', href: '/ppe' }
     ];
 
     const menuItems = isHomePage ? homeMenuItems : categoryMenuItems;
@@ -130,7 +130,7 @@ export function HeaderFCP({ onFontPanelToggle }: HeaderProps) {
                     {/* Desktop Menu */}
                     <nav style={{
                         display: isMobile ? 'none' : 'flex',
-                        gap: '2rem',
+                        gap: '1.5rem',
                         alignItems: 'center',
                         position: 'absolute',
                         left: '50%',
@@ -141,19 +141,22 @@ export function HeaderFCP({ onFontPanelToggle }: HeaderProps) {
                                 key={item.href}
                                 href={item.href}
                                 style={{
-                                    color: isActive(item.href) ? '#FFD700' : 'white',
                                     textDecoration: 'none',
-                                    fontSize: '1rem',
                                     transition: 'all 0.3s',
-                                    paddingBottom: '4px',
-                                    borderBottom: isActive(item.href) ? '2px solid #FFD700' : '2px solid transparent',
-                                    textAlign: 'center',
-                                    whiteSpace: 'nowrap'
+                                    textAlign: 'center'
                                 }}
                             >
                                 <motion.span
                                     whileHover={{ y: -2 }}
-                                    style={{ display: 'inline-block' }}
+                                    style={{
+                                        display: 'inline-block',
+                                        color: isActive(item.href) ? '#FFD700' : 'white',
+                                        fontSize: '0.7rem',
+                                        fontWeight: 'bold',
+                                        letterSpacing: '0.05em',
+                                        borderBottom: isActive(item.href) ? '2px solid #FFD700' : 'none',
+                                        paddingBottom: '2px'
+                                    }}
                                 >
                                     {item.name}
                                 </motion.span>
@@ -167,26 +170,6 @@ export function HeaderFCP({ onFontPanelToggle }: HeaderProps) {
                         gap: '1rem',
                         alignItems: 'center'
                     }}>
-                        {/* Font Toggle Button */}
-                        <motion.button
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.95 }}
-                            onClick={onFontPanelToggle}
-                            style={{
-                                backgroundColor: 'transparent',
-                                border: '2px solid #FFD700',
-                                borderRadius: '8px',
-                                padding: '0.5rem',
-                                color: '#FFD700',
-                                cursor: 'pointer',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center'
-                            }}
-                        >
-                            <Type size={20} />
-                        </motion.button>
-
                         {/* Contact Us Button */}
                         <motion.button
                             whileHover={{ scale: 1.05 }}
@@ -265,25 +248,6 @@ export function HeaderFCP({ onFontPanelToggle }: HeaderProps) {
                         gap: '0.75rem',
                         alignItems: 'center'
                     }}>
-                        <motion.button
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.95 }}
-                            onClick={onFontPanelToggle}
-                            style={{
-                                backgroundColor: 'transparent',
-                                border: '2px solid #FFD700',
-                                borderRadius: '8px',
-                                padding: '0.5rem',
-                                color: '#FFD700',
-                                cursor: 'pointer',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center'
-                            }}
-                        >
-                            <Type size={20} />
-                        </motion.button>
-
                         <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
@@ -375,10 +339,13 @@ export function HeaderFCP({ onFontPanelToggle }: HeaderProps) {
                                 style={{
                                     display: 'block',
                                     padding: '1rem 1.5rem',
-                                    color: isActive(item.href) ? '#FFD700' : 'white',
                                     textDecoration: 'none',
                                     textAlign: 'center',
                                     transition: 'all 0.3s',
+                                    color: isActive(item.href) ? '#FFD700' : 'white',
+                                    fontWeight: 'bold',
+                                    fontSize: '0.85rem',
+                                    letterSpacing: '0.05em',
                                     borderLeft: isActive(item.href) ? '4px solid #FFD700' : '4px solid transparent'
                                 }}
                             >
