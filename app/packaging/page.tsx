@@ -50,7 +50,7 @@ export default function PackagingPage() {
       title: "Stickers & Labels",
       icon: Tag,
       description: "Professional stickers and labels with custom designs and finishes",
-      features: ["Product Labels", "Waterproof Labels", "Hologram Stickers", "Custom Stickers", "QR Code Labels", "Tamper-Proof Stickers", "", "& Many More"],
+      features: ["Product Labels", "Waterproof Labels", "Hologram Stickers", "Custom Stickers", "QR Code Labels", "Tamper-Proof Stickers", "& Many More"],
       image: "https://images.unsplash.com/photo-1586075010923-2dd4570fb338?w=800"
     }
   ];
@@ -135,6 +135,12 @@ export default function PackagingPage() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    const element = document.getElementById('products');
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }}
                   style={{
                     padding: isMobile ? '0.8rem 2rem' : '1rem 2.5rem',
                     backgroundColor: 'transparent',
@@ -170,7 +176,7 @@ export default function PackagingPage() {
         </section>
 
         {/* Categories Grid */}
-        <section style={{
+        <section id="products" style={{
           padding: isMobile ? '3rem 1rem' : '5rem 2rem',
           backgroundColor: '#020617'
         }}>
@@ -225,7 +231,10 @@ export default function PackagingPage() {
                     border: '1px solid rgba(255, 215, 0, 0.2)',
                     backdropFilter: 'blur(10px)',
                     transition: 'all 0.3s',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: '100%'
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = 'translateY(-10px)';
@@ -282,7 +291,7 @@ export default function PackagingPage() {
                   </div>
 
                   {/* Content */}
-                  <div style={{ padding: isMobile ? '1.5rem' : '2rem' }}>
+                  <div style={{ padding: isMobile ? '1.5rem' : '2rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
                     <h3 style={{
                       fontSize: isMobile ? '1.3rem' : '1.6rem',
                       fontWeight: 'bold',
@@ -349,7 +358,8 @@ export default function PackagingPage() {
                         justifyContent: 'center',
                         gap: '0.5rem',
                         fontFamily: `'${selectedFont.body}', sans-serif`,
-                        transition: 'all 0.3s'
+                        transition: 'all 0.3s',
+                        marginTop: 'auto'
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.backgroundColor = '#FFD700';

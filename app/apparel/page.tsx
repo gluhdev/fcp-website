@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Shirt, Activity, Snowflake, Shield, ArrowRight, CheckCircle, ChevronDown } from 'lucide-react';
+import { Activity, ArrowRight, CheckCircle, ChevronDown } from 'lucide-react';
 import { HeaderFCP } from '@/components/ui/header';
 
 // Fixed font: Corporate (Merriweather + Open Sans)
@@ -25,33 +25,19 @@ export default function ApparelPage() {
 
   const apparelCategories = [
     {
-      title: "Sports Clothing",
+      title: "Sports Apparel",
       icon: Activity,
       description: "High-performance sports apparel designed for athletes and fitness enthusiasts",
-      features: ["Moisture-Wicking Fabrics", "Breathable Materials", "Custom Team Logos", "Performance Fit"],
+      features: ["T-shirts", "Hoodies", "Sweatshirts", "Sweat Suits", "Shorts", "Socks", "& Many More"],
       image: "https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=800"
     },
     {
-      title: "Gym Clothing",
+      title: "Caps",
       icon: Activity,
       description: "Professional gym wear combining style with functionality for optimal workouts",
-      features: ["Stretchable Fabric", "Anti-Odor Technology", "Compression Options", "Durability Tested"],
+      features: ["Hats", "Trucker Hats", "Baseball Caps", "& Many More"],
       image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800"
     },
-    {
-      title: "Winter Wear",
-      icon: Snowflake,
-      description: "Warm and stylish winter clothing for extreme weather conditions",
-      features: ["Insulated Jackets", "Thermal Layers", "Waterproof Options", "Fashion Forward"],
-      image: "https://images.unsplash.com/photo-1513094735237-8f2714d57c13?w=800"
-    },
-    {
-      title: "Tactical Gear",
-      icon: Shield,
-      description: "Military-grade tactical clothing for outdoor and professional use",
-      features: ["Ripstop Fabric", "Multiple Pockets", "Camouflage Options", "Heavy-Duty Build"],
-      image: "https://images.unsplash.com/photo-1616166119819-81c29638868e?w=800"
-    }
   ];
 
   return (
@@ -103,8 +89,7 @@ export default function ApparelPage() {
                 margin: '0 auto',
                 fontFamily: `'${selectedFont.body}', sans-serif`
               }}>
-                High-quality custom sports apparel for athletes, teams, and fitness enthusiasts.
-                Performance meets style in every piece.
+                From gym apparel to hats, hoodies, and sweatshirts, we provide high quality custom apparel solutions for all athletic needs.
               </p>
 
               <div style={{
@@ -129,11 +114,17 @@ export default function ApparelPage() {
                     fontFamily: `'${selectedFont.body}', sans-serif`
                   }}
                 >
-                  Browse Collection
+                  Get Quote
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    const element = document.getElementById('products');
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }}
                   style={{
                     padding: isMobile ? '0.8rem 2rem' : '1rem 2.5rem',
                     backgroundColor: 'transparent',
@@ -146,7 +137,7 @@ export default function ApparelPage() {
                     fontFamily: `'${selectedFont.body}', sans-serif`
                   }}
                 >
-                  Custom Design
+                  Product List
                 </motion.button>
               </div>
             </motion.div>
@@ -169,7 +160,7 @@ export default function ApparelPage() {
         </section>
 
         {/* Categories Grid */}
-        <section style={{
+        <section id="products" style={{
           padding: isMobile ? '3rem 1rem' : '5rem 2rem',
           backgroundColor: '#020617'
         }}>
@@ -193,6 +184,9 @@ export default function ApparelPage() {
                     border: '1px solid rgba(255, 215, 0, 0.2)',
                     backdropFilter: 'blur(10px)',
                     transition: 'all 0.3s',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: '100%',
                     cursor: 'pointer'
                   }}
                   onMouseEnter={(e) => {
@@ -250,7 +244,12 @@ export default function ApparelPage() {
                   </div>
 
                   {/* Content */}
-                  <div style={{ padding: isMobile ? '1.5rem' : '2rem' }}>
+                  <div style={{
+                    padding: isMobile ? '1.5rem' : '2rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    flex: 1
+                  }}>
                     <h3 style={{
                       fontSize: isMobile ? '1.3rem' : '1.6rem',
                       fontWeight: 'bold',
@@ -271,8 +270,9 @@ export default function ApparelPage() {
                     </p>
 
                     <div style={{
-                      display: 'grid',
-                      gridTemplateColumns: 'repeat(2, 1fr)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'flex-start',
                       gap: '0.5rem',
                       marginBottom: '1.5rem'
                     }}>
@@ -307,7 +307,8 @@ export default function ApparelPage() {
                         justifyContent: 'center',
                         gap: '0.5rem',
                         fontFamily: `'${selectedFont.body}', sans-serif`,
-                        transition: 'all 0.3s'
+                        transition: 'all 0.3s',
+                        marginTop: 'auto'
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.backgroundColor = '#FFD700';
@@ -318,7 +319,7 @@ export default function ApparelPage() {
                         e.currentTarget.style.color = '#FFD700';
                       }}
                     >
-                      View Collection
+                      Get Quote
                       <ArrowRight size={16} />
                     </button>
                   </div>
@@ -377,24 +378,7 @@ export default function ApparelPage() {
                   fontFamily: `'${selectedFont.body}', sans-serif`
                 }}
               >
-                Start Designing
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                style={{
-                  padding: isMobile ? '0.9rem 2.5rem' : '1.2rem 3rem',
-                  backgroundColor: 'transparent',
-                  color: 'white',
-                  border: '2px solid white',
-                  borderRadius: '30px',
-                  fontSize: isMobile ? '1rem' : '1.2rem',
-                  fontWeight: 'bold',
-                  cursor: 'pointer',
-                  fontFamily: `'${selectedFont.body}', sans-serif`
-                }}
-              >
-                View Catalog
+                Get Started
               </motion.button>
             </div>
           </div>

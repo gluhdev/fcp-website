@@ -37,12 +37,12 @@ export function HeaderFCP({ selectedFont }: HeaderProps) {
     const isHomePage = pathname === '/';
 
     const homeMenuItems = [
+        { name: 'HOME', href: '/' },
         { name: 'PACKAGING', href: '/packaging' },
         { name: 'SPORTS APPAREL', href: '/apparel' },
         { name: 'SPORTS EQUIPMENT', href: '/sports-equipment' },
         { name: 'NEON SIGNS', href: '/signage' },
-        { name: 'PPE', href: '/ppe' },
-        { name: 'GET QUOTE', href: '#contact' }
+        { name: 'PPE', href: '/ppe' }
     ];
 
     const categoryMenuItems = [
@@ -151,11 +151,12 @@ export function HeaderFCP({ selectedFont }: HeaderProps) {
                                     style={{
                                         display: 'inline-block',
                                         color: isActive(item.href) ? '#FFD700' : 'white',
-                                        fontSize: '0.7rem',
+                                        fontSize: '0.85rem',
                                         fontWeight: 'bold',
                                         letterSpacing: '0.05em',
                                         borderBottom: isActive(item.href) ? '2px solid #FFD700' : 'none',
-                                        paddingBottom: '2px'
+                                        paddingBottom: '2px',
+                                        whiteSpace: 'nowrap'
                                     }}
                                 >
                                     {item.name}
@@ -344,7 +345,7 @@ export function HeaderFCP({ selectedFont }: HeaderProps) {
                                     transition: 'all 0.3s',
                                     color: isActive(item.href) ? '#FFD700' : 'white',
                                     fontWeight: 'bold',
-                                    fontSize: '0.85rem',
+                                    fontSize: '1rem',
                                     letterSpacing: '0.05em',
                                     borderLeft: isActive(item.href) ? '4px solid #FFD700' : '4px solid transparent'
                                 }}

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Dumbbell, Target, Bike, Trophy, ArrowRight, CheckCircle, ChevronDown } from 'lucide-react';
+import { Dumbbell, ArrowRight, CheckCircle, ChevronDown } from 'lucide-react';
 import { HeaderFCP } from '@/components/ui/header';
 
 // Fixed font: Corporate (Merriweather + Open Sans)
@@ -25,32 +25,11 @@ export default function SportsEquipmentPage() {
 
   const equipmentCategories = [
     {
-      title: "Gym Equipment",
+      title: "Equipment",
       icon: Dumbbell,
-      description: "Professional-grade gym equipment for home and commercial fitness centers",
-      features: ["Dumbbells & Weights", "Resistance Bands", "Kettlebells", "Weight Benches"],
+      description: "Professional-grade sports equipment for athletes and fitness enthusiasts",
+      features: ["Yoga Mats", "Pickleball Paddles", "Pickleball Balls", "Golf Balls", "Jump Rope", "Sports Towels", "Gym Bags", "& Many More"],
       image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800"
-    },
-    {
-      title: "Yoga & Pilates",
-      icon: Target,
-      description: "Premium yoga mats, blocks, and accessories for mindful practice",
-      features: ["Yoga Mats", "Foam Rollers", "Yoga Blocks", "Resistance Straps"],
-      image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800"
-    },
-    {
-      title: "Cycling Gear",
-      icon: Bike,
-      description: "High-performance cycling equipment and accessories for all riders",
-      features: ["Bike Accessories", "Helmets", "Cycling Gloves", "Water Bottles"],
-      image: "https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=800"
-    },
-    {
-      title: "Team Sports",
-      icon: Trophy,
-      description: "Equipment for football, basketball, soccer and other team sports",
-      features: ["Balls & Goals", "Training Cones", "Team Jerseys", "Scoreboards"],
-      image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800"
     }
   ];
 
@@ -92,7 +71,7 @@ export default function SportsEquipmentPage() {
                 fontFamily: `'${selectedFont.heading}', serif`,
                 color: 'white'
               }}>
-                Sports <span style={{ color: '#FFD700' }}>Equipment</span>
+                Custom Sports <span style={{ color: '#FFD700' }}>Equipment</span>
               </h1>
               <p style={{
                 fontSize: isMobile ? '1rem' : '1.3rem',
@@ -129,11 +108,17 @@ export default function SportsEquipmentPage() {
                     fontFamily: `'${selectedFont.body}', sans-serif`
                   }}
                 >
-                  Browse Equipment
+                  Get Quote
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    const element = document.getElementById('products');
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }}
                   style={{
                     padding: isMobile ? '0.8rem 2rem' : '1rem 2.5rem',
                     backgroundColor: 'transparent',
@@ -146,7 +131,7 @@ export default function SportsEquipmentPage() {
                     fontFamily: `'${selectedFont.body}', sans-serif`
                   }}
                 >
-                  Custom Orders
+                  Product List
                 </motion.button>
               </div>
             </motion.div>
@@ -169,14 +154,14 @@ export default function SportsEquipmentPage() {
         </section>
 
         {/* Categories Grid */}
-        <section style={{
+        <section id="products" style={{
           padding: isMobile ? '3rem 1rem' : '5rem 2rem',
           backgroundColor: '#020617'
         }}>
           <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
             <div style={{
-              display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+              display: 'flex',
+              justifyContent: 'center',
               gap: isMobile ? '2rem' : '3rem'
             }}>
               {equipmentCategories.map((category, index) => (
@@ -193,6 +178,8 @@ export default function SportsEquipmentPage() {
                     border: '1px solid rgba(255, 215, 0, 0.2)',
                     backdropFilter: 'blur(10px)',
                     transition: 'all 0.3s',
+                    maxWidth: '500px',
+                    width: '100%',
                     cursor: 'pointer'
                   }}
                   onMouseEnter={(e) => {
@@ -318,7 +305,7 @@ export default function SportsEquipmentPage() {
                         e.currentTarget.style.color = '#FFD700';
                       }}
                     >
-                      View Collection
+                      Get Quote
                       <ArrowRight size={16} />
                     </button>
                   </div>
@@ -378,23 +365,6 @@ export default function SportsEquipmentPage() {
                 }}
               >
                 Get Started
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                style={{
-                  padding: isMobile ? '0.9rem 2.5rem' : '1.2rem 3rem',
-                  backgroundColor: 'transparent',
-                  color: 'white',
-                  border: '2px solid white',
-                  borderRadius: '30px',
-                  fontSize: isMobile ? '1rem' : '1.2rem',
-                  fontWeight: 'bold',
-                  cursor: 'pointer',
-                  fontFamily: `'${selectedFont.body}', sans-serif`
-                }}
-              >
-                View Catalog
               </motion.button>
             </div>
           </div>

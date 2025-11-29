@@ -17,25 +17,36 @@ const carouselItems = [
     type: "image",
     src: "https://images.unsplash.com/photo-1577705998148-6da4f3963bc8?w=1920&h=1080&fit=crop",
     title: "Custom Packaging Solutions",
-    subtitle: "We Customize Everything"
+    subtitle: "Complete End-to-End Packaging Services",
+    sectionId: "packaging-solutions"
   },
   {
     type: "image",
-    src: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1920",
-    title: "Premium Quality Materials",
-    subtitle: "Exceeding Your Expectations"
+    src: "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=1920&h=1080&fit=crop",
+    title: "Sports Apparel",
+    subtitle: "High-Performance Athletic Wear",
+    sectionId: "apparel-solutions"
   },
   {
     type: "image",
-    src: "https://images.unsplash.com/photo-1565206077212-4eb48d41f54b?w=1920",
-    title: "Industrial Excellence",
-    subtitle: "State-of-the-Art Equipment"
+    src: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1920&h=1080&fit=crop",
+    title: "Custom Sports Equipment",
+    subtitle: "Premium Sports Gear & Accessories",
+    sectionId: "sport-equipment-solutions"
   },
   {
     type: "image",
-    src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920",
-    title: "Custom Apparel Solutions",
-    subtitle: "Fashion Meets Function"
+    src: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=1920&h=1080&fit=crop",
+    title: "Custom Neon Signs",
+    subtitle: "Bright & Eye-Catching Brand Illumination",
+    sectionId: "neon-signs-solutions"
+  },
+  {
+    type: "image",
+    src: "https://images.unsplash.com/photo-1584744982491-665216d95f8b?w=1920&h=1080&fit=crop",
+    title: "Personal Protective Equipment",
+    subtitle: "Custom Branded Safety Solutions",
+    sectionId: "ppe-solutions"
   }
 ];
 
@@ -45,6 +56,7 @@ export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
   const [selectedBusiness, setSelectedBusiness] = useState("restaurant");
+  const [activeProcessStep, setActiveProcessStep] = useState(0);
 
   useEffect(() => {
     if (isPlaying) {
@@ -62,6 +74,14 @@ export default function Home() {
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Animation for step-by-step process
+  useEffect(() => {
+    const stepInterval = setInterval(() => {
+      setActiveProcessStep((prev) => (prev + 1) % 3);
+    }, 2000);
+    return () => clearInterval(stepInterval);
   }, []);
 
   const nextSlide = () => {
@@ -230,7 +250,8 @@ export default function Home() {
                   width: isMobile ? "200px" : "auto"
                 }}
                 onClick={() => {
-                  const element = document.getElementById('packaging-solutions');
+                  const sectionId = carouselItems[currentSlide].sectionId;
+                  const element = document.getElementById(sectionId);
                   if (element) {
                     element.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }
@@ -455,6 +476,7 @@ export default function Home() {
                 </motion.div>
               ))}
             </div>
+
           </motion.div>
         </div>
       </section>
@@ -527,7 +549,7 @@ export default function Home() {
                   description: "Elevate your athletic performance with our premium sports apparel. From moisture-wicking running gear and breathable gym wear to performance jerseys and training apparel, we provide custom athletic clothing designed for peak performance.",
                   detailedInfo: "Our sports apparel division specializes in creating high-performance athletic wear that combines cutting-edge fabric technology with custom branding. We use advanced moisture-wicking materials, ergonomic designs, and offer complete customization including sublimation printing, embroidery, and heat transfer options.",
                   icon: "🏃",
-                  image: "https://images.unsplash.com/photo-1556906781-9cba4a7e8f3e?w=1200&h=600&fit=crop",
+                  image: "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=1200&h=600&fit=crop",
                   href: "/apparel",
                   features: ["Performance Jerseys", "Athletic Shorts", "Compression Wear", "Running Gear", "Gym Apparel", "Team Uniforms", "Training Wear", "Sports Accessories"],
                   stats: [
@@ -537,13 +559,13 @@ export default function Home() {
                   ]
                 },
                 {
-                  title: "Custom Sport Equipment",
+                  title: "Custom Sports Equipment",
                   subtitle: "Premium Sports Gear & Accessories",
-                  description: "Elevate your game with our custom sport equipment. From yoga mats and sports towels to pickleball paddles, balls, and athletic accessories, we provide high-quality gear tailored to your needs.",
-                  detailedInfo: "Our sport equipment division specializes in creating custom branded sports gear. We work with premium materials and advanced customization techniques to deliver products that perform and look great.",
+                  description: "Elevate your game with our custom sports equipment. From yoga mats and sports towels to pickleball paddles, balls, and athletic accessories, we provide high-quality gear tailored to your needs.",
+                  detailedInfo: "Our sports equipment division specializes in creating custom branded sports gear. We work with premium materials and advanced customization techniques to deliver products that perform and look great.",
                   icon: "🏆",
                   image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1200&h=600&fit=crop",
-                  href: "/sport-equipment",
+                  href: "/sports-equipment",
                   features: ["Yoga Mats", "Sports Towels", "Pickleball Paddles", "Tennis Balls", "Gym Bags", "Water Bottles", "Resistance Bands", "Custom Apparel"],
                   stats: [
                     { label: "Equipment Types", value: "100+" },
@@ -558,7 +580,7 @@ export default function Home() {
                   detailedInfo: "Our neon sign division specializes in creating custom illuminated signage that makes your brand shine. We use cutting-edge LED technology and traditional neon craftsmanship to deliver signs that are energy-efficient, durable, and absolutely stunning.",
                   icon: "💡",
                   image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=1200&h=600&fit=crop",
-                  href: "/neon-signs",
+                  href: "/signage",
                   features: ["LED Neon Signs", "Traditional Neon", "Custom Designs", "Indoor & Outdoor", "Business Logos", "Event Signage", "Home Decor", "Restaurant Signs"],
                   stats: [
                     { label: "Custom Designs", value: "500+" },
@@ -816,6 +838,75 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Custom Solutions Banner */}
+      <section style={{
+        padding: isMobile ? "0 1rem 3rem" : "0 2rem 4rem",
+        backgroundColor: "#020617"
+      }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            style={{
+              backgroundColor: "rgba(255, 215, 0, 0.1)",
+              padding: isMobile ? "1.5rem" : "2rem",
+              borderRadius: "15px",
+              textAlign: "center",
+              border: "2px solid rgba(255, 215, 0, 0.3)",
+              backdropFilter: "blur(10px)"
+            }}
+          >
+            <h3 style={{
+              fontSize: isMobile ? "1.3rem" : "1.8rem",
+              fontWeight: "bold",
+              marginBottom: "0.75rem",
+              color: "#FFD700",
+              fontFamily: `'${selectedFont.heading}', serif`
+            }}>
+              Can't Find What You Need?
+            </h3>
+            <p style={{
+              fontSize: isMobile ? "1rem" : "1.1rem",
+              lineHeight: 1.7,
+              color: "rgba(255, 255, 255, 0.9)",
+              fontFamily: `'${selectedFont.body}', sans-serif`,
+              maxWidth: "800px",
+              margin: "0 auto 1.5rem"
+            }}>
+              We manufacture custom solutions for any product. If it's not on our list, just ask — we can create exactly what you need.
+            </p>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                const element = document.getElementById('contact');
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              }}
+              style={{
+                padding: isMobile ? "0.75rem 2rem" : "1rem 2.5rem",
+                backgroundColor: "#FFD700",
+                color: "#020617",
+                border: "none",
+                borderRadius: "50px",
+                fontSize: isMobile ? "1rem" : "1.1rem",
+                fontWeight: "bold",
+                cursor: "pointer",
+                fontFamily: `'${selectedFont.body}', sans-serif`,
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.5rem"
+              }}
+            >
+              <Mail size={20} />
+              Contact Us
+            </motion.button>
+          </motion.div>
+        </div>
+      </section>
+
       {/* How We Help Business - Enhanced Step-by-Step Process */}
       <section id="help-business" style={{
         padding: isMobile ? "3rem 1rem" : "6rem 2rem",
@@ -978,18 +1069,38 @@ export default function Home() {
                     top: "60px",
                     left: "50px",
                     right: "50px",
-                    height: "2px",
-                    background: "linear-gradient(90deg, #FFD700 0%, #FFD700 25%, rgba(255, 215, 0, 0.3) 25%, rgba(255, 215, 0, 0.3) 50%, rgba(255, 215, 0, 0.3) 50%, rgba(255, 215, 0, 0.3) 75%, rgba(255, 215, 0, 0.3) 75%, rgba(255, 215, 0, 0.3) 100%)",
-                    zIndex: 0
-                  }} />
+                    height: "4px",
+                    backgroundColor: "rgba(255, 215, 0, 0.2)",
+                    borderRadius: "2px",
+                    zIndex: 0,
+                    overflow: "hidden"
+                  }}>
+                    {/* Animated progress line */}
+                    <motion.div
+                      animate={{
+                        width: activeProcessStep === 0 ? "0%" : activeProcessStep === 1 ? "50%" : "100%"
+                      }}
+                      transition={{ duration: 0.8, ease: "easeInOut" }}
+                      style={{
+                        height: "100%",
+                        backgroundColor: "#FFD700",
+                        borderRadius: "2px",
+                        boxShadow: "0 0 10px #FFD700, 0 0 20px rgba(255, 215, 0, 0.5)"
+                      }}
+                    />
+                  </div>
                 )}
 
                 <div style={{
-                  display: "grid",
-                  gridTemplateColumns: isMobile ? "1fr" : "repeat(4, 1fr)",
-                  gap: isMobile ? "3rem" : "2rem",
+                  display: "flex",
+                  flexDirection: isMobile ? "column" : "row",
+                  justifyContent: "center",
+                  alignItems: isMobile ? "center" : "flex-start",
+                  gap: isMobile ? "3rem" : "5rem",
                   position: "relative",
-                  zIndex: 1
+                  zIndex: 1,
+                  width: "100%",
+                  margin: "0 auto"
                 }}>
                   {[
                     {
@@ -997,24 +1108,21 @@ export default function Home() {
                       title: "Consultation",
                       description: "Share your design and requirements",
                       details: "We analyze your needs, discuss quantities, timeline, and budget.",
-                      icon: "💬",
-                      tasks: []
+                      icon: "💬"
                     },
                     {
                       step: "02",
                       title: "Production",
                       description: "Manufacturing with full support",
                       details: "We handle the entire production process while keeping you updated with progress reports and quality checks.",
-                      icon: "⚙️",
-                      tasks: []
+                      icon: "⚙️"
                     },
                     {
                       step: "03",
                       title: "Delivery",
                       description: "On-time delivery & after-sales",
                       details: "Reliable logistics, proper packaging, and continued support after delivery to ensure your complete satisfaction.",
-                      icon: "📦",
-                      tasks: []
+                      icon: "📦"
                     }
                   ].map((process, index) => (
                     <motion.div
@@ -1023,36 +1131,48 @@ export default function Home() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: index * 0.2 }}
-                      style={{ textAlign: "center" }}
+                      style={{
+                        textAlign: "center",
+                        flex: isMobile ? "none" : "1",
+                        maxWidth: isMobile ? "100%" : "300px"
+                      }}
                     >
                       {/* Step Number Circle */}
                       <motion.div
-                        whileHover={{ scale: 1.1, rotate: 360 }}
+                        whileHover={{ scale: 1.1 }}
+                        animate={{
+                          backgroundColor: index <= activeProcessStep ? "#FFD700" : "rgba(255, 215, 0, 0.1)",
+                          borderColor: index <= activeProcessStep ? "#FFD700" : "rgba(255, 215, 0, 0.3)",
+                          boxShadow: index <= activeProcessStep ? "0 0 30px rgba(255, 215, 0, 0.5)" : "none"
+                        }}
                         transition={{ duration: 0.5 }}
                         style={{
                           width: isMobile ? "100px" : "120px",
                           height: isMobile ? "100px" : "120px",
                           margin: "0 auto 1.5rem",
-                          backgroundColor: index === 0 ? "#FFD700" : "rgba(255, 215, 0, 0.1)",
                           borderRadius: "50%",
                           display: "flex",
                           flexDirection: "column",
                           alignItems: "center",
                           justifyContent: "center",
-                          border: `3px solid ${index === 0 ? "#FFD700" : "rgba(255, 215, 0, 0.3)"}`,
-                          cursor: "pointer",
-                          transition: "all 0.3s"
+                          border: "3px solid",
+                          cursor: "pointer"
                         }}
                       >
                         <div style={{ fontSize: "2rem", marginBottom: "0.25rem" }}>{process.icon}</div>
-                        <div style={{
-                          fontSize: isMobile ? "1.2rem" : "1.4rem",
-                          fontWeight: "bold",
-                          color: index === 0 ? "#020617" : "#FFD700",
-                          fontFamily: `'${selectedFont.heading}', serif`
-                        }}>
+                        <motion.div
+                          animate={{
+                            color: index <= activeProcessStep ? "#020617" : "#FFD700"
+                          }}
+                          transition={{ duration: 0.5 }}
+                          style={{
+                            fontSize: isMobile ? "1.2rem" : "1.4rem",
+                            fontWeight: "bold",
+                            fontFamily: `'${selectedFont.heading}', serif`
+                          }}
+                        >
                           {process.step}
-                        </div>
+                        </motion.div>
                       </motion.div>
 
                       {/* Title & Description */}
@@ -1077,38 +1197,11 @@ export default function Home() {
                         fontSize: isMobile ? "0.85rem" : "0.95rem",
                         lineHeight: 1.6,
                         color: "rgba(255, 255, 255, 0.7)",
-                        marginBottom: "1.5rem",
                         minHeight: isMobile ? "auto" : "80px",
                         fontFamily: `'${selectedFont.body}', sans-serif`
                       }}>
                         {process.details}
                       </p>
-
-                      {/* Task List */}
-                      <div style={{
-                        backgroundColor: "rgba(255, 255, 255, 0.02)",
-                        borderRadius: "15px",
-                        padding: "1rem",
-                        border: "1px solid rgba(255, 215, 0, 0.1)"
-                      }}>
-                        {process.tasks.map((task, i) => (
-                          <div key={i} style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "0.5rem",
-                            marginBottom: i < process.tasks.length - 1 ? "0.5rem" : 0
-                          }}>
-                            <CheckCircle size={14} color="#FFD700" />
-                            <span style={{
-                              fontSize: isMobile ? "0.8rem" : "0.85rem",
-                              color: "rgba(255, 255, 255, 0.8)",
-                              fontFamily: `'${selectedFont.body}', sans-serif`
-                            }}>
-                              {task}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
                     </motion.div>
                   ))}
                 </div>
@@ -1291,165 +1384,398 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Contact Section - Полностью адаптирован для мобильных */}
+      {/* Contact Section - Premium Design */}
       <section id="contact" style={{
-        padding: isMobile ? "3rem 1rem" : "5rem 2rem",
-        backgroundColor: "#020617"
+        padding: isMobile ? "4rem 1rem" : "6rem 2rem",
+        background: "linear-gradient(180deg, #020617 0%, #0a0f2e 50%, #020617 100%)",
+        position: "relative",
+        overflow: "hidden"
       }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+        {/* Background decorations */}
+        <div style={{
+          position: "absolute",
+          top: "20%",
+          left: "-10%",
+          width: "400px",
+          height: "400px",
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(255, 215, 0, 0.08) 0%, transparent 70%)",
+          filter: "blur(60px)"
+        }} />
+        <div style={{
+          position: "absolute",
+          bottom: "10%",
+          right: "-5%",
+          width: "300px",
+          height: "300px",
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(255, 215, 0, 0.06) 0%, transparent 70%)",
+          filter: "blur(40px)"
+        }} />
+
+        <div style={{ maxWidth: "1200px", margin: "0 auto", position: "relative", zIndex: 1 }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 style={{
-              fontSize: isMobile ? "2rem" : "3.5rem",
-              fontWeight: "bold",
-              marginBottom: "1rem",
-              textAlign: "center",
-              fontFamily: `'${selectedFont.heading}', serif`
-            }}>
-              Get In <span style={{ color: "#FFD700" }}>Touch</span>
-            </h2>
-            <div style={{
-              width: "80px",
-              height: "4px",
-              backgroundColor: "#FFD700",
-              margin: "0 auto 3rem",
-              borderRadius: "2px"
-            }} />
+            {/* Header */}
+            <div style={{ textAlign: "center", marginBottom: isMobile ? "2.5rem" : "4rem" }}>
+              <h2 style={{
+                fontSize: isMobile ? "2rem" : "3.5rem",
+                fontWeight: "bold",
+                marginBottom: "1rem",
+                fontFamily: `'${selectedFont.heading}', serif`
+              }}>
+                Get In <span style={{ color: "#FFD700" }}>Touch</span>
+              </h2>
+              <div style={{
+                width: "80px",
+                height: "4px",
+                backgroundColor: "#FFD700",
+                margin: "0 auto 2rem",
+                borderRadius: "2px"
+              }} />
+              <p style={{
+                fontSize: isMobile ? "1rem" : "1.2rem",
+                color: "rgba(255, 255, 255, 0.7)",
+                maxWidth: "600px",
+                margin: "0 auto",
+                fontFamily: `'${selectedFont.body}', sans-serif`
+              }}>
+                Ready to start your project? We'd love to hear from you.
+              </p>
+            </div>
 
+            {/* Main Content */}
             <div style={{
               display: "grid",
-              gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-              gap: isMobile ? "2rem" : "3rem"
+              gridTemplateColumns: isMobile ? "1fr" : "1fr 1.5fr",
+              gap: isMobile ? "2rem" : "3rem",
+              alignItems: "start"
             }}>
-              <div>
+              {/* Left Side - Contact Info */}
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                style={{
+                  backgroundColor: "rgba(255, 255, 255, 0.03)",
+                  borderRadius: "24px",
+                  padding: isMobile ? "1.5rem" : "2.5rem",
+                  border: "1px solid rgba(255, 215, 0, 0.15)",
+                  backdropFilter: "blur(10px)"
+                }}
+              >
                 <h3 style={{
-                  fontSize: isMobile ? "1.3rem" : "1.8rem",
+                  fontSize: isMobile ? "1.5rem" : "1.8rem",
                   fontWeight: "bold",
-                  marginBottom: "1.5rem",
-                  color: "#FFD700",
+                  marginBottom: "2rem",
+                  color: "white",
                   fontFamily: `'${selectedFont.heading}', serif`
                 }}>
                   Contact Information
                 </h3>
-                <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+
+                <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", marginBottom: "2rem" }}>
                   {[
-                    { icon: Mail, text: "s@fullcustompackaging.com" },
-                    { icon: MapPin, text: "Vancouver, BC • Canada" }
+                    { icon: Mail, label: "Email", text: "s@fullcustompackaging.com" },
+                    { icon: MapPin, label: "Location", text: "Vancouver, BC • Canada" }
                   ].map((item, index) => (
-                    <div key={index} style={{
-                      display: "flex",
-                      alignItems: "flex-start",
-                      gap: "1rem"
-                    }}>
+                    <motion.div
+                      key={index}
+                      whileHover={{ x: 5 }}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "1rem",
+                        padding: "1rem",
+                        backgroundColor: "rgba(255, 215, 0, 0.05)",
+                        borderRadius: "16px",
+                        border: "1px solid rgba(255, 215, 0, 0.1)",
+                        cursor: "pointer",
+                        transition: "all 0.3s"
+                      }}
+                    >
                       <div style={{
-                        width: isMobile ? "36px" : "40px",
-                        height: isMobile ? "36px" : "40px",
+                        width: "50px",
+                        height: "50px",
                         backgroundColor: "rgba(255, 215, 0, 0.1)",
-                        borderRadius: "10px",
+                        borderRadius: "14px",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        flexShrink: 0
+                        flexShrink: 0,
+                        border: "1px solid rgba(255, 215, 0, 0.3)"
                       }}>
-                        <item.icon size={isMobile ? 18 : 20} color="#FFD700" />
+                        <item.icon size={24} color="#FFD700" />
                       </div>
-                      <p style={{
-                        color: "rgba(255, 255, 255, 0.9)",
-                        fontSize: isMobile ? "0.9rem" : "1rem",
-                        fontFamily: `'${selectedFont.body}', sans-serif`,
-                        lineHeight: 1.5
-                      }}>
-                        {item.text}
-                      </p>
-                    </div>
+                      <div>
+                        <p style={{
+                          color: "rgba(255, 255, 255, 0.5)",
+                          fontSize: "0.85rem",
+                          marginBottom: "0.25rem",
+                          fontFamily: `'${selectedFont.body}', sans-serif`
+                        }}>
+                          {item.label}
+                        </p>
+                        <p style={{
+                          color: "white",
+                          fontSize: isMobile ? "0.95rem" : "1.05rem",
+                          fontWeight: "500",
+                          fontFamily: `'${selectedFont.body}', sans-serif`
+                        }}>
+                          {item.text}
+                        </p>
+                      </div>
+                    </motion.div>
                   ))}
                 </div>
-              </div>
 
-              <div>
+                {/* Business Hours */}
+                <div style={{
+                  padding: "1.5rem",
+                  background: "linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%)",
+                  borderRadius: "16px",
+                  border: "1px solid rgba(255, 215, 0, 0.2)"
+                }}>
+                  <h4 style={{
+                    color: "#FFD700",
+                    fontSize: "1rem",
+                    fontWeight: "600",
+                    marginBottom: "0.75rem",
+                    fontFamily: `'${selectedFont.heading}', serif`
+                  }}>
+                    🕐 Business Hours
+                  </h4>
+                  <p style={{
+                    color: "rgba(255, 255, 255, 0.8)",
+                    fontSize: "0.95rem",
+                    lineHeight: 1.6,
+                    fontFamily: `'${selectedFont.body}', sans-serif`
+                  }}>
+                    Monday - Friday: 9:00 AM - 6:00 PM (PST)<br />
+                    Weekend: By appointment
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Right Side - Contact Form */}
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                style={{
+                  backgroundColor: "rgba(255, 255, 255, 0.03)",
+                  borderRadius: "24px",
+                  padding: isMobile ? "1.5rem" : "2.5rem",
+                  border: "1px solid rgba(255, 215, 0, 0.15)",
+                  backdropFilter: "blur(10px)"
+                }}
+              >
                 <h3 style={{
-                  fontSize: isMobile ? "1.3rem" : "1.8rem",
+                  fontSize: isMobile ? "1.5rem" : "1.8rem",
                   fontWeight: "bold",
-                  marginBottom: "1.5rem",
-                  color: "#FFD700",
+                  marginBottom: "0.5rem",
+                  color: "white",
                   fontFamily: `'${selectedFont.heading}', serif`
                 }}>
                   Send Us a Message
                 </h3>
-                <form style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-                  <input
-                    type="text"
-                    placeholder="Your Name"
-                    style={{
-                      padding: isMobile ? "0.75rem" : "1rem",
-                      backgroundColor: "rgba(255, 255, 255, 0.05)",
-                      border: "1px solid rgba(255, 255, 255, 0.2)",
-                      borderRadius: "10px",
-                      color: "white",
-                      fontSize: isMobile ? "0.9rem" : "1rem",
+                <p style={{
+                  color: "rgba(255, 255, 255, 0.6)",
+                  marginBottom: "2rem",
+                  fontSize: "0.95rem",
+                  fontFamily: `'${selectedFont.body}', sans-serif`
+                }}>
+                  Fill out the form below and we'll get back to you within 24 hours.
+                </p>
+
+                <form style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+                  <div style={{
+                    display: "grid",
+                    gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+                    gap: "1.25rem"
+                  }}>
+                    <div>
+                      <label style={{
+                        display: "block",
+                        color: "rgba(255, 255, 255, 0.7)",
+                        fontSize: "0.9rem",
+                        marginBottom: "0.5rem",
+                        fontFamily: `'${selectedFont.body}', sans-serif`
+                      }}>
+                        Your Name
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="John Doe"
+                        style={{
+                          width: "100%",
+                          padding: "1rem 1.25rem",
+                          backgroundColor: "rgba(255, 255, 255, 0.05)",
+                          border: "2px solid rgba(255, 255, 255, 0.1)",
+                          borderRadius: "14px",
+                          color: "white",
+                          fontSize: "1rem",
+                          fontFamily: `'${selectedFont.body}', sans-serif`,
+                          outline: "none",
+                          transition: "all 0.3s",
+                          boxSizing: "border-box"
+                        }}
+                        onFocus={(e) => {
+                          e.currentTarget.style.borderColor = "#FFD700";
+                          e.currentTarget.style.boxShadow = "0 0 20px rgba(255, 215, 0, 0.15)";
+                        }}
+                        onBlur={(e) => {
+                          e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.1)";
+                          e.currentTarget.style.boxShadow = "none";
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <label style={{
+                        display: "block",
+                        color: "rgba(255, 255, 255, 0.7)",
+                        fontSize: "0.9rem",
+                        marginBottom: "0.5rem",
+                        fontFamily: `'${selectedFont.body}', sans-serif`
+                      }}>
+                        Your Email
+                      </label>
+                      <input
+                        type="email"
+                        placeholder="john@example.com"
+                        style={{
+                          width: "100%",
+                          padding: "1rem 1.25rem",
+                          backgroundColor: "rgba(255, 255, 255, 0.05)",
+                          border: "2px solid rgba(255, 255, 255, 0.1)",
+                          borderRadius: "14px",
+                          color: "white",
+                          fontSize: "1rem",
+                          fontFamily: `'${selectedFont.body}', sans-serif`,
+                          outline: "none",
+                          transition: "all 0.3s",
+                          boxSizing: "border-box"
+                        }}
+                        onFocus={(e) => {
+                          e.currentTarget.style.borderColor = "#FFD700";
+                          e.currentTarget.style.boxShadow = "0 0 20px rgba(255, 215, 0, 0.15)";
+                        }}
+                        onBlur={(e) => {
+                          e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.1)";
+                          e.currentTarget.style.boxShadow = "none";
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label style={{
+                      display: "block",
+                      color: "rgba(255, 255, 255, 0.7)",
+                      fontSize: "0.9rem",
+                      marginBottom: "0.5rem",
                       fontFamily: `'${selectedFont.body}', sans-serif`
-                    }}
-                  />
-                  <input
-                    type="email"
-                    placeholder="Your Email"
-                    style={{
-                      padding: isMobile ? "0.75rem" : "1rem",
-                      backgroundColor: "rgba(255, 255, 255, 0.05)",
-                      border: "1px solid rgba(255, 255, 255, 0.2)",
-                      borderRadius: "10px",
-                      color: "white",
-                      fontSize: isMobile ? "0.9rem" : "1rem",
+                    }}>
+                      Subject
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="How can we help you?"
+                      style={{
+                        width: "100%",
+                        padding: "1rem 1.25rem",
+                        backgroundColor: "rgba(255, 255, 255, 0.05)",
+                        border: "2px solid rgba(255, 255, 255, 0.1)",
+                        borderRadius: "14px",
+                        color: "white",
+                        fontSize: "1rem",
+                        fontFamily: `'${selectedFont.body}', sans-serif`,
+                        outline: "none",
+                        transition: "all 0.3s",
+                        boxSizing: "border-box"
+                      }}
+                      onFocus={(e) => {
+                        e.currentTarget.style.borderColor = "#FFD700";
+                        e.currentTarget.style.boxShadow = "0 0 20px rgba(255, 215, 0, 0.15)";
+                      }}
+                      onBlur={(e) => {
+                        e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.1)";
+                        e.currentTarget.style.boxShadow = "none";
+                      }}
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{
+                      display: "block",
+                      color: "rgba(255, 255, 255, 0.7)",
+                      fontSize: "0.9rem",
+                      marginBottom: "0.5rem",
                       fontFamily: `'${selectedFont.body}', sans-serif`
-                    }}
-                  />
-                  <textarea
-                    placeholder="Your Message"
-                    rows={4}
-                    style={{
-                      padding: isMobile ? "0.75rem" : "1rem",
-                      backgroundColor: "rgba(255, 255, 255, 0.05)",
-                      border: "1px solid rgba(255, 255, 255, 0.2)",
-                      borderRadius: "10px",
-                      color: "white",
-                      fontSize: isMobile ? "0.9rem" : "1rem",
-                      resize: "vertical",
-                      fontFamily: `'${selectedFont.body}', sans-serif`
-                    }}
-                  />
-                  <button
+                    }}>
+                      Your Message
+                    </label>
+                    <textarea
+                      placeholder="Tell us about your project..."
+                      rows={5}
+                      style={{
+                        width: "100%",
+                        padding: "1rem 1.25rem",
+                        backgroundColor: "rgba(255, 255, 255, 0.05)",
+                        border: "2px solid rgba(255, 255, 255, 0.1)",
+                        borderRadius: "14px",
+                        color: "white",
+                        fontSize: "1rem",
+                        resize: "vertical",
+                        fontFamily: `'${selectedFont.body}', sans-serif`,
+                        outline: "none",
+                        transition: "all 0.3s",
+                        boxSizing: "border-box"
+                      }}
+                      onFocus={(e) => {
+                        e.currentTarget.style.borderColor = "#FFD700";
+                        e.currentTarget.style.boxShadow = "0 0 20px rgba(255, 215, 0, 0.15)";
+                      }}
+                      onBlur={(e) => {
+                        e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.1)";
+                        e.currentTarget.style.boxShadow = "none";
+                      }}
+                    />
+                  </div>
+
+                  <motion.button
                     type="submit"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     style={{
-                      padding: isMobile ? "0.75rem" : "1rem",
+                      padding: isMobile ? "1rem 2rem" : "1.2rem 2.5rem",
                       backgroundColor: "#FFD700",
                       color: "#020617",
                       border: "none",
-                      borderRadius: "10px",
+                      borderRadius: "30px",
                       fontSize: isMobile ? "1rem" : "1.1rem",
-                      fontWeight: "600",
+                      fontWeight: "bold",
                       cursor: "pointer",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                       gap: "0.5rem",
-                      transition: "all 0.3s",
-                      fontFamily: `'${selectedFont.body}', sans-serif`
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = "#FFC700";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = "#FFD700";
+                      fontFamily: `'${selectedFont.body}', sans-serif`,
+                      marginTop: "0.5rem",
+                      width: "100%"
                     }}
                   >
-                    Send Message <Send size={isMobile ? 16 : 18} />
-                  </button>
+                    Send Message
+                    <Send size={18} />
+                  </motion.button>
                 </form>
-              </div>
+              </motion.div>
             </div>
           </motion.div>
         </div>

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Lightbulb, Zap, Store, Building, ArrowRight, CheckCircle, ChevronDown } from 'lucide-react';
+import { Lightbulb, ArrowRight, CheckCircle, ChevronDown } from 'lucide-react';
 import { HeaderFCP } from '@/components/ui/header';
 
 // Fixed font: Corporate (Merriweather + Open Sans)
@@ -28,29 +28,15 @@ export default function SignagePage() {
       title: "Neon Signs",
       icon: Lightbulb,
       description: "Custom LED neon signs for businesses, events, and home decor",
-      features: ["LED Technology", "Custom Designs", "Energy Efficient", "Long Lasting"],
+      features: ["Acrylic", "Aluminum", "Gold Brushed", "Front Lit", "Back Lit", "Side Lit", "LED Neon", "& Many More"],
       image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800"
     },
     {
-      title: "LED Signage",
-      icon: Zap,
-      description: "Bright and eye-catching LED signs for maximum visibility",
-      features: ["High Brightness", "Weather Resistant", "Programmable", "Low Maintenance"],
-      image: "https://images.unsplash.com/photo-1533750516457-a7f992034fec?w=800"
-    },
-    {
-      title: "Storefront Signs",
-      icon: Store,
-      description: "Professional storefront signage to attract customers",
-      features: ["Channel Letters", "Illuminated Signs", "Window Graphics", "Awning Signs"],
-      image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800"
-    },
-    {
-      title: "Building Signs",
-      icon: Building,
-      description: "Large-scale building signage for corporate identity",
-      features: ["Monument Signs", "Pylon Signs", "Rooftop Signs", "Directory Signs"],
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800"
+      title: "LED Colors",
+      icon: Lightbulb,
+      description: "Wide range of vibrant LED colors to match your brand and style",
+      features: ["White", "Cold White", "Warm White", "Red", "Green", "Blue", "Yellow", "Pink"],
+      image: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=800"
     }
   ];
 
@@ -92,7 +78,7 @@ export default function SignagePage() {
                 fontFamily: `'${selectedFont.heading}', serif`,
                 color: 'white'
               }}>
-                Custom <span style={{ color: '#FFD700' }}>Signage</span>
+                Custom <span style={{ color: '#FFD700' }}>Neon Signs</span>
               </h1>
               <p style={{
                 fontSize: isMobile ? '1rem' : '1.3rem',
@@ -103,8 +89,7 @@ export default function SignagePage() {
                 margin: '0 auto',
                 fontFamily: `'${selectedFont.body}', sans-serif`
               }}>
-                Eye-catching custom signs and neon displays for your business.
-                Make your brand stand out with our premium signage solutions.
+                Eye-catching custom neon display signs for your business. Make your brand stand out with our premium signage solutions.
               </p>
 
               <div style={{
@@ -129,11 +114,17 @@ export default function SignagePage() {
                     fontFamily: `'${selectedFont.body}', sans-serif`
                   }}
                 >
-                  Browse Signs
+                  Get Quote
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    const element = document.getElementById('products');
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }}
                   style={{
                     padding: isMobile ? '0.8rem 2rem' : '1rem 2.5rem',
                     backgroundColor: 'transparent',
@@ -146,7 +137,7 @@ export default function SignagePage() {
                     fontFamily: `'${selectedFont.body}', sans-serif`
                   }}
                 >
-                  Custom Design
+                  Product List
                 </motion.button>
               </div>
             </motion.div>
@@ -169,7 +160,7 @@ export default function SignagePage() {
         </section>
 
         {/* Categories Grid */}
-        <section style={{
+        <section id="products" style={{
           padding: isMobile ? '3rem 1rem' : '5rem 2rem',
           backgroundColor: '#020617'
         }}>
@@ -318,7 +309,7 @@ export default function SignagePage() {
                         e.currentTarget.style.color = '#FFD700';
                       }}
                     >
-                      View Collection
+                      Get Quote
                       <ArrowRight size={16} />
                     </button>
                   </div>
@@ -345,7 +336,7 @@ export default function SignagePage() {
               fontFamily: `'${selectedFont.heading}', serif`,
               color: 'white'
             }}>
-              Custom <span style={{ color: '#FFD700' }}>Signage</span> Solutions
+              Custom <span style={{ color: '#FFD700' }}>Neon Signage</span> Solutions
             </h2>
             <p style={{
               fontSize: isMobile ? '1rem' : '1.2rem',
@@ -354,7 +345,7 @@ export default function SignagePage() {
               marginBottom: '2rem',
               fontFamily: `'${selectedFont.body}', sans-serif`
             }}>
-              Work with our team to create stunning custom signs for your business
+              Work with our team to create stunning custom neon signs for your business
             </p>
             <div style={{
               display: 'flex',
@@ -378,23 +369,6 @@ export default function SignagePage() {
                 }}
               >
                 Get Started
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                style={{
-                  padding: isMobile ? '0.9rem 2.5rem' : '1.2rem 3rem',
-                  backgroundColor: 'transparent',
-                  color: 'white',
-                  border: '2px solid white',
-                  borderRadius: '30px',
-                  fontSize: isMobile ? '1rem' : '1.2rem',
-                  fontWeight: 'bold',
-                  cursor: 'pointer',
-                  fontFamily: `'${selectedFont.body}', sans-serif`
-                }}
-              >
-                View Catalog
               </motion.button>
             </div>
           </div>

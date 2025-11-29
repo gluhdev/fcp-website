@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { HardHat, Shield, Eye, Hand, ArrowRight, CheckCircle, ChevronDown } from 'lucide-react';
+import { HardHat, ArrowRight, CheckCircle, ChevronDown } from 'lucide-react';
 import { HeaderFCP } from '@/components/ui/header';
 
 // Fixed font: Corporate (Merriweather + Open Sans)
@@ -25,32 +25,11 @@ export default function PPEPage() {
 
   const ppeCategories = [
     {
-      title: "Head Protection",
+      title: "PPE",
       icon: HardHat,
-      description: "Safety helmets and hard hats for construction and industrial use",
-      features: ["OSHA Compliant", "Impact Resistant", "Adjustable Fit", "Ventilated Design"],
+      description: "Complete personal protective equipment solutions for workplace safety",
+      features: ["Head Protection", "Body Protection", "Eye Protection", "Hand Protection", "Foot Protection", "& Many More"],
       image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800"
-    },
-    {
-      title: "Body Protection",
-      icon: Shield,
-      description: "High-visibility vests, coveralls, and protective clothing",
-      features: ["Hi-Vis Options", "Fire Resistant", "Chemical Protection", "Breathable Fabric"],
-      image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800"
-    },
-    {
-      title: "Eye Protection",
-      icon: Eye,
-      description: "Safety glasses, goggles, and face shields for eye safety",
-      features: ["Anti-Fog Coating", "UV Protection", "Scratch Resistant", "Comfortable Fit"],
-      image: "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=800"
-    },
-    {
-      title: "Hand Protection",
-      icon: Hand,
-      description: "Work gloves for various industries and applications",
-      features: ["Cut Resistant", "Chemical Proof", "Heat Resistant", "Grip Enhanced"],
-      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800"
     }
   ];
 
@@ -92,7 +71,7 @@ export default function PPEPage() {
                 fontFamily: `'${selectedFont.heading}', serif`,
                 color: 'white'
               }}>
-                PPE <span style={{ color: '#FFD700' }}>Equipment</span>
+                Personal Protective <span style={{ color: '#FFD700' }}>Equipment</span>
               </h1>
               <p style={{
                 fontSize: isMobile ? '1rem' : '1.3rem',
@@ -129,11 +108,17 @@ export default function PPEPage() {
                     fontFamily: `'${selectedFont.body}', sans-serif`
                   }}
                 >
-                  Browse PPE
+                  Get Quote
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    const element = document.getElementById('products');
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }}
                   style={{
                     padding: isMobile ? '0.8rem 2rem' : '1rem 2.5rem',
                     backgroundColor: 'transparent',
@@ -146,7 +131,7 @@ export default function PPEPage() {
                     fontFamily: `'${selectedFont.body}', sans-serif`
                   }}
                 >
-                  Bulk Orders
+                  Product List
                 </motion.button>
               </div>
             </motion.div>
@@ -169,14 +154,14 @@ export default function PPEPage() {
         </section>
 
         {/* Categories Grid */}
-        <section style={{
+        <section id="products" style={{
           padding: isMobile ? '3rem 1rem' : '5rem 2rem',
           backgroundColor: '#020617'
         }}>
           <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
             <div style={{
-              display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+              display: 'flex',
+              justifyContent: 'center',
               gap: isMobile ? '2rem' : '3rem'
             }}>
               {ppeCategories.map((category, index) => (
@@ -193,6 +178,8 @@ export default function PPEPage() {
                     border: '1px solid rgba(255, 215, 0, 0.2)',
                     backdropFilter: 'blur(10px)',
                     transition: 'all 0.3s',
+                    maxWidth: '500px',
+                    width: '100%',
                     cursor: 'pointer'
                   }}
                   onMouseEnter={(e) => {
@@ -378,23 +365,6 @@ export default function PPEPage() {
                 }}
               >
                 Get Started
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                style={{
-                  padding: isMobile ? '0.9rem 2.5rem' : '1.2rem 3rem',
-                  backgroundColor: 'transparent',
-                  color: 'white',
-                  border: '2px solid white',
-                  borderRadius: '30px',
-                  fontSize: isMobile ? '1rem' : '1.2rem',
-                  fontWeight: 'bold',
-                  cursor: 'pointer',
-                  fontFamily: `'${selectedFont.body}', sans-serif`
-                }}
-              >
-                View Catalog
               </motion.button>
             </div>
           </div>
