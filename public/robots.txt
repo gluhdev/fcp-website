@@ -1,0 +1,10 @@
+# robots.txt for Full Custom Packaging
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://fullcustompackaging.com/sitemap.xml
+
+# Disallow admin and API routes
+Disallow: /admin
+Disallow: /api/

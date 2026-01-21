@@ -58,6 +58,29 @@ export default function Home() {
     const [isMobile, setIsMobile] = useState(false);
   const [selectedBusiness, setSelectedBusiness] = useState("restaurant");
   const [activeProcessStep, setActiveProcessStep] = useState(0);
+  const { content } = useCMS();
+
+  // Contact form state
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+
+  const contactEmail = content?.contact?.email || 'info@fullcustompackaging.com';
+
+  const handleGetQuote = (product?: string) => {
+    const subject = product ? `Quote Request: ${product}` : 'Quote Request';
+    window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(subject)}`;
+  };
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const subject = formData.subject || 'Contact Form Message';
+    const body = `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`;
+    window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
 
   useEffect(() => {
     if (isPlaying) {
@@ -218,7 +241,9 @@ export default function Home() {
                   alignItems: "center"
                 }}
               >
-                <button style={{
+                <button
+                onClick={() => handleGetQuote()}
+                style={{
                   padding: isMobile ? "0.75rem 2rem" : "1rem 2.5rem",
                   backgroundColor: "#FFD700",
                   color: "#020617",
@@ -439,9 +464,9 @@ export default function Home() {
               gap: isMobile ? "1rem" : "2rem"
             }}>
               {[
-                { icon: Globe, title: "Quality First", desc: "" },
-                { icon: Award, title: "Excellent Customer Service", desc: "" },
-                { icon: Users, title: "Expert Team", desc: "" }
+                { icon: Globe, id: "quality", defaultTitle: "Quality First" },
+                { icon: Award, id: "service", defaultTitle: "Excellent Customer Service" },
+                { icon: Users, id: "team", defaultTitle: "Expert Team" }
               ].map((item, index) => (
                 <motion.div
                   key={index}
@@ -476,15 +501,12 @@ export default function Home() {
                     marginBottom: "0.5rem",
                     fontFamily: `'${selectedFont.heading}', serif`
                   }}>
-                    {item.title}
+                    <EditableText
+                      path={`pages.home.about.features.${item.id}.title`}
+                      defaultValue={item.defaultTitle}
+                      as="span"
+                    />
                   </h3>
-                  <p style={{
-                    color: "rgba(255, 255, 255, 0.8)",
-                    fontSize: isMobile ? "0.9rem" : "1rem",
-                    fontFamily: `'${selectedFont.body}', sans-serif`
-                  }}>
-                    {item.desc}
-                  </p>
                 </motion.div>
               ))}
             </div>
@@ -546,10 +568,11 @@ export default function Home() {
             }}>
               {[
                 {
-                  title: "Packaging Solutions",
-                  subtitle: "Complete End-to-End Packaging Services",
-                  description: "Transform your packaging with our comprehensive solutions. We provide state-of-the-art printing machines for high-quality labels and packaging designs, automated filling systems for various products, professional wrapping machines, and custom boxes in all sizes and materials.",
-                  detailedInfo: "Our packaging division specializes in creating unique packaging experiences that protect your products and enhance your brand. From eco-friendly options to luxury packaging, we handle everything from design to production.",
+                  id: "packaging",
+                  defaultTitle: "Packaging Solutions",
+                  defaultSubtitle: "Complete End-to-End Packaging Services",
+                  defaultDescription: "Transform your packaging with our comprehensive solutions. We provide state-of-the-art printing machines for high-quality labels and packaging designs, automated filling systems for various products, professional wrapping machines, and custom boxes in all sizes and materials.",
+                  defaultDetailedInfo: "Our packaging division specializes in creating unique packaging experiences that protect your products and enhance your brand. From eco-friendly options to luxury packaging, we handle everything from design to production.",
                   icon: "📦",
                   image: "/hero-packaging.png",
                   href: "/packaging",
@@ -561,10 +584,11 @@ export default function Home() {
                   ]
                 },
                 {
-                  title: "Sports Apparel",
-                  subtitle: "High-Performance Athletic Wear",
-                  description: "Elevate your athletic performance with our premium sports apparel. From moisture-wicking running gear and breathable gym wear to performance jerseys and training apparel, we provide custom athletic clothing designed for peak performance.",
-                  detailedInfo: "Our sports apparel division specializes in creating high-performance athletic wear that combines cutting-edge fabric technology with custom branding. We use advanced moisture-wicking materials, ergonomic designs, and offer complete customization including sublimation printing, embroidery, and heat transfer options.",
+                  id: "apparel",
+                  defaultTitle: "Sports Apparel",
+                  defaultSubtitle: "High-Performance Athletic Wear",
+                  defaultDescription: "Elevate your athletic performance with our premium sports apparel. From moisture-wicking running gear and breathable gym wear to performance jerseys and training apparel, we provide custom athletic clothing designed for peak performance.",
+                  defaultDetailedInfo: "Our sports apparel division specializes in creating high-performance athletic wear that combines cutting-edge fabric technology with custom branding. We use advanced moisture-wicking materials, ergonomic designs, and offer complete customization including sublimation printing, embroidery, and heat transfer options.",
                   icon: "🏃",
                   image: "/hero-apparel.png",
                   href: "/apparel",
@@ -576,10 +600,11 @@ export default function Home() {
                   ]
                 },
                 {
-                  title: "Custom Sports Equipment",
-                  subtitle: "Premium Sports Gear & Accessories",
-                  description: "Elevate your game with our custom sports equipment. From yoga mats and sports towels to pickleball paddles, balls, and athletic accessories, we provide high-quality gear tailored to your needs.",
-                  detailedInfo: "Our sports equipment division specializes in creating custom branded sports gear. We work with premium materials and advanced customization techniques to deliver products that perform and look great.",
+                  id: "sports-equipment",
+                  defaultTitle: "Custom Sports Equipment",
+                  defaultSubtitle: "Premium Sports Gear & Accessories",
+                  defaultDescription: "Elevate your game with our custom sports equipment. From yoga mats and sports towels to pickleball paddles, balls, and athletic accessories, we provide high-quality gear tailored to your needs.",
+                  defaultDetailedInfo: "Our sports equipment division specializes in creating custom branded sports gear. We work with premium materials and advanced customization techniques to deliver products that perform and look great.",
                   icon: "🏆",
                   image: "/hero-sports-equipment.png",
                   href: "/sports-equipment",
@@ -591,10 +616,11 @@ export default function Home() {
                   ]
                 },
                 {
-                  title: "Custom Neon Signs",
-                  subtitle: "Bright & Eye-Catching Brand Illumination",
-                  description: "Light up your brand with our custom neon signs. From vibrant LED neon to traditional glass tube designs, we create stunning illuminated signage that captures attention day and night.",
-                  detailedInfo: "Our neon sign division specializes in creating custom illuminated signage that makes your brand shine. We use cutting-edge LED technology and traditional neon craftsmanship to deliver signs that are energy-efficient, durable, and absolutely stunning.",
+                  id: "signage",
+                  defaultTitle: "Custom Neon Signs",
+                  defaultSubtitle: "Bright & Eye-Catching Brand Illumination",
+                  defaultDescription: "Light up your brand with our custom neon signs. From vibrant LED neon to traditional glass tube designs, we create stunning illuminated signage that captures attention day and night.",
+                  defaultDetailedInfo: "Our neon sign division specializes in creating custom illuminated signage that makes your brand shine. We use cutting-edge LED technology and traditional neon craftsmanship to deliver signs that are energy-efficient, durable, and absolutely stunning.",
                   icon: "💡",
                   image: "/hero-neon.png",
                   href: "/signage",
@@ -606,10 +632,11 @@ export default function Home() {
                   ]
                 },
                 {
-                  title: "Personal Protective Equipment",
-                  subtitle: "Custom Branded Safety Solutions",
-                  description: "Keep your team safe and professional with our custom PPE solutions. We provide high-quality protective equipment including masks, gloves, safety glasses, hard hats, vests, and more, all customizable with your branding.",
-                  detailedInfo: "Our PPE division specializes in providing comprehensive safety solutions that don't compromise on branding. We source certified equipment and apply your custom logos and colors using durable, industry-compliant methods.",
+                  id: "ppe",
+                  defaultTitle: "Personal Protective Equipment",
+                  defaultSubtitle: "Custom Branded Safety Solutions",
+                  defaultDescription: "Keep your team safe and professional with our custom PPE solutions. We provide high-quality protective equipment including masks, gloves, safety glasses, hard hats, vests, and more, all customizable with your branding.",
+                  defaultDetailedInfo: "Our PPE division specializes in providing comprehensive safety solutions that don't compromise on branding. We source certified equipment and apply your custom logos and colors using durable, industry-compliant methods.",
                   icon: "🛡️",
                   image: "/hero-ppe.png",
                   href: "/ppe",
@@ -689,7 +716,11 @@ export default function Home() {
                           marginBottom: "0.15rem",
                           lineHeight: 1.2
                         }}>
-                          {category.title}
+                          <EditableText
+                            path={`pages.home.categories.${category.id}.title`}
+                            defaultValue={category.defaultTitle}
+                            as="span"
+                          />
                         </h3>
                         <p style={{
                           fontSize: isMobile ? "0.8rem" : "0.9rem",
@@ -697,7 +728,11 @@ export default function Home() {
                           fontFamily: `'${selectedFont.body}', sans-serif`,
                           lineHeight: 1.2
                         }}>
-                          {category.subtitle}
+                          <EditableText
+                            path={`pages.home.categories.${category.id}.subtitle`}
+                            defaultValue={category.defaultSubtitle}
+                            as="span"
+                          />
                         </p>
                       </div>
                     </div>
@@ -709,7 +744,12 @@ export default function Home() {
                       marginBottom: "0.75rem",
                       fontFamily: `'${selectedFont.body}', sans-serif`
                     }}>
-                      {category.description}
+                      <EditableText
+                        path={`pages.home.categories.${category.id}.description`}
+                        defaultValue={category.defaultDescription}
+                        as="span"
+                        multiline
+                      />
                     </p>
 
                     <p style={{
@@ -719,7 +759,12 @@ export default function Home() {
                       marginBottom: "1rem",
                       fontFamily: `'${selectedFont.body}', sans-serif`
                     }}>
-                      {category.detailedInfo}
+                      <EditableText
+                        path={`pages.home.categories.${category.id}.detailedInfo`}
+                        defaultValue={category.defaultDetailedInfo}
+                        as="span"
+                        multiline
+                      />
                     </p>
 
                     {/* Features List */}
@@ -737,7 +782,7 @@ export default function Home() {
                       </h4>
                       <div style={{
                         display: "grid",
-                        gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)",
+                        gridTemplateColumns: "repeat(2, 1fr)",
                         gap: "0.75rem"
                       }}>
                         {category.features.slice(0, 6).map((feature, i) => (
@@ -781,7 +826,9 @@ export default function Home() {
                         justifyContent: "center",
                         gap: "0.75rem",
                         fontFamily: `'${selectedFont.body}', sans-serif`,
-                        alignSelf: "flex-start"
+                        alignSelf: "flex-start",
+                        marginLeft: "100px",
+                        marginTop: "20px"
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.transform = "translateY(-2px)";
@@ -1364,6 +1411,7 @@ export default function Home() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => handleGetQuote()}
                   style={{
                     padding: isMobile ? "1rem 2.5rem" : "1.2rem 3rem",
                     backgroundColor: "#FFD700",
@@ -1381,6 +1429,7 @@ export default function Home() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => handleGetQuote('Consultation')}
                   style={{
                     padding: isMobile ? "1rem 2.5rem" : "1.2rem 3rem",
                     backgroundColor: "transparent",
@@ -1611,7 +1660,7 @@ export default function Home() {
                   Fill out the form below and we'll get back to you within 24 hours.
                 </p>
 
-                <form style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+                <form onSubmit={handleFormSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
                   <div style={{
                     display: "grid",
                     gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
@@ -1630,6 +1679,9 @@ export default function Home() {
                       <input
                         type="text"
                         placeholder="John Doe"
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        required
                         style={{
                           width: "100%",
                           padding: "1rem 1.25rem",
@@ -1666,6 +1718,9 @@ export default function Home() {
                       <input
                         type="email"
                         placeholder="john@example.com"
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        required
                         style={{
                           width: "100%",
                           padding: "1rem 1.25rem",
@@ -1704,6 +1759,9 @@ export default function Home() {
                     <input
                       type="text"
                       placeholder="How can we help you?"
+                      value={formData.subject}
+                      onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                      required
                       style={{
                         width: "100%",
                         padding: "1rem 1.25rem",
@@ -1741,6 +1799,9 @@ export default function Home() {
                     <textarea
                       placeholder="Tell us about your project..."
                       rows={5}
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      required
                       style={{
                         width: "100%",
                         padding: "1rem 1.25rem",
@@ -1814,7 +1875,7 @@ export default function Home() {
             fontSize: isMobile ? "0.85rem" : "0.95rem",
             fontFamily: `'${selectedFont.body}', sans-serif`
           }}>
-            © 2025 Full Custom Packaging. All rights reserved.
+            © 2026 Full Custom Packaging. All rights reserved.
           </p>
         </div>
       </footer>

@@ -73,7 +73,7 @@ export interface CMSContextType {
   isEditing: boolean;
   content: ContentData | null;
   pendingChanges: Record<string, string>;
-  login: (password: string) => Promise<boolean>;
+  login: (username: string, password: string) => Promise<boolean>;
   logout: () => void;
   toggleEditing: () => void;
   updateContent: (path: string, value: string) => void;

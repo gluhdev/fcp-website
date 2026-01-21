@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Package, Box, ShoppingBag, Tag, ArrowRight, CheckCircle, ChevronDown } from 'lucide-react';
 import { HeaderFCP } from '@/components/ui/header';
+import { EditableText } from '@/components/cms';
+import { useCMS } from '@/components/cms/CMSProvider';
 
 // Fixed font: Corporate (Merriweather + Open Sans)
 const selectedFont = {
@@ -13,6 +15,14 @@ const selectedFont = {
 
 export default function PackagingPage() {
   const [isMobile, setIsMobile] = useState(false);
+  const { content } = useCMS();
+
+  const contactEmail = content?.contact?.email || 'info@fullcustompackaging.com';
+
+  const handleGetQuote = (product?: string) => {
+    const subject = product ? `Quote Request: ${product}` : 'Quote Request: Packaging';
+    window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(subject)}`;
+  };
 
   useEffect(() => {
     const checkMobile = () => {
@@ -25,31 +35,35 @@ export default function PackagingPage() {
 
   const packagingCategories = [
     {
-      title: "Custom Boxes",
+      id: "boxes",
+      defaultTitle: "Custom Boxes",
       icon: Box,
-      description: "Premium custom boxes in various materials and sizes for your products",
+      defaultDescription: "Premium custom boxes in various materials and sizes for your products",
       features: ["Mailing Boxes", "Retail Product Boxes", "Retail Food Boxes", "Display Boxes", "Shoe Boxes", "& Many More"],
       image: "/packaging-boxes.png"
     },
     {
-      title: "Bags",
+      id: "bags",
+      defaultTitle: "Bags",
       icon: ShoppingBag,
-      description: "High-quality bags for retail, food, and shipping needs",
+      defaultDescription: "High-quality bags for retail, food, and shipping needs",
       features: ["Retail Food / Mylar Bags", "Retail Product Bags", "Shopping Bags", "Gift Bags", "Mailer / Bubble Bags", "& Many More"],
       image: "/packaging-bags.png"
     },
     {
-      title: "Bottles / Jars",
+      id: "bottles",
+      defaultTitle: "Bottles / Jars",
       icon: Package,
-      description: "Premium glass and plastic bottles and jars for various industries",
+      defaultDescription: "Premium glass and plastic bottles and jars for various industries",
       material: "Glass and Plastic",
       features: ["Water Bottles", "Cups and Mugs", "Mason Jars", "Cosmetic Containers", "Food Containers", "& Many More"],
       image: "/packaging-bottles.png"
     },
     {
-      title: "Stickers & Labels",
+      id: "stickers",
+      defaultTitle: "Stickers & Labels",
       icon: Tag,
-      description: "Professional stickers and labels with custom designs and finishes",
+      defaultDescription: "Professional stickers and labels with custom designs and finishes",
       features: ["Product Labels", "Waterproof Labels", "Hologram Stickers", "Custom Stickers", "QR Code Labels", "Tamper-Proof Stickers", "& Many More"],
       image: "/packaging-stickers.png"
     }
@@ -59,7 +73,7 @@ export default function PackagingPage() {
     <>
       <HeaderFCP selectedFont={selectedFont} />
 
-      <main style={{ paddingTop: '80px', backgroundColor: '#020617', minHeight: '100vh' }}>
+      <main style={{ paddingTop: '80px', backgroundColor: '#020617', minHeight: 'auto' }}>
         {/* Hero Section */}
         <section style={{
           padding: isMobile ? '3rem 1rem' : '5rem 2rem',
@@ -93,7 +107,11 @@ export default function PackagingPage() {
                 fontFamily: `'${selectedFont.heading}', serif`,
                 color: 'white'
               }}>
-                Packaging <span style={{ color: '#FFD700' }}>Solutions</span>
+                <EditableText
+                  path="pages.packaging.hero.title"
+                  defaultValue="Packaging Solutions"
+                  as="span"
+                />
               </h1>
               <p style={{
                 fontSize: isMobile ? '1rem' : '1.3rem',
@@ -104,8 +122,12 @@ export default function PackagingPage() {
                 margin: '0 auto',
                 fontFamily: `'${selectedFont.body}', sans-serif`
               }}>
-                Complete packaging solutions with your custom designs.
-                We create packaging based on your specs.
+                <EditableText
+                  path="pages.packaging.hero.description"
+                  defaultValue="Complete packaging solutions with your custom designs. We create packaging based on your specs."
+                  as="span"
+                  multiline
+                />
               </p>
 
               <div style={{
@@ -118,6 +140,7 @@ export default function PackagingPage() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => handleGetQuote()}
                   style={{
                     padding: isMobile ? '0.8rem 2rem' : '1rem 2.5rem',
                     backgroundColor: '#FFD700',
@@ -165,7 +188,7 @@ export default function PackagingPage() {
             transition={{ delay: 1, duration: 1.5, repeat: Infinity, repeatType: 'reverse' }}
             style={{
               position: 'absolute',
-              bottom: '20px',
+              bottom: isMobile ? '5px' : '20px',
               left: '50%',
               transform: 'translateX(-50%)',
               cursor: 'pointer'
@@ -300,7 +323,11 @@ export default function PackagingPage() {
                       color: '#FFD700',
                       fontFamily: `'${selectedFont.heading}', serif`
                     }}>
-                      {category.title}
+                      <EditableText
+                        path={`pages.packaging.categories.${category.id}.title`}
+                        defaultValue={category.defaultTitle}
+                        as="span"
+                      />
                     </h3>
                     {category.material && (
                       <p style={{
@@ -319,7 +346,12 @@ export default function PackagingPage() {
                       fontSize: isMobile ? '0.9rem' : '1rem',
                       fontFamily: `'${selectedFont.body}', sans-serif`
                     }}>
-                      {category.description}
+                      <EditableText
+                        path={`pages.packaging.categories.${category.id}.description`}
+                        defaultValue={category.defaultDescription}
+                        as="span"
+                        multiline
+                      />
                     </p>
 
                     <div style={{
@@ -344,6 +376,7 @@ export default function PackagingPage() {
                     </div>
 
                     <button
+                      onClick={() => handleGetQuote(category.defaultTitle)}
                       style={{
                         padding: isMobile ? '0.6rem 1.5rem' : '0.8rem 2rem',
                         backgroundColor: 'transparent',
@@ -398,7 +431,11 @@ export default function PackagingPage() {
               fontFamily: `'${selectedFont.heading}', serif`,
               color: 'white'
             }}>
-              Custom <span style={{ color: '#FFD700' }}>Packaging</span> Solutions
+              <EditableText
+                path="pages.packaging.cta.title"
+                defaultValue="Custom Packaging Solutions"
+                as="span"
+              />
             </h2>
             <p style={{
               fontSize: isMobile ? '1rem' : '1.2rem',
@@ -407,7 +444,12 @@ export default function PackagingPage() {
               marginBottom: '2rem',
               fontFamily: `'${selectedFont.body}', sans-serif`
             }}>
-              Work with our team to create custom packaging that represents your brand perfectly
+              <EditableText
+                path="pages.packaging.cta.description"
+                defaultValue="Work with our team to create custom packaging that represents your brand perfectly"
+                as="span"
+                multiline
+              />
             </p>
             <div style={{
               display: 'flex',
@@ -418,6 +460,7 @@ export default function PackagingPage() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={() => handleGetQuote()}
                 style={{
                   padding: isMobile ? '0.9rem 2.5rem' : '1.2rem 3rem',
                   backgroundColor: '#FFD700',
@@ -435,7 +478,60 @@ export default function PackagingPage() {
             </div>
           </div>
         </section>
+
       </main>
+
+      {/* Footer - вне main */}
+      <footer style={{
+        backgroundColor: '#0a0f2e',
+        padding: isMobile ? '2rem 1rem 6rem' : '3rem 2rem',
+        borderTop: '1px solid rgba(255, 215, 0, 0.2)'
+      }}>
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          textAlign: 'center'
+        }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '0.5rem',
+            marginBottom: '1rem'
+          }}>
+            <div style={{
+              backgroundColor: '#FFD700',
+              borderRadius: '8px',
+              padding: '0.4rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <Package size={16} color="#020617" />
+            </div>
+            <span style={{
+              color: '#FFD700',
+              fontWeight: 'bold',
+              fontSize: '1.1rem'
+            }}>FCP</span>
+          </div>
+          <p style={{
+            color: 'rgba(255, 255, 255, 0.6)',
+            fontSize: isMobile ? '0.85rem' : '0.95rem',
+            fontFamily: `'${selectedFont.body}', sans-serif`,
+            marginBottom: '0.5rem'
+          }}>
+            © 2026 Full Custom Packaging. All rights reserved.
+          </p>
+          <p style={{
+            color: 'rgba(255, 215, 0, 0.6)',
+            fontSize: '0.8rem',
+            fontFamily: `'${selectedFont.body}', sans-serif'`
+          }}>
+            Custom Packaging Solutions
+          </p>
+        </div>
+      </footer>
     </>
   );
 }

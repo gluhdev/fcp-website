@@ -1,9 +1,11 @@
 'use client';
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, Package } from 'lucide-react';
+import { Phone, Package, Mail } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useCMS } from '@/components/cms/CMSProvider';
+import { EditableText } from '@/components/cms';
 
 interface HeaderProps {
     selectedFont?: any;
@@ -11,10 +13,15 @@ interface HeaderProps {
 
 export function HeaderFCP({ selectedFont }: HeaderProps) {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-    const [showPhone, setShowPhone] = React.useState(false);
+    const [showContact, setShowContact] = React.useState(false);
     const [isMobile, setIsMobile] = React.useState(false);
     const [isScrolled, setIsScrolled] = React.useState(false);
     const pathname = usePathname();
+    const { content, isAdmin, isEditing } = useCMS();
+
+    // Get contact info from CMS
+    const contactEmail = content?.contact?.email || 'info@fullcustompackaging.com';
+    const contactPhone = content?.contact?.phone || '+1 (555) 123-4567';
 
     React.useEffect(() => {
         const checkMobile = () => {
@@ -33,10 +40,7 @@ export function HeaderFCP({ selectedFont }: HeaderProps) {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    // Different menu items based on current page
-    const isHomePage = pathname === '/';
-
-    const homeMenuItems = [
+    const menuItems = [
         { name: 'HOME', href: '/' },
         { name: 'PACKAGING', href: '/packaging' },
         { name: 'SPORTS APPAREL', href: '/apparel' },
@@ -44,25 +48,18 @@ export function HeaderFCP({ selectedFont }: HeaderProps) {
         { name: 'NEON SIGNS', href: '/signage' },
         { name: 'PPE', href: '/ppe' }
     ];
-
-    const categoryMenuItems = [
-        { name: 'HOME', href: '/' },
-        { name: 'PACKAGING', href: '/packaging' },
-        { name: 'SPORTS APPAREL', href: '/apparel' },
-        { name: 'SPORTS EQUIPMENT', href: '/sports-equipment' },
-        { name: 'NEON SIGNS', href: '/signage' },
-        { name: 'PPE', href: '/ppe' }
-    ];
-
-    const menuItems = isHomePage ? homeMenuItems : categoryMenuItems;
 
     const isActive = (href: string) => {
-        if (href.startsWith('#')) {
-            // For anchor links, check if we're on the home page
-            return false; // Don't highlight anchor links
-        }
         if (href === '/') return pathname === '/';
         return pathname === href;
+    };
+
+    const handleContactClick = () => {
+        if (isAdmin && isEditing) {
+            setShowContact(!showContact);
+        } else {
+            window.location.href = `mailto:${contactEmail}`;
+        }
     };
 
     return (
@@ -175,7 +172,7 @@ export function HeaderFCP({ selectedFont }: HeaderProps) {
                         <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            onClick={() => setShowPhone(!showPhone)}
+                            onClick={handleContactClick}
                             style={{
                                 backgroundColor: '#FFD700',
                                 border: 'none',
@@ -191,54 +188,108 @@ export function HeaderFCP({ selectedFont }: HeaderProps) {
                                 position: 'relative'
                             }}
                         >
-                            <Phone size={18} />
+                            <Mail size={18} />
                             Contact Us
                         </motion.button>
                     </div>
 
-                    {/* Phone Popup */}
+                    {/* Contact Popup (only for admin editing) */}
                     <AnimatePresence>
-                        {showPhone && (
+                        {showContact && isAdmin && isEditing && (
                             <motion.div
                                 initial={{ opacity: 0, y: -10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -10 }}
                                 style={{
                                     position: 'absolute',
-                                    top: '60px',
+                                    top: '70px',
                                     right: '1.5rem',
-                                    backgroundColor: 'rgba(2, 6, 23, 0.95)',
+                                    backgroundColor: 'rgba(2, 6, 23, 0.98)',
                                     backdropFilter: 'blur(10px)',
                                     border: '2px solid #FFD700',
                                     borderRadius: '12px',
-                                    padding: '1rem',
+                                    padding: '1.5rem',
                                     boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)',
-                                    zIndex: 100
+                                    zIndex: 100,
+                                    minWidth: '280px'
                                 }}
                             >
+                                <h4 style={{
+                                    color: '#FFD700',
+                                    marginBottom: '1rem',
+                                    fontSize: '1rem',
+                                    fontWeight: 'bold'
+                                }}>
+                                    Edit Contact Info
+                                </h4>
                                 <div style={{
                                     display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '0.5rem',
-                                    color: '#FFD700',
-                                    fontWeight: 'bold',
-                                    fontSize: '1.1rem'
+                                    flexDirection: 'column',
+                                    gap: '1rem'
                                 }}>
-                                    <Phone size={20} />
-                                    <a href="tel:+15551234567" style={{
+                                    <div>
+                                        <label style={{
+                                            color: 'rgba(255, 255, 255, 0.7)',
+                                            fontSize: '0.8rem',
+                                            marginBottom: '0.25rem',
+                                            display: 'block'
+                                        }}>
+                                            Email:
+                                        </label>
+                                        <div style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '0.5rem',
+                                            color: 'white'
+                                        }}>
+                                            <Mail size={16} color="#FFD700" />
+                                            <EditableText
+                                                path="contact.email"
+                                                defaultValue="info@fullcustompackaging.com"
+                                                as="span"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label style={{
+                                            color: 'rgba(255, 255, 255, 0.7)',
+                                            fontSize: '0.8rem',
+                                            marginBottom: '0.25rem',
+                                            display: 'block'
+                                        }}>
+                                            Phone:
+                                        </label>
+                                        <div style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '0.5rem',
+                                            color: 'white'
+                                        }}>
+                                            <Phone size={16} color="#FFD700" />
+                                            <EditableText
+                                                path="contact.phone"
+                                                defaultValue="+1 (555) 123-4567"
+                                                as="span"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={() => setShowContact(false)}
+                                    style={{
+                                        marginTop: '1rem',
+                                        padding: '0.5rem 1rem',
+                                        backgroundColor: 'rgba(255, 215, 0, 0.2)',
+                                        border: '1px solid #FFD700',
+                                        borderRadius: '6px',
                                         color: '#FFD700',
-                                        textDecoration: 'none'
-                                    }}>
-                                        +1 (555) 123-4567
-                                    </a>
-                                </div>
-                                <div style={{
-                                    marginTop: '0.5rem',
-                                    color: 'rgba(255, 255, 255, 0.7)',
-                                    fontSize: '0.85rem'
-                                }}>
-                                    Available 24/7
-                                </div>
+                                        cursor: 'pointer',
+                                        width: '100%',
+                                        fontSize: '0.9rem'
+                                    }}
+                                >
+                                    Close
+                                </button>
                             </motion.div>
                         )}
                     </AnimatePresence>
@@ -252,7 +303,7 @@ export function HeaderFCP({ selectedFont }: HeaderProps) {
                         <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            onClick={() => setShowPhone(!showPhone)}
+                            onClick={handleContactClick}
                             style={{
                                 backgroundColor: '#FFD700',
                                 border: 'none',
@@ -265,7 +316,7 @@ export function HeaderFCP({ selectedFont }: HeaderProps) {
                                 justifyContent: 'center'
                             }}
                         >
-                            <Phone size={18} />
+                            <Mail size={18} />
                         </motion.button>
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -353,6 +404,47 @@ export function HeaderFCP({ selectedFont }: HeaderProps) {
                                 {item.name}
                             </Link>
                         ))}
+                        {/* Contact info in mobile menu */}
+                        <div style={{
+                            borderTop: '1px solid rgba(255, 215, 0, 0.2)',
+                            marginTop: '1rem',
+                            paddingTop: '1rem'
+                        }}>
+                            <a
+                                href={`mailto:${contactEmail}`}
+                                onClick={() => setIsMenuOpen(false)}
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    gap: '0.5rem',
+                                    padding: '0.75rem 1.5rem',
+                                    color: '#FFD700',
+                                    textDecoration: 'none',
+                                    fontSize: '0.9rem'
+                                }}
+                            >
+                                <Mail size={16} />
+                                {contactEmail}
+                            </a>
+                            <a
+                                href={`tel:${contactPhone.replace(/\D/g, '')}`}
+                                onClick={() => setIsMenuOpen(false)}
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    gap: '0.5rem',
+                                    padding: '0.75rem 1.5rem',
+                                    color: 'rgba(255, 255, 255, 0.8)',
+                                    textDecoration: 'none',
+                                    fontSize: '0.9rem'
+                                }}
+                            >
+                                <Phone size={16} />
+                                {contactPhone}
+                            </a>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>

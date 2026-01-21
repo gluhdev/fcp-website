@@ -3,7 +3,11 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { ContentData, CMSContextType } from '@/types/cms';
 
-const CMSContext = createContext<CMSContextType | undefined>(undefined);
+interface ExtendedCMSContextType extends Omit<CMSContextType, 'login'> {
+  login: (username: string, password: string) => Promise<boolean>;
+}
+
+const CMSContext = createContext<ExtendedCMSContextType | undefined>(undefined);
 
 // Helper to get nested value from object using dot notation
 function getNestedValue(obj: any, path: string): any {
@@ -17,10 +21,12 @@ function setNestedValue(obj: any, path: string, value: any): any {
   let current = newObj;
 
   for (let i = 0; i < keys.length - 1; i++) {
-    if (current[keys[i]] === undefined) {
-      current[keys[i]] = {};
+    const key = keys[i];
+    if (current[key] === undefined || current[key] === null) {
+      // Create object for next level
+      current[key] = {};
     }
-    current = current[keys[i]];
+    current = current[key];
   }
 
   current[keys[keys.length - 1]] = value;
@@ -60,12 +66,12 @@ export function CMSProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const login = async (password: string): Promise<boolean> => {
+  const login = async (username: string, password: string): Promise<boolean> => {
     try {
       const res = await fetch('/api/cms/auth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password })
+        body: JSON.stringify({ username, password })
       });
 
       const data = await res.json();
@@ -97,6 +103,7 @@ export function CMSProvider({ children }: { children: React.ReactNode }) {
   };
 
   const updateContent = useCallback((path: string, value: string) => {
+    console.log('Updating content:', path, value);
     setPendingChanges(prev => ({
       ...prev,
       [path]: value
@@ -104,14 +111,23 @@ export function CMSProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const saveChanges = async (): Promise<boolean> => {
-    if (!content || !token) return false;
+    if (!content || !token) {
+      console.error('Cannot save: no content or token');
+      return false;
+    }
 
     try {
+      console.log('Saving changes:', pendingChanges);
+
       // Apply all pending changes to content
-      let updatedContent = content;
+      let updatedContent = JSON.parse(JSON.stringify(content));
+
       for (const [path, value] of Object.entries(pendingChanges)) {
+        console.log('Applying change:', path, '=', value);
         updatedContent = setNestedValue(updatedContent, path, value);
       }
+
+      console.log('Updated content:', updatedContent);
 
       const res = await fetch('/api/cms/content', {
         method: 'POST',
@@ -123,6 +139,7 @@ export function CMSProvider({ children }: { children: React.ReactNode }) {
       });
 
       const data = await res.json();
+      console.log('Save response:', data);
 
       if (data.success) {
         setContent(updatedContent);
@@ -130,6 +147,7 @@ export function CMSProvider({ children }: { children: React.ReactNode }) {
         return true;
       }
 
+      console.error('Save failed:', data.error);
       return false;
     } catch (error) {
       console.error('Failed to save:', error);
@@ -138,18 +156,6 @@ export function CMSProvider({ children }: { children: React.ReactNode }) {
   };
 
   const hasUnsavedChanges = Object.keys(pendingChanges).length > 0;
-
-  // Get content value with pending changes applied
-  const getContentValue = useCallback((path: string, defaultValue: string): string => {
-    if (pendingChanges[path] !== undefined) {
-      return pendingChanges[path];
-    }
-    if (content) {
-      const value = getNestedValue(content, path);
-      return value !== undefined ? value : defaultValue;
-    }
-    return defaultValue;
-  }, [content, pendingChanges]);
 
   return (
     <CMSContext.Provider value={{

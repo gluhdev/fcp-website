@@ -2,13 +2,11 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Settings, Edit3, Save, LogOut, X, Check, Loader2 } from 'lucide-react';
+import { Settings, Edit3, Save, LogOut, Check, Loader2 } from 'lucide-react';
 import { useCMS } from './CMSProvider';
-import { LoginModal } from './LoginModal';
 
 export function CMSToolbar() {
   const { isAdmin, isEditing, toggleEditing, logout, saveChanges, hasUnsavedChanges } = useCMS();
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
 
@@ -23,197 +21,166 @@ export function CMSToolbar() {
     }
   };
 
+  // Don't show toolbar if not admin
+  if (!isAdmin) {
+    return null;
+  }
+
   return (
-    <>
-      <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
+    <motion.div
+      initial={{ y: 100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      style={{
+        position: 'fixed',
+        bottom: '20px',
+        right: '20px',
+        zIndex: 9997,
+        display: 'flex',
+        gap: '0.5rem',
+        alignItems: 'center',
+        backgroundColor: 'rgba(10, 15, 46, 0.95)',
+        padding: '0.75rem 1rem',
+        borderRadius: '16px',
+        border: '1px solid rgba(255, 215, 0, 0.3)',
+        backdropFilter: 'blur(10px)',
+        boxShadow: '0 10px 40px rgba(0, 0, 0, 0.4)'
+      }}
+    >
+      {/* Settings Icon */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginRight: '0.5rem'
+      }}>
+        <Settings size={20} color="#FFD700" />
+      </div>
 
-      {/* Floating Toolbar */}
-      <motion.div
-        initial={{ y: 100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        style={{
-          position: 'fixed',
-          bottom: '20px',
-          right: '20px',
-          zIndex: 9997,
-          display: 'flex',
-          gap: '0.5rem',
-          alignItems: 'center'
-        }}
-      >
-        <AnimatePresence>
-          {isAdmin && (
-            <>
-              {/* Unsaved changes indicator */}
-              {hasUnsavedChanges && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  style={{
-                    backgroundColor: 'rgba(239, 68, 68, 0.9)',
-                    color: 'white',
-                    padding: '0.5rem 1rem',
-                    borderRadius: '20px',
-                    fontSize: '0.85rem',
-                    fontWeight: '500',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.5rem'
-                  }}
-                >
-                  <span style={{ width: '8px', height: '8px', backgroundColor: 'white', borderRadius: '50%' }} />
-                  Unsaved changes
-                </motion.div>
-              )}
-
-              {/* Save success indicator */}
-              {saveSuccess && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  style={{
-                    backgroundColor: 'rgba(34, 197, 94, 0.9)',
-                    color: 'white',
-                    padding: '0.5rem 1rem',
-                    borderRadius: '20px',
-                    fontSize: '0.85rem',
-                    fontWeight: '500',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.5rem'
-                  }}
-                >
-                  <Check size={16} />
-                  Saved!
-                </motion.div>
-              )}
-
-              {/* Save Button */}
-              <motion.button
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={handleSave}
-                disabled={!hasUnsavedChanges || isSaving}
-                style={{
-                  width: '48px',
-                  height: '48px',
-                  borderRadius: '50%',
-                  backgroundColor: hasUnsavedChanges ? '#22c55e' : 'rgba(255, 255, 255, 0.1)',
-                  border: 'none',
-                  cursor: hasUnsavedChanges && !isSaving ? 'pointer' : 'not-allowed',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  boxShadow: hasUnsavedChanges ? '0 4px 20px rgba(34, 197, 94, 0.4)' : 'none',
-                  transition: 'background-color 0.2s'
-                }}
-              >
-                {isSaving ? (
-                  <Loader2 size={22} color="white" className="animate-spin" />
-                ) : (
-                  <Save size={22} color="white" />
-                )}
-              </motion.button>
-
-              {/* Edit Mode Toggle */}
-              <motion.button
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={toggleEditing}
-                style={{
-                  width: '48px',
-                  height: '48px',
-                  borderRadius: '50%',
-                  backgroundColor: isEditing ? '#FFD700' : 'rgba(255, 255, 255, 0.1)',
-                  border: isEditing ? 'none' : '2px solid rgba(255, 215, 0, 0.3)',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  boxShadow: isEditing ? '0 4px 20px rgba(255, 215, 0, 0.4)' : 'none',
-                  transition: 'all 0.2s'
-                }}
-              >
-                {isEditing ? (
-                  <X size={22} color="#020617" />
-                ) : (
-                  <Edit3 size={22} color="#FFD700" />
-                )}
-              </motion.button>
-
-              {/* Logout Button */}
-              <motion.button
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={logout}
-                style={{
-                  width: '48px',
-                  height: '48px',
-                  borderRadius: '50%',
-                  backgroundColor: 'rgba(239, 68, 68, 0.2)',
-                  border: '2px solid rgba(239, 68, 68, 0.5)',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  transition: 'all 0.2s'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.4)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.2)';
-                }}
-              >
-                <LogOut size={22} color="#ef4444" />
-              </motion.button>
-            </>
-          )}
-        </AnimatePresence>
-
-        {/* Admin/Login Button - Always visible */}
-        {!isAdmin && (
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setIsLoginOpen(true)}
+      <AnimatePresence>
+        {/* Unsaved changes indicator */}
+        {hasUnsavedChanges && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
             style={{
-              width: '48px',
-              height: '48px',
-              borderRadius: '50%',
-              backgroundColor: 'rgba(255, 255, 255, 0.1)',
-              border: '2px solid rgba(255, 215, 0, 0.3)',
-              cursor: 'pointer',
+              backgroundColor: 'rgba(239, 68, 68, 0.9)',
+              color: 'white',
+              padding: '0.4rem 0.75rem',
+              borderRadius: '8px',
+              fontSize: '0.8rem',
+              fontWeight: '500',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center',
-              backdropFilter: 'blur(10px)',
-              transition: 'all 0.2s'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = '#FFD700';
-              e.currentTarget.style.backgroundColor = 'rgba(255, 215, 0, 0.1)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = 'rgba(255, 215, 0, 0.3)';
-              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+              gap: '0.4rem'
             }}
           >
-            <Settings size={22} color="#FFD700" />
-          </motion.button>
+            <span style={{ width: '6px', height: '6px', backgroundColor: 'white', borderRadius: '50%' }} />
+            Unsaved
+          </motion.div>
         )}
-      </motion.div>
-    </>
+
+        {/* Save success indicator */}
+        {saveSuccess && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            style={{
+              backgroundColor: 'rgba(34, 197, 94, 0.9)',
+              color: 'white',
+              padding: '0.4rem 0.75rem',
+              borderRadius: '8px',
+              fontSize: '0.8rem',
+              fontWeight: '500',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.4rem'
+            }}
+          >
+            <Check size={14} />
+            Saved!
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Edit Text Button */}
+      <motion.button
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        onClick={toggleEditing}
+        style={{
+          padding: '0.5rem 1rem',
+          borderRadius: '10px',
+          backgroundColor: isEditing ? '#FFD700' : 'rgba(255, 215, 0, 0.15)',
+          border: isEditing ? 'none' : '1px solid rgba(255, 215, 0, 0.4)',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+          transition: 'all 0.2s',
+          color: isEditing ? '#020617' : '#FFD700',
+          fontSize: '0.9rem',
+          fontWeight: '600'
+        }}
+      >
+        <Edit3 size={16} />
+        {isEditing ? 'Stop Editing' : 'Edit Text'}
+      </motion.button>
+
+      {/* Save Button */}
+      <motion.button
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        onClick={handleSave}
+        disabled={!hasUnsavedChanges || isSaving}
+        style={{
+          padding: '0.5rem 1rem',
+          borderRadius: '10px',
+          backgroundColor: hasUnsavedChanges ? '#22c55e' : 'rgba(34, 197, 94, 0.15)',
+          border: hasUnsavedChanges ? 'none' : '1px solid rgba(34, 197, 94, 0.3)',
+          cursor: hasUnsavedChanges && !isSaving ? 'pointer' : 'not-allowed',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+          transition: 'all 0.2s',
+          color: hasUnsavedChanges ? 'white' : 'rgba(34, 197, 94, 0.6)',
+          fontSize: '0.9rem',
+          fontWeight: '600',
+          opacity: hasUnsavedChanges ? 1 : 0.7
+        }}
+      >
+        {isSaving ? (
+          <Loader2 size={16} className="animate-spin" />
+        ) : (
+          <Save size={16} />
+        )}
+        {isSaving ? 'Saving...' : 'Save'}
+      </motion.button>
+
+      {/* Logout Button */}
+      <motion.button
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        onClick={logout}
+        style={{
+          padding: '0.5rem 1rem',
+          borderRadius: '10px',
+          backgroundColor: 'rgba(239, 68, 68, 0.15)',
+          border: '1px solid rgba(239, 68, 68, 0.4)',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+          transition: 'all 0.2s',
+          color: '#ef4444',
+          fontSize: '0.9rem',
+          fontWeight: '600'
+        }}
+      >
+        <LogOut size={16} />
+        Log Out
+      </motion.button>
+    </motion.div>
   );
 }

@@ -1,17 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-21T22:48:44.906Z",
-  "site": {
-    "name": "Full Custom Packaging",
-    "tagline": "We Customize Everything",
-    "description": "Complete customization solutions for packaging, apparel, sports equipment, signage and PPE."
-  },
-  "contact": {
-    "email": "info@fullcustompackaging.com",
-    "phone": "+1 (555) 123-4567",
-    "address": "Los Angeles, CA",
-    "businessHours": "Monday - Friday: 9:00 AM - 6:00 PM (PST)"
-  },
+  "lastUpdated": "2026-01-21T21:44:57.061Z",
   "pages": {
     "home": {
       "hero": {
@@ -150,11 +139,6 @@
         "title": "Get In Touch",
         "subtitle": "Ready to start your project? We'd love to hear from you.",
         "businessHours": "Monday - Friday: 9:00 AM - 6:00 PM (PST)"
-      },
-      "categories": {
-        "packaging": {
-          "description": "Transform your packaging with our comprehensive solutions. We provide state-of-the-art printing machines for high-quality labels and packaging designs, automated filling systems for various products, professional wrapping machines, and custom boxes in all sizes and materials. Test"
-        }
       }
     },
     "packaging": {

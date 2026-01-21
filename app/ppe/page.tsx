@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { HardHat, ArrowRight, CheckCircle, ChevronDown } from 'lucide-react';
 import { HeaderFCP } from '@/components/ui/header';
+import { EditableText } from '@/components/cms';
+import { useCMS } from '@/components/cms/CMSProvider';
 
 // Fixed font: Corporate (Merriweather + Open Sans)
 const selectedFont = {
@@ -13,6 +15,14 @@ const selectedFont = {
 
 export default function PPEPage() {
   const [isMobile, setIsMobile] = useState(false);
+  const { content } = useCMS();
+
+  const contactEmail = content?.contact?.email || 'info@fullcustompackaging.com';
+
+  const handleGetQuote = (product?: string) => {
+    const subject = product ? `Quote Request: ${product}` : 'Quote Request: PPE';
+    window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(subject)}`;
+  };
 
   useEffect(() => {
     const checkMobile = () => {
@@ -25,9 +35,10 @@ export default function PPEPage() {
 
   const ppeCategories = [
     {
-      title: "PPE",
+      id: "ppe",
+      defaultTitle: "PPE",
       icon: HardHat,
-      description: "Complete personal protective equipment solutions for workplace safety",
+      defaultDescription: "Complete personal protective equipment solutions for workplace safety",
       features: ["Head Protection", "Body Protection", "Eye Protection", "Hand Protection", "Foot Protection", "& Many More"],
       image: "/ppe-equipment.png"
     }
@@ -37,7 +48,7 @@ export default function PPEPage() {
     <>
       <HeaderFCP selectedFont={selectedFont} />
 
-      <main style={{ paddingTop: '80px', backgroundColor: '#020617', minHeight: '100vh' }}>
+      <main style={{ paddingTop: '80px', backgroundColor: '#020617', minHeight: 'auto' }}>
         {/* Hero Section */}
         <section style={{
           padding: isMobile ? '3rem 1rem' : '5rem 2rem',
@@ -71,7 +82,11 @@ export default function PPEPage() {
                 fontFamily: `'${selectedFont.heading}', serif`,
                 color: 'white'
               }}>
-                Personal Protective <span style={{ color: '#FFD700' }}>Equipment</span>
+                <EditableText
+                  path="pages.ppe.hero.title"
+                  defaultValue="Personal Protective Equipment"
+                  as="span"
+                />
               </h1>
               <p style={{
                 fontSize: isMobile ? '1rem' : '1.3rem',
@@ -82,8 +97,12 @@ export default function PPEPage() {
                 margin: '0 auto',
                 fontFamily: `'${selectedFont.body}', sans-serif`
               }}>
-                Personal Protective Equipment for workplace safety.
-                Quality gear that meets industry standards.
+                <EditableText
+                  path="pages.ppe.hero.description"
+                  defaultValue="Personal Protective Equipment for workplace safety. Quality gear that meets industry standards."
+                  as="span"
+                  multiline
+                />
               </p>
 
               <div style={{
@@ -96,6 +115,7 @@ export default function PPEPage() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => handleGetQuote()}
                   style={{
                     padding: isMobile ? '0.8rem 2rem' : '1rem 2.5rem',
                     backgroundColor: '#FFD700',
@@ -143,7 +163,7 @@ export default function PPEPage() {
             transition={{ delay: 1, duration: 1.5, repeat: Infinity, repeatType: 'reverse' }}
             style={{
               position: 'absolute',
-              bottom: '20px',
+              bottom: isMobile ? '5px' : '20px',
               left: '50%',
               transform: 'translateX(-50%)',
               cursor: 'pointer'
@@ -196,7 +216,7 @@ export default function PPEPage() {
                   {/* Image */}
                   <div style={{
                     width: '100%',
-                    height: isMobile ? '200px' : '250px',
+                    height: isMobile ? '280px' : '250px',
                     position: 'relative',
                     overflow: 'hidden'
                   }}>
@@ -207,6 +227,7 @@ export default function PPEPage() {
                         width: '100%',
                         height: '100%',
                         objectFit: 'cover',
+                        objectPosition: 'center 30%',
                         transition: 'transform 0.3s'
                       }}
                       onMouseEnter={(e) => {
@@ -245,7 +266,11 @@ export default function PPEPage() {
                       color: '#FFD700',
                       fontFamily: `'${selectedFont.heading}', serif`
                     }}>
-                      {category.title}
+                      <EditableText
+                        path={`pages.ppe.categories.${category.id}.title`}
+                        defaultValue={category.defaultTitle}
+                        as="span"
+                      />
                     </h3>
                     <p style={{
                       color: 'rgba(255, 255, 255, 0.85)',
@@ -254,7 +279,12 @@ export default function PPEPage() {
                       fontSize: isMobile ? '0.9rem' : '1rem',
                       fontFamily: `'${selectedFont.body}', sans-serif`
                     }}>
-                      {category.description}
+                      <EditableText
+                        path={`pages.ppe.categories.${category.id}.description`}
+                        defaultValue={category.defaultDescription}
+                        as="span"
+                        multiline
+                      />
                     </p>
 
                     <div style={{
@@ -279,6 +309,7 @@ export default function PPEPage() {
                     </div>
 
                     <button
+                      onClick={() => handleGetQuote(category.defaultTitle)}
                       style={{
                         padding: isMobile ? '0.6rem 1.5rem' : '0.8rem 2rem',
                         backgroundColor: 'transparent',
@@ -332,7 +363,11 @@ export default function PPEPage() {
               fontFamily: `'${selectedFont.heading}', serif`,
               color: 'white'
             }}>
-              Workplace <span style={{ color: '#FFD700' }}>Safety</span> Solutions
+              <EditableText
+                path="pages.ppe.cta.title"
+                defaultValue="Workplace Safety Solutions"
+                as="span"
+              />
             </h2>
             <p style={{
               fontSize: isMobile ? '1rem' : '1.2rem',
@@ -341,7 +376,12 @@ export default function PPEPage() {
               marginBottom: '2rem',
               fontFamily: `'${selectedFont.body}', sans-serif`
             }}>
-              Protect your team with quality PPE equipment that meets industry standards
+              <EditableText
+                path="pages.ppe.cta.description"
+                defaultValue="Protect your team with quality PPE equipment that meets industry standards"
+                as="span"
+                multiline
+              />
             </p>
             <div style={{
               display: 'flex',
@@ -352,6 +392,7 @@ export default function PPEPage() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={() => handleGetQuote()}
                 style={{
                   padding: isMobile ? '0.9rem 2.5rem' : '1.2rem 3rem',
                   backgroundColor: '#FFD700',
@@ -369,7 +410,60 @@ export default function PPEPage() {
             </div>
           </div>
         </section>
+
       </main>
+
+      {/* Footer - вне main */}
+      <footer style={{
+        backgroundColor: '#0a0f2e',
+        padding: isMobile ? '2rem 1rem 6rem' : '3rem 2rem',
+        borderTop: '1px solid rgba(255, 215, 0, 0.2)'
+      }}>
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          textAlign: 'center'
+        }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '0.5rem',
+            marginBottom: '1rem'
+          }}>
+            <div style={{
+              backgroundColor: '#FFD700',
+              borderRadius: '8px',
+              padding: '0.4rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <HardHat size={16} color="#020617" />
+            </div>
+            <span style={{
+              color: '#FFD700',
+              fontWeight: 'bold',
+              fontSize: '1.1rem'
+            }}>FCP</span>
+          </div>
+          <p style={{
+            color: 'rgba(255, 255, 255, 0.6)',
+            fontSize: isMobile ? '0.85rem' : '0.95rem',
+            fontFamily: `'${selectedFont.body}', sans-serif`,
+            marginBottom: '0.5rem'
+          }}>
+            © 2026 Full Custom Packaging. All rights reserved.
+          </p>
+          <p style={{
+            color: 'rgba(255, 215, 0, 0.6)',
+            fontSize: '0.8rem',
+            fontFamily: `'${selectedFont.body}', sans-serif`
+          }}>
+            Personal Protective Equipment
+          </p>
+        </div>
+      </footer>
     </>
   );
 }

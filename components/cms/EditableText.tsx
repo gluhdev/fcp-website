@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useRef, useState, useEffect } from 'react';
-import { useCMS, useContent } from './CMSProvider';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
+import { useCMS } from './CMSProvider';
 
 interface EditableTextProps {
   path: string;
@@ -12,6 +12,11 @@ interface EditableTextProps {
   multiline?: boolean;
 }
 
+// Helper to get nested value from object
+function getNestedValue(obj: any, path: string): any {
+  return path.split('.').reduce((current, key) => current?.[key], obj);
+}
+
 export function EditableText({
   path,
   defaultValue,
@@ -20,31 +25,67 @@ export function EditableText({
   className,
   multiline = false
 }: EditableTextProps) {
-  const { isAdmin, isEditing, updateContent } = useCMS();
-  const content = useContent(path, defaultValue);
+  const { isAdmin, isEditing, updateContent, content, pendingChanges } = useCMS();
   const [isActive, setIsActive] = useState(false);
-  const [localValue, setLocalValue] = useState(content);
   const ref = useRef<HTMLElement>(null);
+  const initialValueRef = useRef<string>('');
 
+  // Get current value from content or pendingChanges
+  const getCurrentValue = useCallback(() => {
+    if (pendingChanges[path] !== undefined) {
+      return pendingChanges[path];
+    }
+    if (content) {
+      const value = getNestedValue(content, path);
+      return value !== undefined ? String(value) : defaultValue;
+    }
+    return defaultValue;
+  }, [content, pendingChanges, path, defaultValue]);
+
+  // Update DOM when content changes (but not during editing)
   useEffect(() => {
-    setLocalValue(content);
-  }, [content]);
+    if (ref.current && !isActive) {
+      ref.current.textContent = getCurrentValue();
+    }
+  }, [getCurrentValue, isActive]);
+
+  // Set initial content on mount
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.textContent = getCurrentValue();
+    }
+  }, []);
 
   const handleClick = () => {
-    if (isAdmin && isEditing) {
+    if (isAdmin && isEditing && !isActive) {
       setIsActive(true);
+      initialValueRef.current = ref.current?.textContent || '';
+      // Focus and place cursor at end
+      setTimeout(() => {
+        if (ref.current) {
+          ref.current.focus();
+          // Place cursor at end
+          const range = document.createRange();
+          const selection = window.getSelection();
+          range.selectNodeContents(ref.current);
+          range.collapse(false);
+          selection?.removeAllRanges();
+          selection?.addRange(range);
+        }
+      }, 0);
     }
   };
 
   const handleBlur = () => {
-    setIsActive(false);
-    if (localValue !== content) {
-      updateContent(path, localValue);
-    }
-  };
+    if (isActive && ref.current) {
+      const newValue = ref.current.textContent || '';
+      setIsActive(false);
 
-  const handleInput = (e: React.FormEvent<HTMLElement>) => {
-    setLocalValue(e.currentTarget.textContent || '');
+      // Only update if value changed
+      if (newValue !== initialValueRef.current) {
+        updateContent(path, newValue);
+      }
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -53,26 +94,25 @@ export function EditableText({
       ref.current?.blur();
     }
     if (e.key === 'Escape') {
-      setLocalValue(content);
+      // Restore original value
+      if (ref.current) {
+        ref.current.textContent = initialValueRef.current;
+      }
+      setIsActive(false);
       ref.current?.blur();
     }
   };
 
   const editingStyles: React.CSSProperties = isAdmin && isEditing ? {
-    cursor: 'pointer',
+    cursor: 'text',
     outline: isActive ? '2px solid #FFD700' : 'none',
-    outlineOffset: '2px',
+    outlineOffset: '4px',
     borderRadius: '4px',
     transition: 'outline 0.2s, background-color 0.2s',
-    backgroundColor: isActive ? 'rgba(255, 215, 0, 0.1)' : 'transparent',
+    backgroundColor: isActive ? 'rgba(255, 215, 0, 0.15)' : 'transparent',
     minWidth: '20px',
-    display: 'inline-block'
-  } : {};
-
-  const hoverStyles = isAdmin && isEditing && !isActive ? {
-    '&:hover': {
-      outline: '2px dashed rgba(255, 215, 0, 0.5)'
-    }
+    display: 'inline-block',
+    padding: isActive ? '2px 4px' : '0'
   } : {};
 
   return (
@@ -80,15 +120,21 @@ export function EditableText({
       ref={ref as any}
       style={{ ...style, ...editingStyles }}
       className={className}
-      contentEditable={isAdmin && isEditing && isActive}
+      contentEditable={isAdmin && isEditing}
       suppressContentEditableWarning
       onClick={handleClick}
       onBlur={handleBlur}
-      onInput={handleInput}
       onKeyDown={handleKeyDown}
+      onFocus={() => {
+        if (isAdmin && isEditing) {
+          setIsActive(true);
+          initialValueRef.current = ref.current?.textContent || '';
+        }
+      }}
       onMouseEnter={(e) => {
         if (isAdmin && isEditing && !isActive) {
           e.currentTarget.style.outline = '2px dashed rgba(255, 215, 0, 0.5)';
+          e.currentTarget.style.outlineOffset = '4px';
         }
       }}
       onMouseLeave={(e) => {
@@ -96,8 +142,6 @@ export function EditableText({
           e.currentTarget.style.outline = 'none';
         }
       }}
-    >
-      {localValue}
-    </Component>
+    />
   );
 }
