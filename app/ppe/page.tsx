@@ -29,7 +29,7 @@ export default function PPEPage() {
       icon: HardHat,
       description: "Complete personal protective equipment solutions for workplace safety",
       features: ["Head Protection", "Body Protection", "Eye Protection", "Hand Protection", "Foot Protection", "& Many More"],
-      image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800"
+      image: "/ppe-equipment.png"
     }
   ];
 
@@ -51,10 +51,10 @@ export default function PPEPage() {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundImage: 'url(https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920)',
+            backgroundImage: 'url(/hero-ppe.png)',
             backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            opacity: 0.1
+            backgroundPosition: 'center 75%',
+            opacity: 0.2
           }} />
 
           <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
@@ -305,7 +305,7 @@ export default function PPEPage() {
                         e.currentTarget.style.color = '#FFD700';
                       }}
                     >
-                      View Collection
+                      Get Quote
                       <ArrowRight size={16} />
                     </button>
                   </div>

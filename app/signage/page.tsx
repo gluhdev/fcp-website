@@ -29,14 +29,14 @@ export default function SignagePage() {
       icon: Lightbulb,
       description: "Custom LED neon signs for businesses, events, and home decor",
       features: ["Acrylic", "Aluminum", "Gold Brushed", "Front Lit", "Back Lit", "Side Lit", "LED Neon", "& Many More"],
-      image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800"
+      image: "/signage-neon.png"
     },
     {
       title: "LED Colors",
       icon: Lightbulb,
       description: "Wide range of vibrant LED colors to match your brand and style",
       features: ["White", "Cold White", "Warm White", "Red", "Green", "Blue", "Yellow", "Pink"],
-      image: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=800"
+      image: "/signage-led-colors.png"
     }
   ];
 
@@ -58,10 +58,10 @@ export default function SignagePage() {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundImage: 'url(https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1920)',
+            backgroundImage: 'url(/hero-neon.png)',
             backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            opacity: 0.1
+            backgroundPosition: 'center 40%',
+            opacity: 0.2
           }} />
 
           <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 1 }}>

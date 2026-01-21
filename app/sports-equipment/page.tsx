@@ -29,7 +29,7 @@ export default function SportsEquipmentPage() {
       icon: Dumbbell,
       description: "Professional-grade sports equipment for athletes and fitness enthusiasts",
       features: ["Yoga Mats", "Pickleball Paddles", "Pickleball Balls", "Golf Balls", "Jump Rope", "Sports Towels", "Gym Bags", "& Many More"],
-      image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800"
+      image: "/sports-equipment.png"
     }
   ];
 
@@ -51,10 +51,10 @@ export default function SportsEquipmentPage() {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundImage: 'url(https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920)',
+            backgroundImage: 'url(/hero-sports-equipment.png)',
             backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            opacity: 0.1
+            backgroundPosition: 'center 60%',
+            opacity: 0.2
           }} />
 
           <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 1 }}>

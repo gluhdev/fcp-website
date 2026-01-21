@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { CMSWrapper } from "@/components/cms/CMSWrapper";
 
 export const metadata: Metadata = {
   title: "FCP - Full Custom Packaging | We Customize Everything",
@@ -36,7 +37,9 @@ export default function RootLayout({
         maxWidth: "100vw",
         position: "relative"
       }}>
-        {children}
+        <CMSWrapper>
+          {children}
+        </CMSWrapper>
       </body>
     </html>
   );

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Package, ArrowRight, CheckCircle, Globe, Award, Users, ChevronLeft, ChevronRight, Play, Pause, Target, Zap, Shield, Mail, MapPin, Send, Menu, X, ChevronUp, ChevronDown, Building2, ShoppingBag, Factory, Heart, Briefcase, Sparkles } from "lucide-react";
 import { HeaderFCP } from "@/components/ui/header";
 import { Compare } from "@/components/ui/compare";
+import { EditableText, useCMS, useContent } from "@/components/cms";
 
 // Fixed font: Corporate (Merriweather + Open Sans)
 const selectedFont = {
@@ -15,35 +16,35 @@ const selectedFont = {
 const carouselItems = [
   {
     type: "image",
-    src: "https://images.unsplash.com/photo-1577705998148-6da4f3963bc8?w=1920&h=1080&fit=crop",
+    src: "/hero-packaging.png",
     title: "Custom Packaging Solutions",
     subtitle: "Complete End-to-End Packaging Services",
     sectionId: "packaging-solutions"
   },
   {
     type: "image",
-    src: "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=1920&h=1080&fit=crop",
+    src: "/hero-apparel.png",
     title: "Sports Apparel",
     subtitle: "High-Performance Athletic Wear",
     sectionId: "apparel-solutions"
   },
   {
     type: "image",
-    src: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1920&h=1080&fit=crop",
+    src: "/hero-sports-equipment.png",
     title: "Custom Sports Equipment",
     subtitle: "Premium Sports Gear & Accessories",
     sectionId: "sport-equipment-solutions"
   },
   {
     type: "image",
-    src: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=1920&h=1080&fit=crop",
+    src: "/hero-neon.png",
     title: "Custom Neon Signs",
     subtitle: "Bright & Eye-Catching Brand Illumination",
     sectionId: "neon-signs-solutions"
   },
   {
     type: "image",
-    src: "https://images.unsplash.com/photo-1584744982491-665216d95f8b?w=1920&h=1080&fit=crop",
+    src: "/hero-ppe.png",
     title: "Personal Protective Equipment",
     subtitle: "Custom Branded Safety Solutions",
     sectionId: "ppe-solutions"
@@ -147,7 +148,7 @@ export default function Home() {
                 height: "100%",
                 backgroundImage: `url(${carouselItems[currentSlide].src})`,
                 backgroundSize: "cover",
-                backgroundPosition: "center"
+                backgroundPosition: "center center"
               }} />
             )}
 
@@ -157,7 +158,7 @@ export default function Home() {
               left: 0,
               right: 0,
               bottom: 0,
-              background: "linear-gradient(to bottom, rgba(2, 6, 23, 0.7), rgba(2, 6, 23, 0.9))"
+              background: "linear-gradient(to bottom, rgba(2, 6, 23, 0.55), rgba(2, 6, 23, 0.75))"
             }} />
 
             <div style={{
@@ -182,7 +183,11 @@ export default function Home() {
                   fontFamily: `'${selectedFont.heading}', serif`
                 }}
               >
-                {carouselItems[currentSlide].title}
+                <EditableText
+                  path={`pages.home.hero.slides.${currentSlide}.title`}
+                  defaultValue={carouselItems[currentSlide].title}
+                  as="span"
+                />
               </motion.h1>
               <motion.p
                 initial={{ y: 30, opacity: 0 }}
@@ -195,7 +200,11 @@ export default function Home() {
                   fontFamily: `'${selectedFont.body}', sans-serif`
                 }}
               >
-                {carouselItems[currentSlide].subtitle}
+                <EditableText
+                  path={`pages.home.hero.slides.${currentSlide}.subtitle`}
+                  defaultValue={carouselItems[currentSlide].subtitle}
+                  as="span"
+                />
               </motion.p>
               <motion.div
                 initial={{ y: 30, opacity: 0 }}
@@ -416,9 +425,12 @@ export default function Home() {
               marginBottom: "3rem",
               fontFamily: `'${selectedFont.body}', sans-serif`
             }}>
-              Full Custom Packaging (FCP) is your premier partner for complete customization solutions.
-              We specialize in producing unique packaging designs, sport equipment, signage and PPE products.
-              With over 10 years of experience, we transform your ideas into reality with unmatched quality and precision.
+              <EditableText
+                path="pages.home.about.description"
+                defaultValue="Full Custom Packaging (FCP) is your premier partner for complete customization solutions. We specialize in producing unique packaging designs, sport equipment, signage and PPE products. With over 10 years of experience, we transform your ideas into reality with unmatched quality and precision."
+                as="span"
+                multiline
+              />
             </p>
 
             <div style={{
@@ -519,7 +531,12 @@ export default function Home() {
               maxWidth: "800px",
               margin: "0 auto 3rem"
             }}>
-              Explore our comprehensive range of customization solutions designed to meet all your business needs
+              <EditableText
+                path="pages.home.mission.subtitle"
+                defaultValue="Explore our comprehensive range of customization solutions designed to meet all your business needs"
+                as="span"
+                multiline
+              />
             </p>
 
             <div style={{
@@ -534,7 +551,7 @@ export default function Home() {
                   description: "Transform your packaging with our comprehensive solutions. We provide state-of-the-art printing machines for high-quality labels and packaging designs, automated filling systems for various products, professional wrapping machines, and custom boxes in all sizes and materials.",
                   detailedInfo: "Our packaging division specializes in creating unique packaging experiences that protect your products and enhance your brand. From eco-friendly options to luxury packaging, we handle everything from design to production.",
                   icon: "📦",
-                  image: "https://images.unsplash.com/photo-1577705998148-6da4f3963bc8?w=1200&h=600&fit=crop",
+                  image: "/hero-packaging.png",
                   href: "/packaging",
                   features: ["Printing Machines", "Filling Equipment", "Wrapping Systems", "Custom Boxes", "Glass & Plastic Bottles", "Mylar Bags", "Labels & Stickers"],
                   stats: [
@@ -549,7 +566,7 @@ export default function Home() {
                   description: "Elevate your athletic performance with our premium sports apparel. From moisture-wicking running gear and breathable gym wear to performance jerseys and training apparel, we provide custom athletic clothing designed for peak performance.",
                   detailedInfo: "Our sports apparel division specializes in creating high-performance athletic wear that combines cutting-edge fabric technology with custom branding. We use advanced moisture-wicking materials, ergonomic designs, and offer complete customization including sublimation printing, embroidery, and heat transfer options.",
                   icon: "🏃",
-                  image: "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=1200&h=600&fit=crop",
+                  image: "/hero-apparel.png",
                   href: "/apparel",
                   features: ["Performance Jerseys", "Athletic Shorts", "Compression Wear", "Running Gear", "Gym Apparel", "Team Uniforms", "Training Wear", "Sports Accessories"],
                   stats: [
@@ -564,7 +581,7 @@ export default function Home() {
                   description: "Elevate your game with our custom sports equipment. From yoga mats and sports towels to pickleball paddles, balls, and athletic accessories, we provide high-quality gear tailored to your needs.",
                   detailedInfo: "Our sports equipment division specializes in creating custom branded sports gear. We work with premium materials and advanced customization techniques to deliver products that perform and look great.",
                   icon: "🏆",
-                  image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1200&h=600&fit=crop",
+                  image: "/hero-sports-equipment.png",
                   href: "/sports-equipment",
                   features: ["Yoga Mats", "Sports Towels", "Pickleball Paddles", "Tennis Balls", "Gym Bags", "Water Bottles", "Resistance Bands", "Custom Apparel"],
                   stats: [
@@ -579,7 +596,7 @@ export default function Home() {
                   description: "Light up your brand with our custom neon signs. From vibrant LED neon to traditional glass tube designs, we create stunning illuminated signage that captures attention day and night.",
                   detailedInfo: "Our neon sign division specializes in creating custom illuminated signage that makes your brand shine. We use cutting-edge LED technology and traditional neon craftsmanship to deliver signs that are energy-efficient, durable, and absolutely stunning.",
                   icon: "💡",
-                  image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=1200&h=600&fit=crop",
+                  image: "/hero-neon.png",
                   href: "/signage",
                   features: ["LED Neon Signs", "Traditional Neon", "Custom Designs", "Indoor & Outdoor", "Business Logos", "Event Signage", "Home Decor", "Restaurant Signs"],
                   stats: [
@@ -594,7 +611,7 @@ export default function Home() {
                   description: "Keep your team safe and professional with our custom PPE solutions. We provide high-quality protective equipment including masks, gloves, safety glasses, hard hats, vests, and more, all customizable with your branding.",
                   detailedInfo: "Our PPE division specializes in providing comprehensive safety solutions that don't compromise on branding. We source certified equipment and apply your custom logos and colors using durable, industry-compliant methods.",
                   icon: "🛡️",
-                  image: "https://images.unsplash.com/photo-1584744982491-665216d95f8b?w=1200&h=600&fit=crop",
+                  image: "/hero-ppe.png",
                   href: "/ppe",
                   features: ["Safety Masks", "Protective Gloves", "Safety Glasses", "Hard Hats", "Hi-Vis Vests", "Face Shields", "Safety Boots", "Ear Protection"],
                   stats: [

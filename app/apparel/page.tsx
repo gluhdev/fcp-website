@@ -29,14 +29,14 @@ export default function ApparelPage() {
       icon: Activity,
       description: "High-performance sports apparel designed for athletes and fitness enthusiasts",
       features: ["T-shirts", "Hoodies", "Sweatshirts", "Sweat Suits", "Shorts", "Socks", "& Many More"],
-      image: "https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=800"
+      image: "/apparel-sports.png"
     },
     {
       title: "Caps",
       icon: Activity,
       description: "Professional gym wear combining style with functionality for optimal workouts",
       features: ["Hats", "Trucker Hats", "Baseball Caps", "& Many More"],
-      image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800"
+      image: "/apparel-caps.png"
     },
   ];
 
@@ -58,10 +58,10 @@ export default function ApparelPage() {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundImage: 'url(https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=1920)',
+            backgroundImage: 'url(/hero-apparel.png)',
             backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            opacity: 0.1
+            backgroundPosition: 'center 30%',
+            opacity: 0.2
           }} />
 
           <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
@@ -214,6 +214,7 @@ export default function ApparelPage() {
                         width: '100%',
                         height: '100%',
                         objectFit: 'cover',
+                        objectPosition: index === 1 ? 'center center' : (index === 0 ? 'center 30%' : 'center'),
                         transition: 'transform 0.3s'
                       }}
                       onMouseEnter={(e) => {

@@ -1,0 +1,132 @@
+{
+  "version": 1,
+  "lastUpdated": "2025-01-16T12:00:00Z",
+  "pages": {
+    "home": {
+      "hero": {
+        "slides": [
+          {
+            "id": "slide-1",
+            "title": "Custom Packaging Solutions",
+            "subtitle": "Complete End-to-End Packaging Services"
+          },
+          {
+            "id": "slide-2",
+            "title": "Sports Apparel",
+            "subtitle": "High-Performance Athletic Wear"
+          },
+          {
+            "id": "slide-3",
+            "title": "Custom Sports Equipment",
+            "subtitle": "Premium Sports Gear & Accessories"
+          },
+          {
+            "id": "slide-4",
+            "title": "Custom Neon Signs",
+            "subtitle": "Bright & Eye-Catching Brand Illumination"
+          },
+          {
+            "id": "slide-5",
+            "title": "Personal Protective Equipment",
+            "subtitle": "Custom Branded Safety Solutions"
+          }
+        ]
+      },
+      "about": {
+        "title": "About FCP",
+        "description": "Full Custom Packaging (FCP) is your premier partner for complete customization solutions. We specialize in producing unique packaging designs, sport equipment, signage and PPE products. With over 10 years of experience, we transform your ideas into reality with unmatched quality and precision.",
+        "features": [
+          { "id": "feat-1", "title": "Quality First", "desc": "" },
+          { "id": "feat-2", "title": "Excellent Customer Service", "desc": "" },
+          { "id": "feat-3", "title": "Expert Team", "desc": "" }
+        ]
+      },
+      "mission": {
+        "title": "Our Mission",
+        "subtitle": "Explore our comprehensive range of customization solutions designed to meet all your business needs",
+        "categories": [
+          {
+            "id": "cat-1",
+            "title": "Packaging Solutions",
+            "subtitle": "Complete End-to-End Packaging Services",
+            "description": "Transform your packaging with our comprehensive solutions. We provide state-of-the-art printing machines for high-quality labels and packaging designs, automated filling systems for various products, professional wrapping machines, and custom boxes in all sizes and materials.",
+            "detailedInfo": "Our packaging division specializes in creating unique packaging experiences that protect your products and enhance your brand. From eco-friendly options to luxury packaging, we handle everything from design to production.",
+            "features": ["Printing Machines", "Filling Equipment", "Wrapping Systems", "Custom Boxes", "Glass & Plastic Bottles", "Mylar Bags", "Labels & Stickers"]
+          },
+          {
+            "id": "cat-2",
+            "title": "Sports Apparel",
+            "subtitle": "High-Performance Athletic Wear",
+            "description": "Elevate your athletic performance with our premium sports apparel. From moisture-wicking running gear and breathable gym wear to performance jerseys and training apparel, we provide custom athletic clothing designed for peak performance.",
+            "detailedInfo": "Our sports apparel division specializes in creating high-performance athletic wear that combines cutting-edge fabric technology with custom branding. We use advanced moisture-wicking materials, ergonomic designs, and offer complete customization including sublimation printing, embroidery, and heat transfer options.",
+            "features": ["Performance Jerseys", "Athletic Shorts", "Compression Wear", "Running Gear", "Gym Apparel", "Team Uniforms"]
+          },
+          {
+            "id": "cat-3",
+            "title": "Custom Sports Equipment",
+            "subtitle": "Premium Sports Gear & Accessories",
+            "description": "Elevate your game with our custom sports equipment. From yoga mats and sports towels to pickleball paddles, balls, and athletic accessories, we provide high-quality gear tailored to your needs.",
+            "detailedInfo": "Our sports equipment division specializes in creating custom branded sports gear. We work with premium materials and advanced customization techniques to deliver products that perform and look great.",
+            "features": ["Yoga Mats", "Sports Towels", "Pickleball Paddles", "Tennis Balls", "Gym Bags", "Water Bottles"]
+          },
+          {
+            "id": "cat-4",
+            "title": "Custom Neon Signs",
+            "subtitle": "Bright & Eye-Catching Brand Illumination",
+            "description": "Light up your brand with our custom neon signs. From vibrant LED neon to traditional glass tube designs, we create stunning illuminated signage that captures attention day and night.",
+            "detailedInfo": "Our neon sign division specializes in creating custom illuminated signage that makes your brand shine. We use cutting-edge LED technology and traditional neon craftsmanship to deliver signs that are energy-efficient, durable, and absolutely stunning.",
+            "features": ["LED Neon Signs", "Traditional Neon", "Custom Designs", "Indoor & Outdoor", "Business Logos", "Event Signage"]
+          },
+          {
+            "id": "cat-5",
+            "title": "Personal Protective Equipment",
+            "subtitle": "Custom Branded Safety Solutions",
+            "description": "Keep your team safe and professional with our custom PPE solutions. We provide high-quality protective equipment including masks, gloves, safety glasses, hard hats, vests, and more, all customizable with your branding.",
+            "detailedInfo": "Our PPE division specializes in providing comprehensive safety solutions that don't compromise on branding. We source certified equipment and apply your custom logos and colors using durable, industry-compliant methods.",
+            "features": ["Safety Masks", "Protective Gloves", "Safety Glasses", "Hard Hats", "Hi-Vis Vests", "Face Shields"]
+          }
+        ]
+      },
+      "contact": {
+        "title": "Get In Touch",
+        "subtitle": "Ready to start your project? We'd love to hear from you.",
+        "businessHours": "Monday - Friday: 9:00 AM - 6:00 PM (PST)"
+      }
+    },
+    "packaging": {
+      "hero": {
+        "title": "Packaging Solutions",
+        "description": "Complete packaging solutions with your custom designs. We create packaging based on your specs."
+      },
+      "categories": []
+    },
+    "apparel": {
+      "hero": {
+        "title": "Sports Apparel",
+        "description": "From gym apparel to hats, hoodies, and sweatshirts, we provide high quality custom apparel solutions for all athletic needs."
+      },
+      "categories": []
+    },
+    "signage": {
+      "hero": {
+        "title": "Custom Neon Signs",
+        "description": "Custom LED neon signs and illuminated signage for businesses, events, and home decor."
+      },
+      "categories": []
+    },
+    "sportsEquipment": {
+      "hero": {
+        "title": "Custom Sports Equipment",
+        "description": "Premium custom sports equipment and gear for athletes and fitness enthusiasts."
+      },
+      "categories": []
+    },
+    "ppe": {
+      "hero": {
+        "title": "Personal Protective Equipment",
+        "description": "Complete custom branded PPE solutions for workplace safety."
+      },
+      "categories": []
+    }
+  }
+}

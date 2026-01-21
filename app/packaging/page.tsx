@@ -29,14 +29,14 @@ export default function PackagingPage() {
       icon: Box,
       description: "Premium custom boxes in various materials and sizes for your products",
       features: ["Mailing Boxes", "Retail Product Boxes", "Retail Food Boxes", "Display Boxes", "Shoe Boxes", "& Many More"],
-      image: "https://images.unsplash.com/photo-1577705998148-6da4f3963bc8?w=800"
+      image: "/packaging-boxes.png"
     },
     {
       title: "Bags",
       icon: ShoppingBag,
       description: "High-quality bags for retail, food, and shipping needs",
       features: ["Retail Food / Mylar Bags", "Retail Product Bags", "Shopping Bags", "Gift Bags", "Mailer / Bubble Bags", "& Many More"],
-      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800"
+      image: "/packaging-bags.png"
     },
     {
       title: "Bottles / Jars",
@@ -44,14 +44,14 @@ export default function PackagingPage() {
       description: "Premium glass and plastic bottles and jars for various industries",
       material: "Glass and Plastic",
       features: ["Water Bottles", "Cups and Mugs", "Mason Jars", "Cosmetic Containers", "Food Containers", "& Many More"],
-      image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=800"
+      image: "/packaging-bottles.png"
     },
     {
       title: "Stickers & Labels",
       icon: Tag,
       description: "Professional stickers and labels with custom designs and finishes",
       features: ["Product Labels", "Waterproof Labels", "Hologram Stickers", "Custom Stickers", "QR Code Labels", "Tamper-Proof Stickers", "& Many More"],
-      image: "https://images.unsplash.com/photo-1586075010923-2dd4570fb338?w=800"
+      image: "/packaging-stickers.png"
     }
   ];
 
@@ -73,10 +73,10 @@ export default function PackagingPage() {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundImage: 'url(https://images.unsplash.com/photo-1577705998148-6da4f3963bc8?w=1920)',
+            backgroundImage: 'url(/hero-packaging.png)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            opacity: 0.1
+            opacity: 0.2
           }} />
 
           <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
@@ -250,7 +250,7 @@ export default function PackagingPage() {
                   {/* Image */}
                   <div style={{
                     width: '100%',
-                    height: isMobile ? '200px' : '250px',
+                    height: isMobile ? '300px' : '250px',
                     position: 'relative',
                     overflow: 'hidden'
                   }}>
@@ -261,6 +261,7 @@ export default function PackagingPage() {
                         width: '100%',
                         height: '100%',
                         objectFit: 'cover',
+                        objectPosition: isMobile ? (index === 1 ? 'center 60%' : 'center 40%') : (index === 1 ? 'center 20%' : 'center'),
                         transition: 'transform 0.3s'
                       }}
                       onMouseEnter={(e) => {
