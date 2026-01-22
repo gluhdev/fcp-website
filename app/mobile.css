@@ -5,7 +5,15 @@ html, body {
   overflow-x: hidden !important;
   overflow-y: auto !important;
   -webkit-overflow-scrolling: touch !important;
-  scroll-behavior: smooth;
+  overscroll-behavior: none;
+  overscroll-behavior-y: none;
+}
+
+/* Фикс для мобильного viewport - предотвращает resize при скролле */
+@supports (height: 100svh) {
+  :root {
+    --vh: 1svh;
+  }
 }
 
 /* GPU ускорение для fixed элементов */
@@ -239,5 +247,12 @@ header {
     font-size: 16px !important;
     -webkit-appearance: none;
     border-radius: 0;
+  }
+
+  /* Fix for hero section rubber-banding */
+  section:first-of-type {
+    height: calc(100vh - 64px) !important;
+    max-height: calc(100vh - 64px) !important;
+    min-height: 600px !important;
   }
 }

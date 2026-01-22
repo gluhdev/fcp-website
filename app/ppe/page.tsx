@@ -40,7 +40,7 @@ export default function PPEPage() {
       icon: HardHat,
       defaultDescription: "Complete personal protective equipment solutions for workplace safety",
       features: ["Head Protection", "Body Protection", "Eye Protection", "Hand Protection", "Foot Protection", "& Many More"],
-      image: "/ppe-equipment.png"
+      image: "/ppe-equipment.jpg"
     }
   ];
 

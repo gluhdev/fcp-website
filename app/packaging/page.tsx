@@ -40,7 +40,7 @@ export default function PackagingPage() {
       icon: Box,
       defaultDescription: "Premium custom boxes in various materials and sizes for your products",
       features: ["Mailing Boxes", "Retail Product Boxes", "Retail Food Boxes", "Display Boxes", "Shoe Boxes", "& Many More"],
-      image: "/packaging-boxes.png"
+      image: "/packaging-boxes.jpg"
     },
     {
       id: "bags",
@@ -48,7 +48,7 @@ export default function PackagingPage() {
       icon: ShoppingBag,
       defaultDescription: "High-quality bags for retail, food, and shipping needs",
       features: ["Retail Food / Mylar Bags", "Retail Product Bags", "Shopping Bags", "Gift Bags", "Mailer / Bubble Bags", "& Many More"],
-      image: "/packaging-bags.png"
+      image: "/packaging-bags.jpg"
     },
     {
       id: "bottles",
@@ -57,7 +57,7 @@ export default function PackagingPage() {
       defaultDescription: "Premium glass and plastic bottles and jars for various industries",
       material: "Glass and Plastic",
       features: ["Water Bottles", "Cups and Mugs", "Mason Jars", "Cosmetic Containers", "Food Containers", "& Many More"],
-      image: "/packaging-bottles.png"
+      image: "/packaging-bottles.jpg"
     },
     {
       id: "stickers",
@@ -65,7 +65,7 @@ export default function PackagingPage() {
       icon: Tag,
       defaultDescription: "Professional stickers and labels with custom designs and finishes",
       features: ["Product Labels", "Waterproof Labels", "Hologram Stickers", "Custom Stickers", "QR Code Labels", "Tamper-Proof Stickers", "& Many More"],
-      image: "/packaging-stickers.png"
+      image: "/packaging-stickers.jpg"
     }
   ];
 

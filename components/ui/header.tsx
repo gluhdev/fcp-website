@@ -15,7 +15,6 @@ export function HeaderFCP({ selectedFont }: HeaderProps) {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const [showContact, setShowContact] = React.useState(false);
     const [isMobile, setIsMobile] = React.useState(false);
-    const [isScrolled, setIsScrolled] = React.useState(false);
     const pathname = usePathname();
     const { content, isAdmin, isEditing } = useCMS();
 
@@ -30,21 +29,6 @@ export function HeaderFCP({ selectedFont }: HeaderProps) {
         checkMobile();
         window.addEventListener("resize", checkMobile);
         return () => window.removeEventListener("resize", checkMobile);
-    }, []);
-
-    React.useEffect(() => {
-        let ticking = false;
-        const handleScroll = () => {
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    setIsScrolled(window.scrollY > 50);
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        };
-        window.addEventListener("scroll", handleScroll, { passive: true });
-        return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
     const menuItems = [
@@ -77,20 +61,17 @@ export function HeaderFCP({ selectedFont }: HeaderProps) {
                 left: 0,
                 right: 0,
                 zIndex: 50,
-                backgroundColor: isScrolled ? 'rgba(2, 6, 23, 0.98)' : 'rgba(2, 6, 23, 0.95)',
+                backgroundColor: 'rgba(2, 6, 23, 0.97)',
                 backdropFilter: isMobile ? 'none' : 'blur(10px)',
-                borderBottom: '1px solid rgba(255, 215, 0, 0.1)',
-                transition: 'background-color 0.3s ease',
-                willChange: 'background-color'
+                borderBottom: '1px solid rgba(255, 215, 0, 0.1)'
             }}>
                 <div style={{
                     maxWidth: '1280px',
                     margin: '0 auto',
-                    padding: isScrolled ? '0.75rem 1.5rem' : '1rem 1.5rem',
+                    padding: '0.85rem 1.5rem',
                     display: 'flex',
                     justifyContent: 'space-between',
-                    alignItems: 'center',
-                    transition: 'all 0.3s ease'
+                    alignItems: 'center'
                 }}>
                     <Link href="/" style={{ textDecoration: 'none' }}>
                         <motion.div

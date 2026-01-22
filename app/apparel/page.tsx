@@ -40,7 +40,7 @@ export default function ApparelPage() {
       icon: Activity,
       defaultDescription: "High-performance sports apparel designed for athletes and fitness enthusiasts",
       features: ["T-shirts", "Hoodies", "Sweatshirts", "Sweat Suits", "Shorts", "Socks", "& Many More"],
-      image: "/apparel-sports.png"
+      image: "/apparel-sports.jpg"
     },
     {
       id: "caps",
@@ -48,7 +48,7 @@ export default function ApparelPage() {
       icon: Activity,
       defaultDescription: "Professional gym wear combining style with functionality for optimal workouts",
       features: ["Hats", "Trucker Hats", "Baseball Caps", "& Many More"],
-      image: "/apparel-caps.png"
+      image: "/apparel-caps.jpg"
     },
   ];
 

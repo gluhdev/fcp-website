@@ -16,35 +16,35 @@ const selectedFont = {
 const carouselItems = [
   {
     type: "image",
-    src: "/hero-packaging.png",
+    src: "/hero-packaging.jpg",
     title: "Custom Packaging Solutions",
     subtitle: "Complete End-to-End Packaging Services",
     sectionId: "packaging-solutions"
   },
   {
     type: "image",
-    src: "/hero-apparel.png",
+    src: "/hero-apparel.jpg",
     title: "Sports Apparel",
     subtitle: "High-Performance Athletic Wear",
     sectionId: "apparel-solutions"
   },
   {
     type: "image",
-    src: "/hero-sports-equipment.png",
+    src: "/hero-sports-equipment.jpg",
     title: "Custom Sports Equipment",
     subtitle: "Premium Sports Gear & Accessories",
     sectionId: "sport-equipment-solutions"
   },
   {
     type: "image",
-    src: "/hero-neon.png",
+    src: "/hero-neon.jpg",
     title: "Custom Neon Signs",
     subtitle: "Bright & Eye-Catching Brand Illumination",
     sectionId: "neon-signs-solutions"
   },
   {
     type: "image",
-    src: "/hero-ppe.png",
+    src: "/hero-ppe.jpg",
     title: "Personal Protective Equipment",
     subtitle: "Custom Branded Safety Solutions",
     sectionId: "ppe-solutions"
@@ -132,7 +132,9 @@ export default function Home() {
       {/* Hero Section - Полностью адаптирован для мобильных */}
       <section style={{
         position: "relative",
-        height: "100vh",
+        height: isMobile ? "calc(100svh - 64px)" : "100vh",
+        minHeight: isMobile ? "500px" : "100vh",
+        maxHeight: isMobile ? "calc(100svh - 64px)" : "none",
         overflow: "hidden",
         marginTop: "64px"
       }}>
@@ -574,7 +576,7 @@ export default function Home() {
                   defaultDescription: "Transform your packaging with our comprehensive solutions. We provide state-of-the-art printing machines for high-quality labels and packaging designs, automated filling systems for various products, professional wrapping machines, and custom boxes in all sizes and materials.",
                   defaultDetailedInfo: "Our packaging division specializes in creating unique packaging experiences that protect your products and enhance your brand. From eco-friendly options to luxury packaging, we handle everything from design to production.",
                   icon: "📦",
-                  image: "/hero-packaging.png",
+                  image: "/hero-packaging.jpg",
                   href: "/packaging",
                   features: ["Printing Machines", "Filling Equipment", "Wrapping Systems", "Custom Boxes", "Glass & Plastic Bottles", "Mylar Bags", "Labels & Stickers"],
                   stats: [
@@ -590,7 +592,7 @@ export default function Home() {
                   defaultDescription: "Elevate your athletic performance with our premium sports apparel. From moisture-wicking running gear and breathable gym wear to performance jerseys and training apparel, we provide custom athletic clothing designed for peak performance.",
                   defaultDetailedInfo: "Our sports apparel division specializes in creating high-performance athletic wear that combines cutting-edge fabric technology with custom branding. We use advanced moisture-wicking materials, ergonomic designs, and offer complete customization including sublimation printing, embroidery, and heat transfer options.",
                   icon: "🏃",
-                  image: "/hero-apparel.png",
+                  image: "/hero-apparel.jpg",
                   href: "/apparel",
                   features: ["Performance Jerseys", "Athletic Shorts", "Compression Wear", "Running Gear", "Gym Apparel", "Team Uniforms", "Training Wear", "Sports Accessories"],
                   stats: [
@@ -606,7 +608,7 @@ export default function Home() {
                   defaultDescription: "Elevate your game with our custom sports equipment. From yoga mats and sports towels to pickleball paddles, balls, and athletic accessories, we provide high-quality gear tailored to your needs.",
                   defaultDetailedInfo: "Our sports equipment division specializes in creating custom branded sports gear. We work with premium materials and advanced customization techniques to deliver products that perform and look great.",
                   icon: "🏆",
-                  image: "/hero-sports-equipment.png",
+                  image: "/hero-sports-equipment.jpg",
                   href: "/sports-equipment",
                   features: ["Yoga Mats", "Sports Towels", "Pickleball Paddles", "Tennis Balls", "Gym Bags", "Water Bottles", "Resistance Bands", "Custom Apparel"],
                   stats: [
@@ -622,7 +624,7 @@ export default function Home() {
                   defaultDescription: "Light up your brand with our custom neon signs. From vibrant LED neon to traditional glass tube designs, we create stunning illuminated signage that captures attention day and night.",
                   defaultDetailedInfo: "Our neon sign division specializes in creating custom illuminated signage that makes your brand shine. We use cutting-edge LED technology and traditional neon craftsmanship to deliver signs that are energy-efficient, durable, and absolutely stunning.",
                   icon: "💡",
-                  image: "/hero-neon.png",
+                  image: "/hero-neon.jpg",
                   href: "/signage",
                   features: ["LED Neon Signs", "Traditional Neon", "Custom Designs", "Indoor & Outdoor", "Business Logos", "Event Signage", "Home Decor", "Restaurant Signs"],
                   stats: [
@@ -638,7 +640,7 @@ export default function Home() {
                   defaultDescription: "Keep your team safe and professional with our custom PPE solutions. We provide high-quality protective equipment including masks, gloves, safety glasses, hard hats, vests, and more, all customizable with your branding.",
                   defaultDetailedInfo: "Our PPE division specializes in providing comprehensive safety solutions that don't compromise on branding. We source certified equipment and apply your custom logos and colors using durable, industry-compliant methods.",
                   icon: "🛡️",
-                  image: "/hero-ppe.png",
+                  image: "/hero-ppe.jpg",
                   href: "/ppe",
                   features: ["Safety Masks", "Protective Gloves", "Safety Glasses", "Hard Hats", "Hi-Vis Vests", "Face Shields", "Safety Boots", "Ear Protection"],
                   stats: [
@@ -863,8 +865,8 @@ export default function Home() {
                         position: "relative"
                       }}>
                         <Compare
-                          firstImage="/packaging-1.png"
-                          secondImage="/packaging-2.png"
+                          firstImage="/packaging-1.jpg"
+                          secondImage="/packaging-2.jpg"
                           slideMode="hover"
                           autoplay={true}
                           autoplayDuration={3000}
@@ -878,8 +880,8 @@ export default function Home() {
                         position: "relative"
                       }}>
                         <Compare
-                          firstImage="/apparel-1.png"
-                          secondImage="/apparel-2.png"
+                          firstImage="/apparel-1.jpg"
+                          secondImage="/apparel-2.jpg"
                           slideMode="hover"
                           autoplay={true}
                           autoplayDuration={3000}
@@ -893,8 +895,8 @@ export default function Home() {
                         position: "relative"
                       }}>
                         <Compare
-                          firstImage="/equipment-1.png"
-                          secondImage="/equipment-2.png"
+                          firstImage="/equipment-1.jpg"
+                          secondImage="/equipment-2.jpg"
                           slideMode="hover"
                           autoplay={true}
                           autoplayDuration={3000}
@@ -908,8 +910,8 @@ export default function Home() {
                         position: "relative"
                       }}>
                         <Compare
-                          firstImage="/neon-1.png"
-                          secondImage="/neon-2.png"
+                          firstImage="/neon-1.jpg"
+                          secondImage="/neon-2.jpg"
                           slideMode="hover"
                           autoplay={true}
                           autoplayDuration={3000}
@@ -923,8 +925,8 @@ export default function Home() {
                         position: "relative"
                       }}>
                         <Compare
-                          firstImage="/ppe-1.png"
-                          secondImage="/ppe-2.png"
+                          firstImage="/ppe-1.jpg"
+                          secondImage="/ppe-2.jpg"
                           slideMode="hover"
                           autoplay={true}
                           autoplayDuration={3000}

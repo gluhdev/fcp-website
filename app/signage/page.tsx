@@ -40,7 +40,7 @@ export default function SignagePage() {
       icon: Lightbulb,
       defaultDescription: "Custom LED neon signs for businesses, events, and home decor",
       features: ["Acrylic", "Aluminum", "Gold Brushed", "Front Lit", "Back Lit", "Side Lit", "LED Neon", "& Many More"],
-      image: "/signage-neon.png"
+      image: "/signage-neon.jpg"
     },
     {
       id: "led-colors",
@@ -48,7 +48,7 @@ export default function SignagePage() {
       icon: Lightbulb,
       defaultDescription: "Wide range of vibrant LED colors to match your brand and style",
       features: ["White", "Cold White", "Warm White", "Red", "Green", "Blue", "Yellow", "Pink"],
-      image: "/signage-led-colors.png"
+      image: "/signage-led-colors.jpg"
     }
   ];
 

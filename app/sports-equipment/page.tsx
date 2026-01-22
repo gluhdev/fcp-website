@@ -40,7 +40,7 @@ export default function SportsEquipmentPage() {
       icon: Dumbbell,
       defaultDescription: "Professional-grade sports equipment for athletes and fitness enthusiasts",
       features: ["Yoga Mats", "Pickleball Paddles", "Pickleball Balls", "Golf Balls", "Jump Rope", "Sports Towels", "Gym Bags", "& Many More"],
-      image: "/sports-equipment.png"
+      image: "/sports-equipment.jpg"
     }
   ];
 
