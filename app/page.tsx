@@ -679,10 +679,10 @@ export default function Home() {
                 <motion.div
                   key={index}
                   id={index === 0 ? "packaging-solutions" : index === 1 ? "apparel-solutions" : index === 2 ? "sport-equipment-solutions" : index === 3 ? "neon-signs-solutions" : index === 4 ? "ppe-solutions" : undefined}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.2, duration: 0.6 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ delay: isMobile ? 0 : index * 0.1, duration: 0.4 }}
                   style={{
                     backgroundColor: "rgba(255, 255, 255, 0.03)",
                     borderRadius: "25px",

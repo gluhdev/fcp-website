@@ -1,19 +1,47 @@
 import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
+import { put, list } from '@vercel/blob';
 
-const CONTENT_FILE = path.join(process.cwd(), 'data', 'content.json');
+const CONTENT_BLOB_NAME = 'cms-content.json';
+
+// Default content structure
+const defaultContent = {
+  lastUpdated: new Date().toISOString(),
+  pages: {},
+  contact: {
+    email: 'info@fullcustompackaging.com'
+  }
+};
+
+async function getContentFromBlob() {
+  try {
+    const { blobs } = await list({ prefix: CONTENT_BLOB_NAME });
+
+    if (blobs.length === 0) {
+      return null;
+    }
+
+    // Get the most recent blob
+    const blob = blobs[0];
+    const response = await fetch(blob.url);
+    const content = await response.json();
+    return content;
+  } catch (error) {
+    console.error('Error reading from Blob:', error);
+    return null;
+  }
+}
 
 export async function GET() {
   try {
-    if (!fs.existsSync(CONTENT_FILE)) {
-      return NextResponse.json({
-        success: false,
-        error: 'Content file not found'
-      }, { status: 404 });
-    }
+    const content = await getContentFromBlob();
 
-    const content = JSON.parse(fs.readFileSync(CONTENT_FILE, 'utf-8'));
+    if (!content) {
+      // Return default content if nothing saved yet
+      return NextResponse.json({
+        success: true,
+        content: defaultContent
+      });
+    }
 
     return NextResponse.json({
       success: true,
@@ -21,10 +49,11 @@ export async function GET() {
     });
 
   } catch (error) {
+    console.error('Error in GET:', error);
     return NextResponse.json({
-      success: false,
-      error: 'Failed to read content'
-    }, { status: 500 });
+      success: true,
+      content: defaultContent
+    });
   }
 }
 
@@ -51,17 +80,14 @@ export async function POST(request: NextRequest) {
 
     const { content } = await request.json();
 
-    // Create backup
-    if (fs.existsSync(CONTENT_FILE)) {
-      const backup = CONTENT_FILE.replace('.json', `.backup.${Date.now()}.json`);
-      fs.copyFileSync(CONTENT_FILE, backup);
-    }
-
     // Update timestamp
     content.lastUpdated = new Date().toISOString();
 
-    // Save content
-    fs.writeFileSync(CONTENT_FILE, JSON.stringify(content, null, 2));
+    // Save to Vercel Blob
+    await put(CONTENT_BLOB_NAME, JSON.stringify(content, null, 2), {
+      access: 'public',
+      addRandomSuffix: false,
+    });
 
     return NextResponse.json({
       success: true,
@@ -72,7 +98,7 @@ export async function POST(request: NextRequest) {
     console.error('Error saving content:', error);
     return NextResponse.json({
       success: false,
-      error: 'Failed to save content'
+      error: 'Failed to save content: ' + (error instanceof Error ? error.message : 'Unknown error')
     }, { status: 500 });
   }
 }
