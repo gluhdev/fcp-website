@@ -62,7 +62,7 @@ export default function PPEPage() {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundImage: 'url(/hero-ppe.png)',
+            backgroundImage: 'url(/hero-ppe.jpg)',
             backgroundSize: 'cover',
             backgroundPosition: 'center 75%',
             opacity: 0.2

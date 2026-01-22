@@ -62,7 +62,7 @@ export default function SportsEquipmentPage() {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundImage: 'url(/equipment-1.png)',
+            backgroundImage: 'url(/equipment-1.jpg)',
             backgroundSize: 'cover',
             backgroundPosition: 'center 60%',
             opacity: 0.2

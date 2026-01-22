@@ -70,7 +70,7 @@ export default function SignagePage() {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundImage: 'url(/hero-neon.png)',
+            backgroundImage: 'url(/hero-neon.jpg)',
             backgroundSize: 'cover',
             backgroundPosition: 'center 40%',
             opacity: 0.2

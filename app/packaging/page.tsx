@@ -87,7 +87,7 @@ export default function PackagingPage() {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundImage: 'url(/hero-packaging.png)',
+            backgroundImage: 'url(/hero-packaging.jpg)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             opacity: 0.2

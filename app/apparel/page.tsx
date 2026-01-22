@@ -70,7 +70,7 @@ export default function ApparelPage() {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundImage: 'url(/hero-apparel.png)',
+            backgroundImage: 'url(/hero-apparel.jpg)',
             backgroundSize: 'cover',
             backgroundPosition: 'center 30%',
             opacity: 0.2
