@@ -83,10 +83,11 @@ export async function POST(request: NextRequest) {
     // Update timestamp
     content.lastUpdated = new Date().toISOString();
 
-    // Save to Vercel Blob
+    // Save to Vercel Blob (overwrite existing)
     await put(CONTENT_BLOB_NAME, JSON.stringify(content, null, 2), {
       access: 'public',
       addRandomSuffix: false,
+      allowOverwrite: true,
     });
 
     return NextResponse.json({
