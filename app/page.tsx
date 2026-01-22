@@ -93,22 +93,31 @@ export default function Home() {
   }, [isPlaying, currentSlide]);
 
   useEffect(() => {
-    // Set hero height only ONCE on initial load to prevent resize on scroll
     const mobile = window.innerWidth < 768;
     setIsMobile(mobile);
+
     if (mobile) {
-      // Use initial viewport height minus header, never changes
-      setHeroHeight(`${window.innerHeight - 64}px`);
+      // Set CSS variable ONCE and never change it
+      const fixedHeight = window.innerHeight - 64;
+      document.documentElement.style.setProperty('--hero-height', `${fixedHeight}px`);
+      setHeroHeight(`${fixedHeight}px`);
     } else {
+      document.documentElement.style.setProperty('--hero-height', '100vh');
       setHeroHeight("100vh");
     }
 
-    // Only listen for resize to update isMobile state, not heroHeight
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
+    // Only listen for orientation change, not scroll-related resize
+    const handleOrientationChange = () => {
+      const newMobile = window.innerWidth < 768;
+      setIsMobile(newMobile);
+      if (newMobile) {
+        const fixedHeight = window.innerHeight - 64;
+        document.documentElement.style.setProperty('--hero-height', `${fixedHeight}px`);
+        setHeroHeight(`${fixedHeight}px`);
+      }
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', handleOrientationChange);
+    return () => window.removeEventListener('orientationchange', handleOrientationChange);
   }, []);
 
   // Animation for step-by-step process
@@ -164,9 +173,10 @@ export default function Home() {
               position: "absolute",
               top: 0,
               left: 0,
-              right: 0,
-              bottom: 0,
-              backgroundColor: "#020617"
+              width: "100%",
+              height: heroHeight,
+              backgroundColor: "#020617",
+              overflow: "hidden"
             }}
           >
             {carouselItems[currentSlide].type === "video" ? (
@@ -174,9 +184,10 @@ export default function Home() {
                 autoPlay
                 muted
                 loop
+                playsInline
                 style={{
                   width: "100%",
-                  height: "100%",
+                  height: heroHeight,
                   objectFit: "cover"
                 }}
               >
@@ -185,10 +196,11 @@ export default function Home() {
             ) : (
               <div style={{
                 width: "100%",
-                height: "100%",
+                height: heroHeight,
                 backgroundImage: `url(${carouselItems[currentSlide].src})`,
                 backgroundSize: "cover",
-                backgroundPosition: "center center"
+                backgroundPosition: "center center",
+                backgroundAttachment: isMobile ? "scroll" : "scroll"
               }} />
             )}
 
@@ -196,8 +208,8 @@ export default function Home() {
               position: "absolute",
               top: 0,
               left: 0,
-              right: 0,
-              bottom: 0,
+              width: "100%",
+              height: "100%",
               background: "linear-gradient(to bottom, rgba(2, 6, 23, 0.55), rgba(2, 6, 23, 0.75))"
             }} />
 
