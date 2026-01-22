@@ -5,6 +5,13 @@ html, body {
   overflow-x: hidden !important;
   overflow-y: auto !important;
   -webkit-overflow-scrolling: touch !important;
+  scroll-behavior: smooth;
+}
+
+/* GPU ускорение для fixed элементов */
+header {
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 /* Базовые стили для мобильных */

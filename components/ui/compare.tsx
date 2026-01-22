@@ -69,18 +69,15 @@ export const Compare = ({
 
   function mouseEnterHandler() {
     setIsMouseOver(true);
-    stopAutoplay();
+    // Don't stop autoplay on hover - let it keep running
   }
 
   function mouseLeaveHandler() {
     setIsMouseOver(false);
-    if (slideMode === "hover") {
-      setSliderXPercent(initialSliderPercentage);
-    }
     if (slideMode === "drag") {
       setIsDragging(false);
     }
-    startAutoplay();
+    // Autoplay keeps running, no need to restart
   }
 
   const handleStart = useCallback(
@@ -101,6 +98,8 @@ export const Compare = ({
   const handleMove = useCallback(
     (clientX: number) => {
       if (!sliderRef.current) return;
+      // Don't allow manual control when autoplay is active
+      if (autoplay) return;
       if (slideMode === "hover" || (slideMode === "drag" && isDragging)) {
         const rect = sliderRef.current.getBoundingClientRect();
         const x = clientX - rect.left;
@@ -110,7 +109,7 @@ export const Compare = ({
         });
       }
     },
-    [slideMode, isDragging]
+    [slideMode, isDragging, autoplay]
   );
 
   const handleMouseDown = useCallback(
@@ -155,7 +154,7 @@ export const Compare = ({
         height: "100%",
         overflow: "hidden",
         position: "relative",
-        cursor: slideMode === "drag" ? "grab" : "col-resize",
+        cursor: autoplay ? "default" : slideMode === "drag" ? "grab" : "col-resize",
         borderRadius: "0"
       }}
       onMouseMove={handleMouseMove}

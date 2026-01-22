@@ -132,7 +132,7 @@ export default function Home() {
       {/* Hero Section - Полностью адаптирован для мобильных */}
       <section style={{
         position: "relative",
-        height: isMobile ? "70vh" : "100vh",
+        height: "100vh",
         overflow: "hidden",
         marginTop: "64px"
       }}>
@@ -839,7 +839,7 @@ export default function Home() {
                         e.currentTarget.style.boxShadow = "none";
                       }}
                     >
-                      Explore {category.title}
+                      Explore
                       <ArrowRight size={20} />
                     </a>
                   </div>
@@ -853,7 +853,7 @@ export default function Home() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    backgroundColor: index === 0 ? "transparent" : "rgba(2, 6, 23, 0.5)"
+                    backgroundColor: "transparent"
                   }}>
                     {index === 0 ? (
                       // Compare slider for Packaging Solutions
@@ -863,8 +863,68 @@ export default function Home() {
                         position: "relative"
                       }}>
                         <Compare
-                          firstImage="/generated-image-november-18.png"
-                          secondImage="/image-34.png"
+                          firstImage="/packaging-1.png"
+                          secondImage="/packaging-2.png"
+                          slideMode="hover"
+                          autoplay={true}
+                          autoplayDuration={3000}
+                        />
+                      </div>
+                    ) : index === 1 ? (
+                      // Compare slider for Sports Apparel
+                      <div style={{
+                        width: "100%",
+                        height: "100%",
+                        position: "relative"
+                      }}>
+                        <Compare
+                          firstImage="/apparel-1.png"
+                          secondImage="/apparel-2.png"
+                          slideMode="hover"
+                          autoplay={true}
+                          autoplayDuration={3000}
+                        />
+                      </div>
+                    ) : index === 2 ? (
+                      // Compare slider for Sports Equipment
+                      <div style={{
+                        width: "100%",
+                        height: "100%",
+                        position: "relative"
+                      }}>
+                        <Compare
+                          firstImage="/equipment-1.png"
+                          secondImage="/equipment-2.png"
+                          slideMode="hover"
+                          autoplay={true}
+                          autoplayDuration={3000}
+                        />
+                      </div>
+                    ) : index === 3 ? (
+                      // Compare slider for Neon Signs
+                      <div style={{
+                        width: "100%",
+                        height: "100%",
+                        position: "relative"
+                      }}>
+                        <Compare
+                          firstImage="/neon-1.png"
+                          secondImage="/neon-2.png"
+                          slideMode="hover"
+                          autoplay={true}
+                          autoplayDuration={3000}
+                        />
+                      </div>
+                    ) : index === 4 ? (
+                      // Compare slider for PPE
+                      <div style={{
+                        width: "100%",
+                        height: "100%",
+                        position: "relative"
+                      }}>
+                        <Compare
+                          firstImage="/ppe-1.png"
+                          secondImage="/ppe-2.png"
                           slideMode="hover"
                           autoplay={true}
                           autoplayDuration={3000}
@@ -874,7 +934,7 @@ export default function Home() {
                       <>
                         <img
                           src={category.image}
-                          alt={category.title}
+                          alt={category.defaultTitle}
                           style={{
                             width: "100%",
                             height: "100%",

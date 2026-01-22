@@ -231,7 +231,7 @@ export default function ApparelPage() {
                   }}>
                     <img
                       src={category.image}
-                      alt={category.title}
+                      alt={category.defaultTitle}
                       style={{
                         width: '100%',
                         height: '100%',

@@ -62,7 +62,7 @@ export default function SportsEquipmentPage() {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundImage: 'url(/hero-sports-equipment.png)',
+            backgroundImage: 'url(/equipment-1.png)',
             backgroundSize: 'cover',
             backgroundPosition: 'center 60%',
             opacity: 0.2
@@ -222,12 +222,12 @@ export default function SportsEquipmentPage() {
                   }}>
                     <img
                       src={category.image}
-                      alt={category.title}
+                      alt={category.defaultTitle}
                       style={{
                         width: '100%',
                         height: '100%',
                         objectFit: 'cover',
-                        objectPosition: 'center 80%',
+                        objectPosition: 'center 50%',
                         transition: 'transform 0.3s'
                       }}
                       onMouseEnter={(e) => {

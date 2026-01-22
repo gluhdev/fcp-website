@@ -12,6 +12,7 @@ interface LoginModalProps {
 
 export function LoginModal({ isOpen, onClose }: LoginModalProps) {
   const { login } = useCMS();
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -21,11 +22,12 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
     setError('');
     setIsLoading(true);
 
-    const success = await login(password);
+    const success = await login(username, password);
 
     setIsLoading(false);
 
     if (success) {
+      setUsername('');
       setPassword('');
       onClose();
     } else {
@@ -125,19 +127,45 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
                 color: 'rgba(255, 255, 255, 0.6)',
                 fontSize: '0.9rem'
               }}>
-                Enter password to access CMS
+                Enter credentials to access CMS
               </p>
             </div>
 
             {/* Form */}
             <form onSubmit={handleSubmit}>
+              <div style={{ marginBottom: '1rem' }}>
+                <input
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Username"
+                  autoFocus
+                  style={{
+                    width: '100%',
+                    padding: '1rem',
+                    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                    border: '2px solid rgba(255, 255, 255, 0.1)',
+                    borderRadius: '12px',
+                    color: 'white',
+                    fontSize: '1rem',
+                    outline: 'none',
+                    transition: 'border-color 0.2s',
+                    boxSizing: 'border-box'
+                  }}
+                  onFocus={(e) => {
+                    e.currentTarget.style.borderColor = '#FFD700';
+                  }}
+                  onBlur={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                  }}
+                />
+              </div>
               <div style={{ marginBottom: '1.5rem' }}>
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter password"
-                  autoFocus
+                  placeholder="Password"
                   style={{
                     width: '100%',
                     padding: '1rem',
@@ -170,17 +198,17 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
 
               <button
                 type="submit"
-                disabled={isLoading || !password}
+                disabled={isLoading || !username || !password}
                 style={{
                   width: '100%',
                   padding: '1rem',
-                  backgroundColor: isLoading || !password ? 'rgba(255, 215, 0, 0.5)' : '#FFD700',
+                  backgroundColor: isLoading || !username || !password ? 'rgba(255, 215, 0, 0.5)' : '#FFD700',
                   color: '#020617',
                   border: 'none',
                   borderRadius: '12px',
                   fontSize: '1rem',
                   fontWeight: 'bold',
-                  cursor: isLoading || !password ? 'not-allowed' : 'pointer',
+                  cursor: isLoading || !username || !password ? 'not-allowed' : 'pointer',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',

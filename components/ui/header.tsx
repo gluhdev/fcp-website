@@ -33,10 +33,17 @@ export function HeaderFCP({ selectedFont }: HeaderProps) {
     }, []);
 
     React.useEffect(() => {
+        let ticking = false;
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50);
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    setIsScrolled(window.scrollY > 50);
+                    ticking = false;
+                });
+                ticking = true;
+            }
         };
-        window.addEventListener("scroll", handleScroll);
+        window.addEventListener("scroll", handleScroll, { passive: true });
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
@@ -70,10 +77,11 @@ export function HeaderFCP({ selectedFont }: HeaderProps) {
                 left: 0,
                 right: 0,
                 zIndex: 50,
-                backgroundColor: isScrolled ? 'rgba(2, 6, 23, 0.95)' : 'rgba(2, 6, 23, 0.9)',
-                backdropFilter: 'blur(10px)',
+                backgroundColor: isScrolled ? 'rgba(2, 6, 23, 0.98)' : 'rgba(2, 6, 23, 0.95)',
+                backdropFilter: isMobile ? 'none' : 'blur(10px)',
                 borderBottom: '1px solid rgba(255, 215, 0, 0.1)',
-                transition: 'all 0.3s ease'
+                transition: 'background-color 0.3s ease',
+                willChange: 'background-color'
             }}>
                 <div style={{
                     maxWidth: '1280px',
@@ -376,8 +384,7 @@ export function HeaderFCP({ selectedFont }: HeaderProps) {
                             top: '72px',
                             left: 0,
                             right: 0,
-                            backgroundColor: 'rgba(2, 6, 23, 0.95)',
-                            backdropFilter: 'blur(10px)',
+                            backgroundColor: 'rgba(2, 6, 23, 0.98)',
                             borderBottom: '1px solid rgba(255, 215, 0, 0.1)',
                             zIndex: 40,
                             padding: '1rem 0'

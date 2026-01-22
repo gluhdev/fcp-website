@@ -1,6 +1,16 @@
 export interface ContentData {
   version: number;
   lastUpdated: string;
+  site?: {
+    name: string;
+    tagline: string;
+  };
+  contact?: {
+    email: string;
+    phone: string;
+    address: string;
+    businessHours: string;
+  };
   pages: {
     home: HomePageContent;
     packaging: PageContent;
