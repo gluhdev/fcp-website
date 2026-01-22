@@ -178,8 +178,8 @@ export const Compare = ({
             margin: "auto",
             left: `${sliderXPercent}%`,
             zIndex: 40,
-            background: "linear-gradient(to bottom, transparent 5%, rgba(255, 215, 0, 0.8) 20%, rgba(255, 215, 0, 0.8) 80%, transparent 95%)",
-            boxShadow: "0 0 15px 4px rgba(255, 215, 0, 0.6), 0 0 30px 8px rgba(255, 215, 0, 0.3), 0 0 50px 12px rgba(255, 215, 0, 0.15)"
+            background: "transparent",
+            boxShadow: "0 0 20px 6px rgba(255, 215, 0, 0.7), 0 0 40px 12px rgba(255, 215, 0, 0.4), 0 0 60px 18px rgba(255, 215, 0, 0.2)"
           }}
           transition={{ duration: 0 }}
         >
@@ -234,21 +234,20 @@ export const Compare = ({
           </div>
           {showHandlebar && (
             <div style={{
-              height: "24px",
-              width: "24px",
+              height: "20px",
+              width: "20px",
               borderRadius: "50%",
               top: "50%",
               transform: "translateY(-50%)",
-              right: "-12px",
+              right: "-10px",
               position: "absolute",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              boxShadow: "0 0 10px 3px rgba(255, 215, 0, 0.5), 0 0 20px 6px rgba(255, 215, 0, 0.25)",
-              backgroundColor: "#FFD700",
+              boxShadow: "0 0 15px 5px rgba(255, 215, 0, 0.6), 0 0 30px 10px rgba(255, 215, 0, 0.3)",
+              backgroundColor: "transparent",
               zIndex: 30
             }}>
-              <IconDotsVertical style={{ height: "14px", width: "14px", color: "#020617" }} />
             </div>
           )}
         </motion.div>
