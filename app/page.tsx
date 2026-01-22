@@ -93,19 +93,22 @@ export default function Home() {
   }, [isPlaying, currentSlide]);
 
   useEffect(() => {
-    const checkMobile = () => {
-      const mobile = window.innerWidth < 768;
-      setIsMobile(mobile);
-      // Fix hero height on mobile to prevent resize on scroll
-      if (mobile) {
-        setHeroHeight(`${window.innerHeight - 64}px`);
-      } else {
-        setHeroHeight("100vh");
-      }
+    // Set hero height only ONCE on initial load to prevent resize on scroll
+    const mobile = window.innerWidth < 768;
+    setIsMobile(mobile);
+    if (mobile) {
+      // Use initial viewport height minus header, never changes
+      setHeroHeight(`${window.innerHeight - 64}px`);
+    } else {
+      setHeroHeight("100vh");
+    }
+
+    // Only listen for resize to update isMobile state, not heroHeight
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
     };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   // Animation for step-by-step process
@@ -138,14 +141,18 @@ export default function Home() {
       <HeaderFCP selectedFont={selectedFont} />
 
       {/* Hero Section - Полностью адаптирован для мобильных */}
-      <section style={{
-        position: "relative",
-        height: heroHeight,
-        minHeight: isMobile ? "500px" : "100vh",
-        maxHeight: isMobile ? heroHeight : "none",
-        overflow: "hidden",
-        marginTop: "64px"
-      }}>
+      <section
+        id="hero-section"
+        style={{
+          position: "relative",
+          height: heroHeight,
+          minHeight: isMobile ? "500px" : "100vh",
+          maxHeight: heroHeight,
+          overflow: "clip",
+          marginTop: "64px",
+          contain: "strict"
+        }}
+      >
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide}

@@ -9,6 +9,20 @@ html, body {
   overscroll-behavior-y: none;
 }
 
+/* Фикс hero секции на мобильных - блокировка ресайза */
+@media screen and (max-width: 768px) {
+  #hero-section {
+    contain: strict !important;
+    overflow: clip !important;
+    will-change: auto !important;
+    transform: translateZ(0);
+  }
+
+  #hero-section * {
+    will-change: auto !important;
+  }
+}
+
 /* Фикс для мобильного viewport - предотвращает resize при скролле */
 @supports (height: 100svh) {
   :root {
