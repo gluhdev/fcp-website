@@ -172,14 +172,14 @@ export const Compare = ({
         <motion.div
           style={{
             height: "100%",
-            width: "2px",
+            width: "1px",
             position: "absolute",
             top: "0",
             margin: "auto",
             left: `${sliderXPercent}%`,
             zIndex: 40,
-            background: "transparent",
-            boxShadow: "0 0 20px 6px rgba(255, 215, 0, 0.7), 0 0 40px 12px rgba(255, 215, 0, 0.4), 0 0 60px 18px rgba(255, 215, 0, 0.2)"
+            background: "linear-gradient(to bottom, transparent 5%, rgba(255, 215, 0, 0.3) 20%, rgba(255, 215, 0, 0.3) 80%, transparent 95%)",
+            boxShadow: "0 0 15px 5px rgba(255, 215, 0, 0.5), 0 0 30px 10px rgba(255, 215, 0, 0.3), 0 0 50px 15px rgba(255, 215, 0, 0.15)"
           }}
           transition={{ duration: 0 }}
         >
