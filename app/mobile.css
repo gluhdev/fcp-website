@@ -1,36 +1,32 @@
 /* Мобильная адаптация для FCP */
 
 /* ВАЖНО: Базовые стили для прокрутки */
-html, body {
+html {
   overflow-x: hidden !important;
   overflow-y: auto !important;
   -webkit-overflow-scrolling: touch !important;
   overscroll-behavior: none;
   overscroll-behavior-y: none;
+  /* Фиксируем высоту чтобы не реагировать на адресную строку */
+  height: 100%;
+  min-height: 100%;
+}
+
+body {
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior: none;
+  overscroll-behavior-y: none;
+  height: 100%;
+  min-height: 100%;
 }
 
 /* Фикс hero секции на мобильных - блокировка ресайза */
 @media screen and (max-width: 768px) {
   #hero-section {
-    contain: size layout style !important;
     overflow: hidden !important;
-    will-change: auto !important;
     transform: translateZ(0);
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    flex-shrink: 0 !important;
-    flex-grow: 0 !important;
-    /* Блокируем любые изменения размера */
-    resize: none !important;
-  }
-
-  #hero-section * {
-    will-change: auto !important;
-  }
-
-  #hero-section > div {
-    contain: size layout !important;
-    overflow: hidden !important;
   }
 }
 
@@ -268,12 +264,5 @@ header {
     font-size: 16px !important;
     -webkit-appearance: none;
     border-radius: 0;
-  }
-
-  /* Fix for hero section - use fixed size, don't react to address bar */
-  #hero-section {
-    /* На iOS используем фиксированную высоту */
-    contain: size layout style !important;
-    overflow: hidden !important;
   }
 }

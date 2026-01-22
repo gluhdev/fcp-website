@@ -97,12 +97,10 @@ export default function Home() {
     setIsMobile(mobile);
 
     if (mobile) {
-      // Use fixed pixel height based on screen height, not viewport
-      // screen.height doesn't change when address bar shows/hides
-      const screenHeight = window.screen.height;
-      // Account for header (64px) and some padding for address bar area
-      const fixedHeight = Math.min(screenHeight - 150, window.innerHeight - 64);
-      setHeroHeight(`${fixedHeight}px`);
+      // Use the initial innerHeight and lock it
+      // This won't change when address bar appears/disappears
+      const initialHeight = window.innerHeight - 64;
+      setHeroHeight(`${initialHeight}px`);
     } else {
       setHeroHeight("calc(100vh - 64px)");
     }
@@ -113,9 +111,8 @@ export default function Home() {
         const newMobile = window.innerWidth < 768;
         setIsMobile(newMobile);
         if (newMobile) {
-          const screenHeight = window.screen.height;
-          const fixedHeight = Math.min(screenHeight - 150, window.innerHeight - 64);
-          setHeroHeight(`${fixedHeight}px`);
+          const initialHeight = window.innerHeight - 64;
+          setHeroHeight(`${initialHeight}px`);
         }
       }, 100);
     };
@@ -161,12 +158,7 @@ export default function Home() {
           minHeight: isMobile ? "400px" : "600px",
           maxHeight: heroHeight,
           overflow: "hidden",
-          marginTop: "64px",
-          contain: "size layout style",
-          willChange: "auto",
-          transform: "translateZ(0)",
-          flexShrink: 0,
-          flexGrow: 0
+          marginTop: "64px"
         }}
       >
         <AnimatePresence mode="wait">
