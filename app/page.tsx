@@ -97,24 +97,27 @@ export default function Home() {
     setIsMobile(mobile);
 
     if (mobile) {
-      // Set CSS variable ONCE and never change it
-      const fixedHeight = window.innerHeight - 64;
-      document.documentElement.style.setProperty('--hero-height', `${fixedHeight}px`);
+      // Use fixed pixel height based on screen height, not viewport
+      // screen.height doesn't change when address bar shows/hides
+      const screenHeight = window.screen.height;
+      // Account for header (64px) and some padding for address bar area
+      const fixedHeight = Math.min(screenHeight - 150, window.innerHeight - 64);
       setHeroHeight(`${fixedHeight}px`);
     } else {
-      document.documentElement.style.setProperty('--hero-height', '100vh');
-      setHeroHeight("100vh");
+      setHeroHeight("calc(100vh - 64px)");
     }
 
-    // Only listen for orientation change, not scroll-related resize
+    // Only listen for orientation change
     const handleOrientationChange = () => {
-      const newMobile = window.innerWidth < 768;
-      setIsMobile(newMobile);
-      if (newMobile) {
-        const fixedHeight = window.innerHeight - 64;
-        document.documentElement.style.setProperty('--hero-height', `${fixedHeight}px`);
-        setHeroHeight(`${fixedHeight}px`);
-      }
+      setTimeout(() => {
+        const newMobile = window.innerWidth < 768;
+        setIsMobile(newMobile);
+        if (newMobile) {
+          const screenHeight = window.screen.height;
+          const fixedHeight = Math.min(screenHeight - 150, window.innerHeight - 64);
+          setHeroHeight(`${fixedHeight}px`);
+        }
+      }, 100);
     };
     window.addEventListener('orientationchange', handleOrientationChange);
     return () => window.removeEventListener('orientationchange', handleOrientationChange);
@@ -155,11 +158,15 @@ export default function Home() {
         style={{
           position: "relative",
           height: heroHeight,
-          minHeight: isMobile ? "500px" : "100vh",
+          minHeight: isMobile ? "400px" : "600px",
           maxHeight: heroHeight,
-          overflow: "clip",
+          overflow: "hidden",
           marginTop: "64px",
-          contain: "strict"
+          contain: "size layout style",
+          willChange: "auto",
+          transform: "translateZ(0)",
+          flexShrink: 0,
+          flexGrow: 0
         }}
       >
         <AnimatePresence mode="wait">

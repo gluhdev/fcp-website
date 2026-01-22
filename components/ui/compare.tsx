@@ -1,9 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { SparklesCore } from "@/components/ui/sparkles";
 import { AnimatePresence, motion } from "framer-motion";
-import { cn } from "@/lib/utils";
-import { IconDotsVertical } from "@tabler/icons-react";
 
 interface CompareProps {
   firstImage?: string;
@@ -20,9 +17,6 @@ interface CompareProps {
 export const Compare = ({
   firstImage = "",
   secondImage = "",
-  className,
-  firstImageClassName,
-  secondImageClassname,
   initialSliderPercentage = 50,
   slideMode = "hover",
   showHandlebar = true,
@@ -31,11 +25,8 @@ export const Compare = ({
 }: CompareProps) => {
   const [sliderXPercent, setSliderXPercent] = useState(initialSliderPercentage);
   const [isDragging, setIsDragging] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
 
   const sliderRef = useRef<HTMLDivElement>(null);
-
-  const [isMouseOver, setIsMouseOver] = useState(false);
 
   const autoplayRef = useRef<number | null>(null);
   const startTimeRef = useRef<number>(0);
@@ -69,17 +60,10 @@ export const Compare = ({
     return () => stopAutoplay();
   }, [startAutoplay, stopAutoplay]);
 
-  function mouseEnterHandler() {
-    setIsMouseOver(true);
-    // Don't stop autoplay on hover - let it keep running
-  }
-
   function mouseLeaveHandler() {
-    setIsMouseOver(false);
     if (slideMode === "drag") {
       setIsDragging(false);
     }
-    // Autoplay keeps running, no need to restart
   }
 
   const handleStart = useCallback(
@@ -161,7 +145,6 @@ export const Compare = ({
       }}
       onMouseMove={handleMouseMove}
       onMouseLeave={mouseLeaveHandler}
-      onMouseEnter={mouseEnterHandler}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onTouchStart={handleTouchStart}
@@ -172,82 +155,40 @@ export const Compare = ({
         <motion.div
           style={{
             height: "100%",
-            width: "1px",
+            width: "2px",
             position: "absolute",
             top: "0",
             margin: "auto",
             left: `${sliderXPercent}%`,
             zIndex: 40,
-            background: "linear-gradient(to bottom, transparent 5%, rgba(255, 215, 0, 0.3) 20%, rgba(255, 215, 0, 0.3) 80%, transparent 95%)",
-            boxShadow: "0 0 15px 5px rgba(255, 215, 0, 0.5), 0 0 30px 10px rgba(255, 215, 0, 0.3), 0 0 50px 15px rgba(255, 215, 0, 0.15)"
+            background: "linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.8) 10%, rgba(255, 255, 255, 0.9) 50%, rgba(255, 255, 255, 0.8) 90%, transparent 100%)",
+            boxShadow: "0 0 8px 2px rgba(255, 215, 0, 0.4), 0 0 20px 4px rgba(255, 215, 0, 0.2)"
           }}
           transition={{ duration: 0 }}
         >
-          <div
-            style={{
-              width: "100px",
-              height: "100%",
-              position: "absolute",
-              top: "50%",
-              transform: "translateY(-50%)",
-              left: "0",
-              zIndex: 20,
-              opacity: 0.4,
-              background: "linear-gradient(to right, rgba(255, 215, 0, 0.5), transparent)",
-              maskImage: "radial-gradient(80px at left, white, transparent)",
-              WebkitMaskImage: "radial-gradient(80px at left, white, transparent)"
-            }}
-          />
-          <div
-            style={{
-              width: "40px",
-              height: "50%",
-              position: "absolute",
-              top: "50%",
-              transform: "translateY(-50%)",
-              left: "0",
-              zIndex: 10,
-              opacity: 1,
-              background: "linear-gradient(to right, #020617, transparent)",
-              maskImage: "radial-gradient(50px at left, white, transparent)",
-              WebkitMaskImage: "radial-gradient(50px at left, white, transparent)"
-            }}
-          />
-          <div style={{
-            width: "40px",
-            height: "80%",
-            top: "50%",
-            transform: "translateY(-50%)",
-            position: "absolute",
-            right: "-35px",
-            maskImage: "radial-gradient(60px at left, white, transparent)",
-            WebkitMaskImage: "radial-gradient(60px at left, white, transparent)"
-          }}>
-            <MemoizedSparklesCore
-              background="transparent"
-              minSize={0.4}
-              maxSize={1}
-              particleDensity={1000}
-              className=""
-              particleColor="#FFD700"
-            />
-          </div>
+          {/* Центральный индикатор */}
           {showHandlebar && (
             <div style={{
-              height: "20px",
-              width: "20px",
-              borderRadius: "50%",
-              top: "50%",
-              transform: "translateY(-50%)",
-              right: "-10px",
               position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: "32px",
+              height: "32px",
+              borderRadius: "50%",
+              backgroundColor: "rgba(255, 215, 0, 0.9)",
+              border: "2px solid rgba(255, 255, 255, 0.9)",
+              boxShadow: "0 0 15px 3px rgba(255, 215, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              boxShadow: "0 0 15px 5px rgba(255, 215, 0, 0.6), 0 0 30px 10px rgba(255, 215, 0, 0.3)",
-              backgroundColor: "transparent",
-              zIndex: 30
+              zIndex: 50
             }}>
+              {/* Стрелки влево-вправо */}
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ opacity: 0.8 }}>
+                <path d="M5 8L2 5M2 5L5 2M2 5H7" stroke="#020617" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M11 8L14 11M14 11L11 14M14 11H9" stroke="#020617" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </div>
           )}
         </motion.div>
@@ -321,5 +262,3 @@ export const Compare = ({
     </div>
   );
 };
-
-const MemoizedSparklesCore = React.memo(SparklesCore);

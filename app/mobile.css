@@ -12,14 +12,25 @@ html, body {
 /* Фикс hero секции на мобильных - блокировка ресайза */
 @media screen and (max-width: 768px) {
   #hero-section {
-    contain: strict !important;
-    overflow: clip !important;
+    contain: size layout style !important;
+    overflow: hidden !important;
     will-change: auto !important;
     transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    flex-shrink: 0 !important;
+    flex-grow: 0 !important;
+    /* Блокируем любые изменения размера */
+    resize: none !important;
   }
 
   #hero-section * {
     will-change: auto !important;
+  }
+
+  #hero-section > div {
+    contain: size layout !important;
+    overflow: hidden !important;
   }
 }
 
@@ -253,20 +264,16 @@ header {
 /* Фиксы для iOS Safari */
 @supports (-webkit-touch-callout: none) {
   /* iOS only styles */
-  .hero-section {
-    min-height: -webkit-fill-available;
-  }
-
   input, textarea {
     font-size: 16px !important;
     -webkit-appearance: none;
     border-radius: 0;
   }
 
-  /* Fix for hero section rubber-banding */
-  section:first-of-type {
-    height: calc(100vh - 64px) !important;
-    max-height: calc(100vh - 64px) !important;
-    min-height: 600px !important;
+  /* Fix for hero section - use fixed size, don't react to address bar */
+  #hero-section {
+    /* На iOS используем фиксированную высоту */
+    contain: size layout style !important;
+    overflow: hidden !important;
   }
 }
