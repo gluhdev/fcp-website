@@ -58,6 +58,7 @@ export default function Home() {
     const [isMobile, setIsMobile] = useState(false);
   const [selectedBusiness, setSelectedBusiness] = useState("restaurant");
   const [activeProcessStep, setActiveProcessStep] = useState(0);
+  const [heroHeight, setHeroHeight] = useState<string>("100vh");
   const { content } = useCMS();
 
   // Contact form state
@@ -93,7 +94,14 @@ export default function Home() {
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      // Fix hero height on mobile to prevent resize on scroll
+      if (mobile) {
+        setHeroHeight(`${window.innerHeight - 64}px`);
+      } else {
+        setHeroHeight("100vh");
+      }
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
@@ -132,9 +140,9 @@ export default function Home() {
       {/* Hero Section - Полностью адаптирован для мобильных */}
       <section style={{
         position: "relative",
-        height: isMobile ? "calc(100svh - 64px)" : "100vh",
+        height: heroHeight,
         minHeight: isMobile ? "500px" : "100vh",
-        maxHeight: isMobile ? "calc(100svh - 64px)" : "none",
+        maxHeight: isMobile ? heroHeight : "none",
         overflow: "hidden",
         marginTop: "64px"
       }}>

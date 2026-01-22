@@ -37,36 +37,29 @@ export const Compare = ({
 
   const [isMouseOver, setIsMouseOver] = useState(false);
 
-  const autoplayRef = useRef<NodeJS.Timeout | null>(null);
-
-  // Detect mobile for performance optimization
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+  const autoplayRef = useRef<number | null>(null);
+  const startTimeRef = useRef<number>(0);
 
   const startAutoplay = useCallback(() => {
     if (!autoplay) return;
 
-    const startTime = Date.now();
-    const animate = () => {
-      const elapsedTime = Date.now() - startTime;
-      const progress =
-        (elapsedTime % (autoplayDuration * 2)) / autoplayDuration;
+    startTimeRef.current = performance.now();
+
+    const animate = (currentTime: number) => {
+      const elapsedTime = currentTime - startTimeRef.current;
+      const progress = (elapsedTime % (autoplayDuration * 2)) / autoplayDuration;
       const percentage = progress <= 1 ? progress * 100 : (2 - progress) * 100;
 
       setSliderXPercent(percentage);
-      autoplayRef.current = setTimeout(animate, 16); // ~60fps
+      autoplayRef.current = requestAnimationFrame(animate);
     };
 
-    animate();
+    autoplayRef.current = requestAnimationFrame(animate);
   }, [autoplay, autoplayDuration]);
 
   const stopAutoplay = useCallback(() => {
     if (autoplayRef.current) {
-      clearTimeout(autoplayRef.current);
+      cancelAnimationFrame(autoplayRef.current);
       autoplayRef.current = null;
     }
   }, []);
@@ -179,32 +172,30 @@ export const Compare = ({
         <motion.div
           style={{
             height: "100%",
-            width: "4px",
+            width: "2px",
             position: "absolute",
             top: "0",
             margin: "auto",
             left: `${sliderXPercent}%`,
             zIndex: 40,
-            background: "linear-gradient(to bottom, transparent 2%, #FFD700 15%, #FFF8DC 50%, #FFD700 85%, transparent 98%)",
-            boxShadow: "0 0 20px 5px rgba(255, 215, 0, 1), 0 0 40px 10px rgba(255, 215, 0, 0.7), 0 0 60px 15px rgba(255, 215, 0, 0.5), 0 0 80px 20px rgba(255, 215, 0, 0.3)",
-            filter: "brightness(1.2)"
+            background: "linear-gradient(to bottom, transparent 5%, rgba(255, 215, 0, 0.8) 20%, rgba(255, 215, 0, 0.8) 80%, transparent 95%)",
+            boxShadow: "0 0 15px 4px rgba(255, 215, 0, 0.6), 0 0 30px 8px rgba(255, 215, 0, 0.3), 0 0 50px 12px rgba(255, 215, 0, 0.15)"
           }}
           transition={{ duration: 0 }}
         >
           <div
             style={{
-              width: "200px",
+              width: "100px",
               height: "100%",
               position: "absolute",
               top: "50%",
               transform: "translateY(-50%)",
-              left: "-10px",
+              left: "0",
               zIndex: 20,
-              opacity: 0.7,
-              background: "linear-gradient(to right, rgba(255, 215, 0, 0.8), rgba(255, 248, 220, 0.3), transparent)",
-              maskImage: "radial-gradient(150px at left, white, transparent)",
-              WebkitMaskImage: "radial-gradient(150px at left, white, transparent)",
-              filter: "blur(2px)"
+              opacity: 0.4,
+              background: "linear-gradient(to right, rgba(255, 215, 0, 0.5), transparent)",
+              maskImage: "radial-gradient(80px at left, white, transparent)",
+              WebkitMaskImage: "radial-gradient(80px at left, white, transparent)"
             }}
           />
           <div
@@ -223,62 +214,41 @@ export const Compare = ({
             }}
           />
           <div style={{
-            width: "60px",
-            height: "90%",
+            width: "40px",
+            height: "80%",
             top: "50%",
             transform: "translateY(-50%)",
             position: "absolute",
-            right: "-50px",
-            maskImage: "radial-gradient(120px at left, white, transparent)",
-            WebkitMaskImage: "radial-gradient(120px at left, white, transparent)"
+            right: "-35px",
+            maskImage: "radial-gradient(60px at left, white, transparent)",
+            WebkitMaskImage: "radial-gradient(60px at left, white, transparent)"
           }}>
             <MemoizedSparklesCore
               background="transparent"
-              minSize={0.6}
-              maxSize={1.5}
-              particleDensity={1800}
-              className=""
-              particleColor="#FFD700"
-            />
-          </div>
-          {/* Extra glow on left side */}
-          <div style={{
-            width: "60px",
-            height: "90%",
-            top: "50%",
-            transform: "translateY(-50%)",
-            position: "absolute",
-            left: "-50px",
-            maskImage: "radial-gradient(120px at right, white, transparent)",
-            WebkitMaskImage: "radial-gradient(120px at right, white, transparent)"
-          }}>
-            <MemoizedSparklesCore
-              background="transparent"
-              minSize={0.6}
-              maxSize={1.5}
-              particleDensity={1800}
+              minSize={0.4}
+              maxSize={1}
+              particleDensity={1000}
               className=""
               particleColor="#FFD700"
             />
           </div>
           {showHandlebar && (
             <div style={{
-              height: "28px",
-              width: "28px",
+              height: "24px",
+              width: "24px",
               borderRadius: "50%",
               top: "50%",
               transform: "translateY(-50%)",
-              right: "-14px",
+              right: "-12px",
               position: "absolute",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              boxShadow: "0 0 15px 5px rgba(255, 215, 0, 0.8), 0 0 30px 10px rgba(255, 215, 0, 0.5)",
+              boxShadow: "0 0 10px 3px rgba(255, 215, 0, 0.5), 0 0 20px 6px rgba(255, 215, 0, 0.25)",
               backgroundColor: "#FFD700",
-              border: "2px solid #FFF8DC",
               zIndex: 30
             }}>
-              <IconDotsVertical style={{ height: "16px", width: "16px", color: "#020617" }} />
+              <IconDotsVertical style={{ height: "14px", width: "14px", color: "#020617" }} />
             </div>
           )}
         </motion.div>
