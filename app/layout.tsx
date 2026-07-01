@@ -3,6 +3,7 @@ import "./globals.css";
 import { CMSWrapper } from "@/components/cms/CMSWrapper";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://fullcustompackaging.com"),
   title: "FCP - Full Custom Packaging | We Customize Everything",
   description: "Full Custom Packaging provides complete customization solutions for packaging, apparel, and industrial machinery. From concept to delivery, we bring your vision to life.",
   keywords: "custom packaging, printing services, apparel manufacturing, tactical gear, industrial machinery, custom boxes, labels, bottles",
@@ -13,11 +14,15 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "Full Custom Packaging",
+    images: [
+      { url: "/og-image.png", width: 1200, height: 630, alt: "FCP — Custom Packaging Solutions" },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "FCP - Full Custom Packaging",
     description: "Complete customization solutions for your business",
+    images: ["/og-image.png"],
   },
 };
 
